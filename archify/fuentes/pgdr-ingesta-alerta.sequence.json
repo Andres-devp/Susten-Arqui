@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "EO-A · Ingesta de una alerta externa",
+    "viewBox": [1080, 560],
+    "column_fit": "spread",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "recepcion", "label": "Recepción con confirmación temprana", "focus": ["monitoreo", "receptor", "cola"], "note": "Se encola de forma durable y se confirma antes de procesar (DA-INT-03)." },
+      { "id": "traduccion", "label": "Traducción e idempotencia", "focus": ["cola", "adaptador", "bus"], "note": "Solo el adaptador conoce el formato externo; la clave evita duplicados." },
+      { "id": "notificacion", "label": "Evento preliminar y alerta", "focus": ["bus", "gde", "alertas", "organismos"], "note": "El evento nace preliminar (RN-003) y la alerta sale en menos de 30 s." }
+    ]
+  },
+  "participants": [
+    { "id": "monitoreo", "type": "external", "label": "Monitoreo", "sublabel": "IE-010" },
+    { "id": "receptor", "type": "security", "label": "Receptor", "sublabel": "webhook SUP-E" },
+    { "id": "cola", "type": "messagebus", "label": "Cola entrada", "sublabel": "persistente" },
+    { "id": "adaptador", "type": "backend", "label": "Adaptador", "sublabel": "alertas" },
+    { "id": "bus", "type": "messagebus", "label": "Bus", "sublabel": "eventos de dominio" },
+    { "id": "gde", "type": "backend", "label": "GDE", "sublabel": "gestión desastres" },
+    { "id": "alertas", "type": "backend", "label": "Motor alertas", "sublabel": "NOT" },
+    { "id": "organismos", "type": "external", "label": "Organismos", "sublabel": "vía IE-017" }
+  ],
+  "segments": [
+    { "from": 150, "to": 236, "label": "Recepción" },
+    { "from": 242, "to": 296, "label": "Traducción" },
+    { "from": 302, "to": 356, "label": "Evento preliminar" },
+    { "from": 362, "to": 416, "label": "Notificación" }
+  ],
+  "messages": [
+    { "id": "entrega-alerta", "from": "monitoreo", "to": "receptor", "y": 162, "label": "POST autenticado", "variant": "security", "note": "credencial propia y contrato validados" },
+    { "id": "encolado", "from": "receptor", "to": "cola", "y": 192, "label": "encolado durable", "variant": "default" },
+    { "id": "acuse", "from": "receptor", "to": "monitoreo", "y": 222, "label": "recibido", "variant": "return" },
+    { "id": "entrega-cola", "from": "cola", "to": "adaptador", "y": 254, "label": "entrega", "variant": "default" },
+    { "id": "canonico", "from": "adaptador", "to": "bus", "y": 284, "label": "AlertaExternaRecibida", "variant": "emphasis", "note": "clave de idempotencia verificada y traducción al modelo canónico" },
+    { "id": "consumo-gde", "from": "bus", "to": "gde", "y": 314, "label": "consumo", "variant": "default" },
+    { "id": "preliminar", "from": "gde", "to": "bus", "y": 344, "label": "EVT-01 preliminar", "variant": "emphasis" },
+    { "id": "consumo-not", "from": "bus", "to": "alertas", "y": 374, "label": "consumo", "variant": "default" },
+    { "id": "alerta-critica", "from": "alertas", "to": "organismos", "y": 404, "label": "alerta crítica", "variant": "emphasis", "note": "destinatarios por reglas RF-NOT-001" }
+  ],
+  "activations": [
+    { "participant": "receptor", "from": 158, "to": 228, "type": "security" },
+    { "participant": "adaptador", "from": 250, "to": 290, "type": "backend" },
+    { "participant": "gde", "from": 310, "to": 350, "type": "backend" },
+    { "participant": "alertas", "from": 370, "to": 410, "type": "backend" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Confirmación temprana", "items": ["El receptor encola y confirma: el emisor no espera el procesamiento", "Nada aceptado se pierde (AC-RES-005, AC-RES-009)"] },
+    { "dot": "amber", "title": "Idempotencia", "items": ["La clave identifica el hecho, no el envío", "Un reenvío de la misma alerta no crea un segundo evento (RF-INT-008)"] },
+    { "dot": "rose", "title": "Umbral", "items": ["AC-REN-004: menos de 30 s de la recepción a la notificación (p95)", "El evento nace preliminar hasta que una persona lo confirma (RN-003)"] }
+  ]
+}

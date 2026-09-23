@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "EO-D · Sincronización de campo con conflicto",
+    "viewBox": [1080, 560],
+    "column_fit": "spread",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "envio", "label": "Envío del lote", "focus": ["app", "receptor", "cola"], "note": "Lote con un identificador por registro generado en el dispositivo." },
+      { "id": "conciliacion", "label": "Conciliación y conflicto", "focus": ["conciliador", "evd", "conflictos"], "note": "Se compara la versión base con la vigente; nunca se sobrescribe en silencio." }
+    ]
+  },
+  "participants": [
+    { "id": "app", "type": "frontend", "label": "App móvil", "sublabel": "sin conexión" },
+    { "id": "receptor", "type": "backend", "label": "Receptor", "sublabel": "SUP-B" },
+    { "id": "cola", "type": "messagebus", "label": "Cola", "sublabel": "sincronización" },
+    { "id": "conciliador", "type": "backend", "label": "Conciliador", "sublabel": "trabajador" },
+    { "id": "evd", "type": "database", "label": "EVD", "sublabel": "evaluaciones" },
+    { "id": "conflictos", "type": "security", "label": "Conflictos", "sublabel": "bandeja manual" }
+  ],
+  "segments": [
+    { "from": 150, "to": 236, "label": "Envío" },
+    { "from": 242, "to": 386, "label": "Conciliación" },
+    { "from": 392, "to": 446, "label": "Estado" }
+  ],
+  "messages": [
+    { "id": "lote", "from": "app", "to": "receptor", "y": 162, "label": "lote + id local", "variant": "emphasis", "note": "RF-MOV-005" },
+    { "id": "encolado", "from": "receptor", "to": "cola", "y": 192, "label": "encolado durable", "variant": "default" },
+    { "id": "acuse", "from": "receptor", "to": "app", "y": 222, "label": "recibido", "variant": "return" },
+    { "id": "entrega", "from": "cola", "to": "conciliador", "y": 254, "label": "entrega", "variant": "default" },
+    { "id": "aplicar", "from": "conciliador", "to": "evd", "y": 284, "label": "aplicar con base", "variant": "emphasis", "note": "deduplicado por id del dispositivo (RN-013)" },
+    { "id": "vigente", "from": "evd", "to": "conciliador", "y": 314, "label": "versión vigente", "variant": "return" },
+    { "id": "nueva-version", "from": "conciliador", "to": "evd", "y": 344, "label": "base igual: v+1", "variant": "default" },
+    { "id": "conflicto", "from": "conciliador", "to": "conflictos", "y": 374, "label": "base distinta: 2 versiones", "variant": "security", "note": "RF-MOV-006 y RF-MOV-007" },
+    { "id": "estado", "from": "conciliador", "to": "app", "y": 424, "label": "sincronizado · duplicado · conflicto", "variant": "return", "note": "RF-MOV-008" }
+  ],
+  "activations": [
+    { "participant": "receptor", "from": 158, "to": 228, "type": "backend" },
+    { "participant": "conciliador", "from": 250, "to": 430, "type": "backend" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Sin duplicados", "items": ["Cada registro lleva un identificador generado en el dispositivo", "Un reenvío del mismo lote queda como duplicado, no como registro nuevo"] },
+    { "dot": "rose", "title": "Sin sobrescritura silenciosa", "items": ["Si la versión base difiere de la vigente hay conflicto", "Se conservan ambas versiones y decide una persona", "La política de resolución no está definida (OBS-02, RSG-02)"] }
+  ]
+}

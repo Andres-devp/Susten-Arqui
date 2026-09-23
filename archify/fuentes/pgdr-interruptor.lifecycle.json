@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Interruptor de circuito por integración (TAC-03)",
+    "viewBox": [980, 660],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "ciclo", "label": "Ciclo del circuito", "focus": ["cerrado", "umbral", "abierto", "semiabierto", "recuperado"], "note": "De llamadas normales a apertura, reposo, prueba y cierre." },
+      { "id": "degradacion", "label": "Mientras está abierto", "focus": ["abierto", "cache", "bandeja"], "note": "Se responde desde la caché y las escrituras esperan en la bandeja de salida." }
+    ]
+  },
+  "lanes": [
+    { "id": "main", "label": "Estados del circuito" },
+    { "id": "degradacion", "label": "Degradación controlada" }
+  ],
+  "states": [
+    { "id": "cerrado", "type": "start", "label": "Cerrado", "sublabel": "llamadas normales", "lane": "main", "col": 0, "step": "01", "tag": "1,5 s límite" },
+    { "id": "umbral", "type": "decision", "label": "Umbral", "sublabel": "50 % de 20 en 30 s", "lane": "main", "col": 1, "step": "02", "tag": "cuenta fallas" },
+    { "id": "abierto", "type": "failure", "label": "Abierto", "sublabel": "falla inmediata", "lane": "main", "col": 2, "step": "03", "tag": "reposo 30 s" },
+    { "id": "semiabierto", "type": "waiting", "label": "Semiabierto", "sublabel": "1 llamada prueba", "lane": "main", "col": 3, "step": "04", "tag": "sondeo" },
+    { "id": "recuperado", "type": "success", "label": "Cerrado", "sublabel": "envía pendientes", "lane": "main", "col": 4, "step": "05", "tag": "EVT-P1" },
+    { "id": "cache", "type": "neutral", "label": "Caché", "sublabel": "dato + hora", "lane": "degradacion", "col": 0, "tag": "ERR-12" },
+    { "id": "bandeja", "type": "waiting", "label": "Bandeja", "sublabel": "acumula envíos", "lane": "degradacion", "col": 1, "tag": "PIN-05" }
+  ],
+  "transitions": [
+    { "id": "sirve-cache", "from": "abierto", "to": "cache", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "route": "straight" },
+    { "id": "encola", "from": "abierto", "to": "bandeja", "variant": "dashed", "route": "drop" },
+    { "id": "prueba-falla", "from": "semiabierto", "to": "abierto", "label": "prueba falla", "variant": "security", "route": "top-channel" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Por qué existe", "items": ["Deja de castigar a un sistema que ya está en problemas", "Con el circuito abierto las llamadas no ocupan hilos esperando (DA-INT-07)"] },
+    { "dot": "amber", "title": "Valores de referencia", "items": ["Límite de espera de 1,5 s en ruta C1 (TAC-01)", "Se abre con 50 % de fallas sobre 20 llamadas en 30 s; reposo de 30 s", "Umbral y cupo son puntos de sensibilidad (PS-01)"] },
+    { "dot": "rose", "title": "Mientras está abierto", "items": ["Lecturas desde la caché, marcadas como desactualizadas", "Escrituras en la bandeja de salida hasta que el sistema vuelve"] }
+  ]
+}

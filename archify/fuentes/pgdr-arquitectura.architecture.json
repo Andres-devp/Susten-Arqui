@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "PGDR · Vista general de la arquitectura",
+    "viewBox": [1180, 740],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "ruta-c1", "label": "Ruta crítica C1", "focus": ["sala", "coord", "identidad", "almacenes"], "note": "La coordinación confirma contra su propio almacén y valida el token localmente." },
+      { "id": "ingesta-campo", "label": "Ingesta de campo", "focus": ["campo", "ingesta", "almacenes", "bus"], "note": "Lotes idempotentes en su propio compartimento, sin quitar capacidad a C1." },
+      { "id": "consulta-publica", "label": "Consulta pública aislada", "focus": ["ciudadania", "publica", "bus"], "note": "La ciudadanía lee una proyección y nunca toca el almacén operacional." },
+      { "id": "integracion", "label": "Integración y traza", "focus": ["externos", "integracion", "bus", "auditoria"], "note": "Adaptador por sistema, bus de eventos y auditoría de solo agregación." }
+    ]
+  },
+  "components": [
+    { "id": "sala", "type": "frontend", "label": "Sala de crisis", "sublabel": "cliente web · SUP-A", "pos": [40, 190], "size": [170, 64] },
+    { "id": "campo", "type": "frontend", "label": "App de campo", "sublabel": "offline · SUP-B", "pos": [40, 310], "size": [170, 64] },
+    { "id": "ciudadania", "type": "external", "label": "Ciudadanía", "sublabel": "lectura · SUP-C", "pos": [40, 430], "size": [170, 64] },
+    { "id": "externos", "type": "external", "label": "Sistemas externos", "sublabel": "IE-010 a IE-018 · SUP-E", "pos": [40, 550], "size": [170, 64] },
+    { "id": "identidad", "type": "security", "label": "Identidad", "sublabel": "intermediario federado", "pos": [320, 70], "size": [170, 64], "tag": "token 5 min" },
+    { "id": "coord", "type": "backend", "label": "Coordinación C1", "sublabel": "GDE · COR · GRE · EVD", "pos": [320, 190], "size": [170, 64] },
+    { "id": "ingesta", "type": "backend", "label": "Ingesta de campo", "sublabel": "conciliación", "pos": [320, 310], "size": [170, 64] },
+    { "id": "publica", "type": "backend", "label": "Consulta pública", "sublabel": "solo lectura · C3", "pos": [320, 430], "size": [170, 64] },
+    { "id": "integracion", "type": "backend", "label": "Borde de integración", "sublabel": "adaptador por sistema", "pos": [320, 550], "size": [170, 64] },
+    { "id": "almacenes", "type": "database", "label": "Almacenes por módulo", "sublabel": "réplica por mayoría", "pos": [640, 190], "size": [180, 64] },
+    { "id": "bus", "type": "messagebus", "label": "Bus de eventos", "sublabel": "entrega al menos una vez", "pos": [640, 430], "size": [180, 64] },
+    { "id": "auditoria", "type": "database", "label": "Auditoría", "sublabel": "solo agregación", "pos": [940, 430], "size": [180, 64], "tag": "cadena hash" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Región principal · 3 zonas", "wraps": ["identidad", "coord", "ingesta", "publica", "integracion", "almacenes", "bus", "auditoria"] }
+  ],
+  "connections": [
+    { "id": "sala-coord", "from": "sala", "to": "coord", "label": "HTTPS · 2 s p95", "variant": "emphasis" },
+    { "id": "coord-identidad", "from": "coord", "to": "identidad", "label": "valida local", "variant": "security", "fromSide": "top", "toSide": "bottom" },
+    { "id": "campo-ingesta", "from": "campo", "to": "ingesta", "label": "lotes idempotentes" },
+    { "id": "ciudadania-publica", "from": "ciudadania", "to": "publica", "label": "solo lectura" },
+    { "id": "externos-integracion", "from": "externos", "to": "integracion", "label": "webhook · sondeo" },
+    { "id": "coord-almacenes", "from": "coord", "to": "almacenes", "label": "escritura + bandeja", "variant": "emphasis" },
+    { "id": "ingesta-almacenes", "from": "ingesta", "to": "almacenes", "label": "evaluaciones", "fromSide": "right", "toSide": "bottom", "labelSegment": 0 },
+    { "id": "almacenes-bus", "from": "almacenes", "to": "bus", "label": "bandeja de salida", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "labelAt": [737, 386] },
+    { "id": "bus-publica", "from": "bus", "to": "publica", "label": "proyección ≤ 30 s", "variant": "dashed" },
+    { "id": "integracion-bus", "from": "integracion", "to": "bus", "label": "mensaje canónico", "fromSide": "right", "toSide": "bottom" },
+    { "id": "bus-auditoria", "from": "bus", "to": "auditoria", "label": "quién · qué · cuándo", "variant": "security" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Compartimentos", "items": ["Cada superficie de API tiene su propio cupo (DA-ARQ-04)", "La saturación de campo o de la ciudadanía no consume la capacidad de C1", "Un componente desplegable por módulo de dominio (DA-ARQ-01)"] },
+    { "dot": "cyan", "title": "Datos y eventos", "items": ["Cada módulo es dueño de su almacén (DA-ARQ-02)", "Bandeja de salida: cambio y evento en la misma transacción", "Lecturas pesadas desde proyecciones, con frescura de 30 s"] },
+    { "dot": "rose", "title": "Confianza y traza", "items": ["Token de vida corta validado en cada componente (DA-ARQ-08)", "Ninguna operación C1 espera a un sistema externo (DA-INT-12)", "Auditoría encadenada y sellada fuera del alcance del administrador"] }
+  ]
+}

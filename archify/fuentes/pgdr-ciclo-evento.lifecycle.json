@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Ciclo de vida de un evento de desastre",
+    "viewBox": [980, 660],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "flujo-completo", "label": "Flujo completo", "focus": ["detectado", "registrado", "atencion", "recuperacion", "cerrado"], "note": "Un evento Nivel_4 recorre todas las fases configuradas." },
+      { "id": "cambios", "label": "Cambios sin salir del flujo", "focus": ["atencion", "reclasificado", "cerrado", "reabierto"], "note": "Reclasificar exige motivo y notifica; reabrir conserva el histórico." }
+    ]
+  },
+  "lanes": [
+    { "id": "main", "label": "Fases del evento" },
+    { "id": "cambios", "label": "Cambios auditados" }
+  ],
+  "states": [
+    { "id": "detectado", "type": "start", "label": "Detectado", "sublabel": "preliminar", "lane": "main", "col": 0, "step": "01", "tag": "RN-003" },
+    { "id": "registrado", "type": "active", "label": "Registrado", "sublabel": "confirmado", "lane": "main", "col": 1, "step": "02", "tag": "EVT-02" },
+    { "id": "atencion", "type": "active", "label": "En atención", "sublabel": "evaluar y atender", "lane": "main", "col": 2, "step": "03", "tag": "C1" },
+    { "id": "recuperacion", "type": "active", "label": "Recuperación", "sublabel": "y reconstrucción", "lane": "main", "col": 3, "step": "04", "tag": "REC" },
+    { "id": "cerrado", "type": "success", "label": "Cerrado", "sublabel": "motivo y autor", "lane": "main", "col": 4, "step": "05", "tag": "EVT-05" },
+    { "id": "reclasificado", "type": "decision", "label": "Reclasificado", "sublabel": "Nivel_1 a Nivel_4", "lane": "cambios", "col": 0, "tag": "EVT-04" },
+    { "id": "reabierto", "type": "waiting", "label": "Reabierto", "sublabel": "nueva información", "lane": "cambios", "col": 2, "tag": "RF-GDE-016" }
+  ],
+  "transitions": [
+    { "id": "reclasifica", "from": "atencion", "to": "reclasificado", "variant": "security", "fromSide": "bottom", "toSide": "top", "route": "straight" },
+    { "id": "reabre", "from": "cerrado", "to": "reabierto", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "route": "straight" },
+    { "id": "abreviado", "from": "registrado", "to": "cerrado", "label": "flujo abreviado Nivel_1", "variant": "emphasis", "route": "top-channel" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Flujo configurable", "items": ["Estados y transiciones son datos en ADM, no código (DA-ARQ-05)", "El flujo depende del tipo y del nivel (RN-005)", "Una transición no declarada responde 409 (ERR-06)"] },
+    { "dot": "violet", "title": "Operaciones con nombre", "items": ["Confirmación, transición, clasificación y cierre son recursos propios (PRI-08)", "Cada cambio exige motivo y queda auditado"] },
+    { "dot": "rose", "title": "Nunca se sobrescribe", "items": ["Cada cambio crea una versión nueva (RN-007)", "La reclasificación notifica a los organismos del nivel (RF-GDE-014)"] }
+  ]
+}

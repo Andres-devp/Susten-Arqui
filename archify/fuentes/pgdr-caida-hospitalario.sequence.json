@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "EO-C · Caída y restablecimiento del sistema hospitalario",
+    "viewBox": [1080, 680],
+    "column_fit": "spread",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "degradada", "label": "Operación degradada", "focus": ["sala", "coord", "adaptador", "circuito", "cache"], "note": "Con el circuito abierto se responde desde la caché, sin esperar al hospital." },
+      { "id": "restablecimiento", "label": "Restablecimiento", "focus": ["circuito", "hospital", "bandeja", "cache"], "note": "Sondeo de prueba, cierre del circuito y envío de lo pendiente en orden." }
+    ]
+  },
+  "participants": [
+    { "id": "sala", "type": "frontend", "label": "Sala crisis", "sublabel": "cliente web" },
+    { "id": "coord", "type": "backend", "label": "Coordinación", "sublabel": "C1" },
+    { "id": "adaptador", "type": "backend", "label": "Adaptador", "sublabel": "hospitalario" },
+    { "id": "circuito", "type": "security", "label": "Interruptor", "sublabel": "de circuito" },
+    { "id": "cache", "type": "database", "label": "Caché", "sublabel": "última info" },
+    { "id": "bandeja", "type": "messagebus", "label": "Bandeja", "sublabel": "de salida" },
+    { "id": "hospital", "type": "external", "label": "Hospitalario", "sublabel": "IE-012" }
+  ],
+  "segments": [
+    { "from": 150, "to": 386, "label": "Operación degradada" },
+    { "from": 394, "to": 546, "label": "Restablecimiento" }
+  ],
+  "messages": [
+    { "id": "consulta-tablero", "from": "sala", "to": "coord", "y": 162, "label": "consulta tablero", "variant": "emphasis" },
+    { "id": "pide-capacidad", "from": "coord", "to": "adaptador", "y": 192, "label": "capacidad", "variant": "default" },
+    { "id": "estado-circuito", "from": "adaptador", "to": "circuito", "y": 222, "label": "¿estado?", "variant": "security" },
+    { "id": "abierto", "from": "circuito", "to": "adaptador", "y": 252, "label": "abierto", "variant": "return" },
+    { "id": "lee-cache", "from": "adaptador", "to": "cache", "y": 282, "label": "último valor", "variant": "default" },
+    { "id": "valor-cache", "from": "cache", "to": "adaptador", "y": 312, "label": "dato + hora", "variant": "return" },
+    { "id": "degradada", "from": "adaptador", "to": "coord", "y": 342, "label": "200 degradado", "variant": "return", "note": "ERR-12: nunca un error en C1" },
+    { "id": "advertencia", "from": "coord", "to": "sala", "y": 372, "label": "con advertencia", "variant": "return" },
+    { "id": "sondeo", "from": "circuito", "to": "hospital", "y": 408, "label": "sondeo de prueba", "variant": "security" },
+    { "id": "responde", "from": "hospital", "to": "circuito", "y": 438, "label": "responde", "variant": "return" },
+    { "id": "pendientes", "from": "bandeja", "to": "hospital", "y": 470, "label": "pendientes en orden", "variant": "emphasis", "note": "RF-INT-010, con clave de idempotencia" },
+    { "id": "confirmaciones", "from": "hospital", "to": "bandeja", "y": 500, "label": "confirmaciones", "variant": "return" },
+    { "id": "actualiza-cache", "from": "bandeja", "to": "cache", "y": 530, "label": "actualiza", "variant": "dashed" }
+  ],
+  "activations": [
+    { "participant": "coord", "from": 158, "to": 378, "type": "backend" },
+    { "participant": "adaptador", "from": 188, "to": 348, "type": "backend" },
+    { "participant": "circuito", "from": 404, "to": 444, "type": "security" },
+    { "participant": "bandeja", "from": 466, "to": 536, "type": "messagebus" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Sin acoplamiento temporal", "items": ["Ninguna operación C1 espera al sistema externo (DA-INT-12)", "Con el circuito abierto la llamada falla de inmediato, sin ocupar hilos"] },
+    { "dot": "amber", "title": "Degradar antes que fallar", "items": ["La caché devuelve el último valor con su hora de obtención", "La interfaz advierte que la fuente está degradada (AC-USA-004)"] },
+    { "dot": "cyan", "title": "Reconciliación", "items": ["Semiabierto prueba y luego cierra (TAC-03)", "La bandeja envía lo pendiente sin duplicar (AC-RCP-006)"] }
+  ]
+}

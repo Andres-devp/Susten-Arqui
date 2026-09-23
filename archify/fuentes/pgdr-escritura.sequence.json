@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Recorrido de una escritura con bandeja de salida",
+    "viewBox": [1080, 600],
+    "column_fit": "spread",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "sincrono", "label": "Parte síncrona C1", "focus": ["cliente", "superficie", "dominio", "almacen", "bandeja"], "note": "El cliente recibe confirmación cuando su dato está a salvo (TAC-18)." },
+      { "id": "asincrono", "label": "Propagación asíncrona", "focus": ["bandeja", "bus", "auditoria", "proyeccion", "externo"], "note": "Consumidores y sistemas externos reciben el hecho después, sin bloquear al cliente." }
+    ]
+  },
+  "participants": [
+    { "id": "cliente", "type": "frontend", "label": "Cliente", "sublabel": "sala de crisis" },
+    { "id": "superficie", "type": "security", "label": "Superficie", "sublabel": "API SUP-A" },
+    { "id": "dominio", "type": "backend", "label": "Módulo", "sublabel": "de dominio" },
+    { "id": "almacen", "type": "database", "label": "Almacén", "sublabel": "del módulo" },
+    { "id": "bandeja", "type": "database", "label": "Bandeja", "sublabel": "de salida" },
+    { "id": "bus", "type": "messagebus", "label": "Bus", "sublabel": "de eventos" },
+    { "id": "auditoria", "type": "database", "label": "Auditoría", "sublabel": "solo agregación" },
+    { "id": "proyeccion", "type": "backend", "label": "Proyector", "sublabel": "de vistas" },
+    { "id": "externo", "type": "external", "label": "Externo", "sublabel": "vía adaptador" }
+  ],
+  "segments": [
+    { "from": 150, "to": 326, "label": "Síncrono · C1" },
+    { "from": 334, "to": 450, "label": "Asíncrono" }
+  ],
+  "messages": [
+    { "id": "post", "from": "cliente", "to": "superficie", "y": 162, "label": "POST + clave", "variant": "emphasis", "note": "clave de idempotencia en toda escritura (DA-API-03)" },
+    { "id": "caso-uso", "from": "superficie", "to": "dominio", "y": 192, "label": "autorizado", "variant": "security", "note": "autentica, autoriza y valida contra el contrato" },
+    { "id": "persiste", "from": "dominio", "to": "almacen", "y": 222, "label": "persiste", "variant": "emphasis" },
+    { "id": "registra-evento", "from": "dominio", "to": "bandeja", "y": 252, "label": "misma transacción", "variant": "emphasis", "note": "DA-API-04" },
+    { "id": "resultado", "from": "dominio", "to": "superficie", "y": 282, "label": "resultado", "variant": "return" },
+    { "id": "respuesta", "from": "superficie", "to": "cliente", "y": 312, "label": "201 + id", "variant": "return" },
+    { "id": "publica", "from": "bandeja", "to": "bus", "y": 346, "label": "publica", "variant": "dashed" },
+    { "id": "traza", "from": "bus", "to": "auditoria", "y": 376, "label": "traza", "variant": "dashed" },
+    { "id": "proyecta", "from": "bus", "to": "proyeccion", "y": 406, "label": "≤ 30 s", "variant": "dashed" },
+    { "id": "envia", "from": "bus", "to": "externo", "y": 436, "label": "con reintento", "variant": "dashed" }
+  ],
+  "activations": [
+    { "participant": "superficie", "from": 158, "to": 318, "type": "security" },
+    { "participant": "dominio", "from": 188, "to": 288, "type": "backend" },
+    { "participant": "bus", "from": 342, "to": 442, "type": "messagebus" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Confirmación local", "items": ["El módulo confirma al escribir su almacén y su bandeja (TAC-18)", "Nunca espera al bus ni a otro módulo"] },
+    { "dot": "violet", "title": "Publicación transaccional", "items": ["El cambio y su evento se escriben juntos (DA-API-04)", "No existe ventana con cambio sin evento ni evento sin cambio"] },
+    { "dot": "orange", "title": "Entrega al menos una vez", "items": ["Todo consumidor es seguro de reejecutar", "El motor de alertas también consume el hecho del bus", "Tableros al día en 30 s y auditoría en menos de 60 s"] }
+  ]
+}

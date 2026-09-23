@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Flujo de datos: daños, personas y traza",
+    "viewBox": [1080, 720],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "danos", "label": "Ruta de la evaluación", "focus": ["app", "receptor", "evd", "almacen", "bus"], "note": "De la captura sin conexión a la evaluación validada y versionada." },
+      { "id": "personas", "label": "Datos personales", "focus": ["hospital", "adaptador", "gpa", "bus"], "note": "Los datos personales se quedan en GPA; el bus solo transporta referencias." },
+      { "id": "consumo", "label": "Consumo y traza", "focus": ["bus", "publica", "rec", "auditoria"], "note": "Proyección pública agregada, proyectos de reconstrucción y auditoría." }
+    ]
+  },
+  "stages": [
+    { "label": "Origen" },
+    { "label": "Ingesta" },
+    { "label": "Dominio" },
+    { "label": "Eventos" },
+    { "label": "Consumo" }
+  ],
+  "nodes": [
+    { "id": "app", "type": "frontend", "label": "App de campo", "sublabel": "sin conexión", "stage": 0, "row": 0, "tag": "cifrado local" },
+    { "id": "hospital", "type": "external", "label": "Hospitalario", "sublabel": "IE-012", "stage": 0, "row": 2, "tag": "datos de salud" },
+    { "id": "receptor", "type": "backend", "label": "Receptor", "sublabel": "SUP-B", "stage": 1, "row": 0, "tag": "idempotente" },
+    { "id": "adaptador", "type": "backend", "label": "Adaptador", "sublabel": "IE-012", "stage": 1, "row": 2, "tag": "canónico" },
+    { "id": "evd", "type": "backend", "label": "EVD", "sublabel": "valida", "stage": 2, "row": 0, "tag": "RN-008" },
+    { "id": "almacen", "type": "database", "label": "Almacén EVD", "sublabel": "versionado", "stage": 2, "row": 1, "tag": "RN-007" },
+    { "id": "gpa", "type": "security", "label": "GPA", "sublabel": "personas", "stage": 2, "row": 2, "tag": "cifrado por campo" },
+    { "id": "bus", "type": "messagebus", "label": "Bus", "sublabel": "eventos", "stage": 3, "row": 1, "tag": "sin datos personales" },
+    { "id": "publica", "type": "database", "label": "Proyección", "sublabel": "pública", "stage": 4, "row": 0, "tag": "CSI-23" },
+    { "id": "rec", "type": "backend", "label": "REC", "sublabel": "proyectos", "stage": 4, "row": 1, "tag": "EVT-09" },
+    { "id": "auditoria", "type": "database", "label": "Auditoría", "sublabel": "solo agregación", "stage": 4, "row": 2, "tag": "5 años" }
+  ],
+  "flows": [
+    { "id": "lote", "from": "app", "to": "receptor", "label": "lote", "classification": "id local", "variant": "emphasis", "route": "straight" },
+    { "id": "conciliado", "from": "receptor", "to": "evd", "label": "conciliado", "classification": "sin duplicados", "variant": "emphasis", "route": "straight" },
+    { "id": "version", "from": "evd", "to": "almacen", "label": "versión", "classification": "RN-007", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "route": "straight", "labelAt": [530, 200] },
+    { "id": "validada", "from": "almacen", "to": "bus", "label": "EVT-09", "classification": "bandeja", "variant": "default", "route": "straight" },
+    { "id": "atendidos", "from": "hospital", "to": "adaptador", "label": "atendidos", "classification": "PII salud", "variant": "security", "route": "straight" },
+    { "id": "persona", "from": "adaptador", "to": "gpa", "label": "persona", "classification": "PII", "variant": "security", "route": "straight" },
+    { "id": "referencia", "from": "gpa", "to": "bus", "label": "referencia", "classification": "sin PII", "variant": "dashed", "route": "vertical-channel", "channelX": 672 },
+    { "id": "agregados", "from": "bus", "to": "publica", "label": "agregados", "classification": "no sensible", "variant": "dashed", "route": "vertical-channel", "channelX": 815 },
+    { "id": "danos", "from": "bus", "to": "rec", "label": "daño validado", "classification": "EO-E", "variant": "default", "route": "straight", "labelAt": [862, 271] },
+    { "id": "traza", "from": "bus", "to": "auditoria", "label": "traza", "classification": "encadenada", "variant": "security", "route": "vertical-channel", "channelX": 815 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Ruta del daño", "items": ["Captura sin conexión, lote idempotente y validación", "Solo las evaluaciones validadas generan proyectos (RN-008)"] },
+    { "dot": "rose", "title": "Datos personales", "items": ["Cifrados por campo y enmascarados por omisión en GPA", "Los eventos llevan referencia, nunca el dato (DA-API-06)", "Lo público se agrega con umbral mínimo (CSI-23)"] },
+    { "dot": "violet", "title": "Traza", "items": ["Auditoría de solo agregación, encadenada y sellada", "Consultable en menos de 60 s y conservada 5 años"] }
+  ]
+}

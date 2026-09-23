@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="es">
+<title>Sustentación PGDR</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#F1F3EF; --surface:#FFFFFF; --surface-2:#E7EBE5; --ink:#15201B; --ink-2:#4A5952; --line:#D2D9D2;
+  --accent:#C4461A; --accent-soft:#F7E2D7; --info:#1D5C8A; --info-soft:#DDEAF4;
+  --c1:#B42318; --c1-soft:#FBE3E0; --c2:#9A5B0C; --c2-soft:#F7EBD6; --c3:#2E6F4F; --c3-soft:#DDEEE4;
+  --code:#EDF0EA; --shadow:0 1px 2px rgba(20,32,27,.06),0 6px 18px rgba(20,32,27,.06);
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif; --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1412; --surface:#151D1A; --surface-2:#1C2622; --ink:#E3E9E5; --ink-2:#9BAAA3; --line:#2A3631;
+  --accent:#F07A43; --accent-soft:#3A2218; --info:#72B4E2; --info-soft:#15293A;
+  --c1:#F2786C; --c1-soft:#3A1916; --c2:#E3A24B; --c2-soft:#33260F; --c3:#62C493; --c3-soft:#12301F;
+  --code:#1A2320; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0E1412; --surface:#151D1A; --surface-2:#1C2622; --ink:#E3E9E5; --ink-2:#9BAAA3; --line:#2A3631;
+  --accent:#F07A43; --accent-soft:#3A2218; --info:#72B4E2; --info-soft:#15293A;
+  --c1:#F2786C; --c1-soft:#3A1916; --c2:#E3A24B; --c2-soft:#33260F; --c3:#62C493; --c3-soft:#12301F;
+  --code:#1A2320; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark;}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:var(--info)}
+h1,h2,h3,h4{font-family:var(--f-display);font-stretch:88%;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.55rem;font-weight:750;margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--line)}
+h3{font-size:1.18rem;font-weight:700;margin-top:1.6rem}
+h4{font-size:1rem;font-weight:700;margin-top:1.1rem}
+p,li{max-width:72ch}
+p{margin:.65rem 0}
+ul,ol{padding-left:1.25rem;margin:.5rem 0}
+li{margin:.25rem 0}
+code,kbd,.mono{font-family:var(--f-mono);font-size:.88em}
+code{background:var(--code);padding:.08em .35em;border-radius:4px}
+.eyebrow{font:600 .72rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.lead{font-size:1.1rem;color:var(--ink-2);max-width:66ch}
+.muted{color:var(--ink-2)}
+:focus-visible{outline:2px solid var(--info);outline-offset:2px}
+
+/* Layout */
+.app{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100%}
+.side{position:sticky;top:0;height:100vh;overflow:auto;background:var(--surface);border-right:1px solid var(--line);padding:18px 14px 40px}
+.brand{display:flex;gap:10px;align-items:center;padding:4px 6px 14px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.brand .mark{width:34px;height:34px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center;font:800 .8rem var(--f-display);letter-spacing:.02em}
+.brand b{font:800 1.05rem var(--f-display);font-stretch:85%;display:block}
+.brand small{color:var(--ink-2);font-size:.75rem}
+.nav-group{font:600 .68rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:16px 8px 6px}
+.nav a{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:.92rem}
+.nav a:hover{background:var(--surface-2)}
+.nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.nav a .dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--line);flex:none}
+.nav a.seen .dot{border-color:var(--info)}
+.nav a.done .dot{background:var(--c3);border-color:var(--c3)}
+.progress{margin:14px 8px 0;font-size:.78rem;color:var(--ink-2)}
+.bar{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--c3);width:0;transition:width .3s}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;gap:10px;align-items:center;padding:10px 24px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.btn.menu-btn{display:none}
+.search{position:relative;flex:1;max-width:560px}
+.search input{width:100%;padding:9px 12px 9px 34px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:.92rem}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-2)}
+.results{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);max-height:60vh;overflow:auto;z-index:30}
+.results button{display:block;width:100%;text-align:left;padding:9px 12px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:.88rem;cursor:pointer}
+.results button:hover,.results button.hl{background:var(--surface-2)}
+.results .rid{font-family:var(--f-mono);font-weight:600;color:var(--accent);margin-right:6px}
+.kbd-hint{font:500 .72rem var(--f-mono);color:var(--ink-2);border:1px solid var(--line);padding:2px 6px;border-radius:5px;white-space:nowrap}
+
+main{padding-inline:24px;padding-block:28px 120px;min-width:0}
+.page{max-width:980px;margin:0 auto}
+section.route > header{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
+.done-toggle{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:600 .8rem var(--f-body);cursor:pointer}
+.done-toggle[aria-pressed="true"]{background:var(--c3-soft);color:var(--c3);border-color:var(--c3)}
+
+/* Components */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));margin:14px 0}
+.grid .card h4{margin-top:0}
+.grid.two{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+.callout{border-left:3px solid var(--info);background:var(--info-soft);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0;max-width:80ch}
+.callout.warn{border-color:var(--accent);background:var(--accent-soft)}
+.callout.good{border-color:var(--c3);background:var(--c3-soft)}
+.callout b:first-child{display:block;font-family:var(--f-display);font-stretch:88%;font-size:1rem}
+.analogy{font-style:italic;color:var(--ink-2)}
+.where{font-size:.86rem;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:16px 0}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat b{display:block;font:800 1.7rem/1.1 var(--f-display);font-stretch:85%;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8rem;color:var(--ink-2)}
+.chip{display:inline-block;font:600 .72rem/1.5 var(--f-mono);padding:0 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.chip.c1{color:var(--c1);background:var(--c1-soft)} .chip.c2{color:var(--c2);background:var(--c2-soft)} .chip.c3{color:var(--c3);background:var(--c3-soft)}
+.chip.info{color:var(--info);background:var(--info-soft)} .chip.acc{color:var(--accent);background:var(--accent-soft)}
+.chip.sev-Alta{color:var(--c1);background:var(--c1-soft)} .chip.sev-Media{color:var(--c2);background:var(--c2-soft)} .chip.sev-Baja{color:var(--c3);background:var(--c3-soft)}
+.idref{font:600 .86em var(--f-mono);color:var(--accent);background:none;border:0;border-bottom:1px dotted currentColor;padding:0;cursor:pointer;white-space:nowrap}
+.idref:hover{background:var(--accent-soft)}
+.tbl-wrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font:600 .72rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);background:var(--surface-2);position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap}
+.tbl-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.tbl-tools input,.tbl-tools select,.field input,.field select{padding:6px 10px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);font:inherit;font-size:.86rem}
+.tbl-tools .count{font-size:.8rem;color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:7px;padding:6px 12px;font:600 .84rem var(--f-body);cursor:pointer}
+.btn:hover{border-color:var(--ink-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.good{background:var(--c3);border-color:var(--c3);color:#fff}
+.btn.bad{background:var(--c1);border-color:var(--c1);color:#fff}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pill-group{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.pill-group button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 11px;font:500 .8rem var(--f-body);cursor:pointer}
+.pill-group button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+details.acc{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:8px 0}
+details.acc>summary{cursor:pointer;padding:11px 14px;font-weight:600;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:1ch}
+details.acc[open]>summary::before{content:"−"}
+details.acc>.body{padding:0 16px 14px}
+dl.kv{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:6px 14px;margin:8px 0}
+dl.kv dt{font:600 .74rem var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);padding-top:3px}
+dl.kv dd{margin:0}
+figure.fig{margin:16px 0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure.fig img{display:block;background:#fff;border-radius:6px}
+/* Zoom viewer */
+.zv{position:relative;overflow:hidden;border-radius:8px;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.zv.grab{cursor:grab}
+.zv.grabbing{cursor:grabbing}
+.zv-stage{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.zv-stage img,.zv-stage svg{max-width:none!important;display:block}
+.zv-tools{position:absolute;top:8px;right:8px;z-index:2;display:flex;gap:2px;align-items:center;padding:3px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--surface) 90%,transparent);box-shadow:var(--shadow)}
+.zv-tools button{border:0;background:none;color:var(--ink);font:600 .82rem var(--f-body);min-width:28px;padding:3px 7px;border-radius:5px;cursor:pointer}
+.zv-tools button:hover{background:var(--surface-2)}
+.zv-pct{font:500 .72rem var(--f-mono);color:var(--ink-2);min-width:40px;text-align:center;font-variant-numeric:tabular-nums}
+.zv-hint{position:absolute;left:8px;bottom:6px;z-index:2;font-size:.7rem;color:var(--ink-2);padding:1px 6px;border-radius:4px;background:color-mix(in srgb,var(--surface) 85%,transparent);pointer-events:none}
+.zv-max{position:fixed!important;inset:12px;z-index:80;height:auto!important;background:var(--surface);border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+body.zv-open{overflow:hidden}
+.fig-zv{background:var(--surface)}
+@media (max-width:640px){.zv-hint{display:none}}
+figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
+.mmd-box{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:14px 0;overflow:hidden}
+.mmd-box:not(.zv){padding:12px}
+.mmd-box .mmd-loading{color:var(--ink-2);font-size:.85rem}
+.mmd-box pre{white-space:pre;font:.78rem/1.4 var(--f-mono);margin:0}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0}
+.flow span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:.84rem}
+.flow i{color:var(--ink-2);font-style:normal}
+
+/* Archify viewer */
+.ax-frame{margin:12px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.ax-frame iframe{display:block;width:100%;height:min(82vh,900px);border:0}
+.ax-info{margin-top:10px}
+
+/* Sequence player */
+.seq{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:16px 0;overflow:hidden}
+.seq-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.seq-head b{font-family:var(--f-display);font-stretch:88%}
+.seq-svg{background:var(--surface)}
+.seq-svg svg text{font-family:var(--f-body)}
+.seq-note{padding:12px 14px;border-top:1px solid var(--line);min-height:84px}
+.seq-note .stepno{font:600 .75rem var(--f-mono);color:var(--accent)}
+.seq-note p{margin:.3rem 0 0}
+
+/* Simulators */
+.sim{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:16px 0}
+.sim h3{margin-top:0}
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:10px}
+.state-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.state{flex:1;min-width:110px;text-align:center;border:2px solid var(--line);border-radius:10px;padding:10px;font:700 .95rem var(--f-display);font-stretch:88%;color:var(--ink-2);transition:all .25s}
+.state.on{color:#fff}
+.state.s-closed.on{background:var(--c3);border-color:var(--c3)}
+.state.s-open.on{background:var(--c1);border-color:var(--c1)}
+.state.s-half.on{background:var(--c2);border-color:var(--c2)}
+.log{font:.8rem/1.5 var(--f-mono);background:var(--code);border-radius:8px;padding:10px;max-height:220px;overflow:auto;margin-top:8px}
+.log div{padding:1px 0}
+.log .ok{color:var(--c3)} .log .bad{color:var(--c1)} .log .warn{color:var(--c2)} .log .info{color:var(--info)}
+.meter{height:14px;background:var(--surface-2);border-radius:7px;overflow:hidden;position:relative}
+.meter i{position:absolute;inset:0 auto 0 0;background:var(--info);transition:width .2s}
+.meter .tick{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink-2)}
+.func-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:10px}
+.func{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.84rem;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.func .st{font:600 .7rem var(--f-mono);padding:1px 6px;border-radius:4px;white-space:nowrap}
+.st.ok{background:var(--c3-soft);color:var(--c3)} .st.deg{background:var(--c2-soft);color:var(--c2)} .st.off{background:var(--c1-soft);color:var(--c1)}
+.big-num{font:800 2.2rem/1 var(--f-display);font-stretch:85%;font-variant-numeric:tabular-nums}
+.verdict{font-weight:700}
+.verdict.ok{color:var(--c3)} .verdict.bad{color:var(--c1)}
+.field{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:var(--ink-2)}
+.field input[type=range]{padding:0}
+.timeline{position:relative;margin:14px 0 6px}
+.tl-row{display:grid;grid-template-columns:78px 1fr;gap:10px;align-items:center;padding:5px 0;border-bottom:1px dashed var(--line);font-size:.86rem;opacity:.45;transition:opacity .3s}
+.tl-row.on{opacity:1}
+.tl-row.cur{font-weight:600}
+.tl-row .m{font:600 .8rem var(--f-mono);color:var(--accent)}
+.clock{font:800 2rem var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* Tree */
+.tree{margin:12px 0}
+.tree .attr{margin:8px 0}
+.tree .attr>button{font:700 1rem var(--f-display);font-stretch:88%;background:none;border:0;color:var(--ink);cursor:pointer;padding:4px 0}
+.tree .leaf{display:flex;gap:10px;align-items:flex-start;padding:7px 10px;margin:4px 0 4px 16px;border-left:2px solid var(--line);font-size:.88rem;cursor:pointer;border-radius:0 6px 6px 0}
+.tree .leaf:hover{background:var(--surface-2)}
+.tree .leaf.aa{border-color:var(--c1)} .tree .leaf.am{border-color:var(--c2)} .tree .leaf.mm{border-color:var(--c3)}
+
+/* Q&A / quiz / cards */
+.qa-item .short{margin:.3rem 0 .5rem}
+.qa-item .more{border-top:1px dashed var(--line);padding-top:8px;color:var(--ink-2);font-size:.92rem}
+.quiz-q{font:700 1.15rem/1.35 var(--f-display);font-stretch:90%;margin:6px 0 12px}
+.quiz-opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;font:inherit;cursor:pointer}
+.quiz-opt:hover{border-color:var(--ink-2)}
+.quiz-opt.right{border-color:var(--c3);background:var(--c3-soft)}
+.quiz-opt.wrong{border-color:var(--c1);background:var(--c1-soft)}
+.flash{min-height:180px;display:grid;place-items:center;text-align:center;padding:24px;cursor:pointer;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);user-select:none}
+.flash .front{font:800 1.6rem var(--f-display);font-stretch:88%}
+.flash .back{font-size:1rem;max-width:60ch}
+.guion-block{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.guion-block .meta{font:600 .78rem var(--f-mono);color:var(--ink-2)}
+.guion-block .meta b{display:block;font:800 1.4rem var(--f-display);color:var(--accent)}
+.guion-block.cur{background:var(--accent-soft);margin-inline:-12px;padding-inline:12px;border-radius:8px}
+.say{font-style:italic;border-left:2px solid var(--accent);padding-left:10px;color:var(--ink-2)}
+.timer-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 58px);z-index:5;display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;box-shadow:var(--shadow)}
+
+/* popover and lightbox */
+.pop{position:fixed;z-index:60;width:min(520px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.25);padding:14px 16px}
+.pop h4{margin:0 0 4px;font-family:var(--f-mono);color:var(--accent)}
+.pop .occ{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+.pop .src{font:500 .72rem var(--f-mono);color:var(--ink-2)}
+.pop .refs{font-size:.8rem;margin-top:8px;color:var(--ink-2)}
+.pop .close{position:absolute;right:8px;top:6px;background:none;border:0;font-size:1.3rem;color:var(--ink-2);cursor:pointer}
+.lightbox{position:fixed;inset:0;z-index:70;background:rgba(8,12,10,.85);overflow:auto;padding:24px;cursor:zoom-out}
+.lightbox img{max-width:none;width:auto;background:#fff;border-radius:6px;display:block;margin:0 auto}
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;align-items:start;margin:10px 0 18px}
+.hero .card ol{margin:0}
+.resp{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
+.resp div{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:8px;padding:10px;font-size:.84rem}
+.resp b{display:block;font:750 1rem var(--f-display);font-stretch:88%}
+
+@media (max-width:980px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{position:fixed;inset:0 auto 0 0;width:290px;z-index:50;transform:translateX(-105%);transition:transform .25s;box-shadow:var(--shadow);padding-top:calc(18px + env(safe-area-inset-top,0px))}
+  .side.open{transform:none}
+  .btn.menu-btn{display:inline-flex}
+  .top{padding:10px 16px}
+  main{padding-inline:16px}
+  .hero{grid-template-columns:1fr}
+  .resp{grid-template-columns:repeat(2,1fr)}
+  .kbd-hint{display:none}
+  .guion-block{grid-template-columns:1fr}
+  dl.kv{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app">
+<aside class="side" id="side" aria-label="Secciones">
+  <div class="brand"><div class="mark">PGDR</div><div><b>Sustentación</b><small>Gestión de desastres y reconstrucción</small></div></div>
+  <nav class="nav" id="nav"></nav>
+  <div class="progress"><span id="prog-txt">0 de 0 secciones dominadas</span><div class="bar"><i id="prog-bar"></i></div></div>
+</aside>
+
+<div>
+<div class="top">
+  <button class="btn menu-btn" id="menu-btn" aria-label="Abrir menú">☰</button>
+  <div class="search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Busca un ID (TAC-03, RSG-02, RF-GDE-004) o un tema: interruptor, idempotencia…" autocomplete="off" aria-label="Buscar">
+    <div class="results" id="results" hidden></div>
+  </div>
+  <span class="kbd-hint">Ctrl K</span>
+</div>
+
+<main><div class="page" id="page">
+
+<!-- ================= INICIO ================= -->
+<section class="route" id="inicio" data-group="Empezar" data-title="Inicio">
+<header><div><div class="eyebrow">Arquitectura de Software · Proyecto 2026-30</div><h1>El proyecto PGDR, de cero a sustentación</h1></div></header>
+<p class="lead">Una sola plataforma para entender y defender todo el proyecto: el enunciado, el SRS, el SAD con el modelo 4+1, el ATAM y los diagramas. Cualquier ID que veas en naranja (por ejemplo DA-ARQ-07) se puede tocar para ver qué significa en los documentos.</p>
+
+<div class="hero">
+  <div class="card">
+    <h3 style="margin-top:0">El proyecto en 60 segundos</h3>
+    <p>Una organización gubernamental tiene <b>ocho sistemas independientes</b>: alertas y monitoreo, GIS, hospitalarios, recursos, identificación de personas, administrativos y financieros, proyectos de infraestructura y notificación. Cuando ocurre un desastre, cada uno conoce una parte de la situación y ninguno ve el todo.</p>
+    <p>La <b>PGDR</b> no reemplaza esos sistemas (RST-001). Es una <b>capa de coordinación e integración</b> que los conecta, mantiene una visión común de la situación (COP) y sostiene el ciclo completo del desastre, desde la alerta hasta el proyecto de reconstrucción. Está diseñada para seguir funcionando justo cuando el entorno se degrada.</p>
+    <p class="muted" style="margin-bottom:0">El enunciado lo dice así: el objetivo es diseñar y justificar una arquitectura, no replicar Sahana Eden ni construir un sistema completo de emergencias.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Ruta de estudio sugerida</h3>
+    <ol>
+      <li><a href="#fundamentos">Fundamentos</a>: los conceptos que usa todo el proyecto (45 min).</li>
+      <li><a href="#enunciado">Enunciado</a> y <a href="#srs">SRS</a>: qué se pidió y cómo se volvió verificable.</li>
+      <li><a href="#vistas">Modelo 4+1</a> e <a href="#integracion">integración</a>: el corazón del diseño. Complétalo con los <a href="#archify">diagramas interactivos</a>.</li>
+      <li><a href="#apis">APIs</a>, <a href="#decisiones">decisiones</a> y las tres estrategias.</li>
+      <li><a href="#atam">ATAM</a>: riesgos y compromisos.</li>
+      <li><a href="#simuladores">Simuladores</a>, luego <a href="#guion">guion</a>, <a href="#preguntas">preguntas del jurado</a> y <a href="#quiz">quiz</a>.</li>
+    </ol>
+  </div>
+</div>
+
+<h3>Las cinco responsabilidades esenciales (SRS 2.1)</h3>
+<div class="resp">
+  <div><b>Integrar</b>Recibir, normalizar y consolidar información de sistemas heterogéneos.</div>
+  <div><b>Unificar</b>Un modelo canónico y una visión única por evento.</div>
+  <div><b>Coordinar</b>Responsabilidades, tareas, recursos y prioridades entre organismos.</div>
+  <div><b>Trazar</b>Histórico completo de decisiones y cambios para auditoría.</div>
+  <div><b>Continuar operando</b>Las funciones críticas siguen vivas si fallan los externos o sube la demanda.</div>
+</div>
+
+<h3>Los números que tienes que saber de memoria</h3>
+<div class="stats">
+  <div class="stat"><b>306</b><span>elementos especificados en el SRS</span></div>
+  <div class="stat"><b>184</b><span>requisitos funcionales en 14 módulos</span></div>
+  <div class="stat"><b>66</b><span>atributos de calidad con umbral</span></div>
+  <div class="stat"><b>99,95 %</b><span>disponibilidad C1 = 21,9 min/mes</span></div>
+  <div class="stat"><b>1k → 10k</b><span>usuarios concurrentes sin rediseño</span></div>
+  <div class="stat"><b>2 / 3 / 5 s</b><span>consulta / registro / alerta crítica (p95)</span></div>
+  <div class="stat"><b>30 s</b><span>de la alerta externa al evento notificado</span></div>
+  <div class="stat"><b>500/min</b><span>reportes de campo con fotos</span></div>
+  <div class="stat"><b>30 min · 1 min</b><span>RTO · RPO para C1</span></div>
+  <div class="stat"><b>14 · 5 · 5</b><span>componentes · superficies API · compartimentos</span></div>
+  <div class="stat"><b>35</b><span>decisiones documentadas (12 INT, 10 API, 13 ARQ)</span></div>
+  <div class="stat"><b>23 · 15 · 21 · 14</b><span>riesgos · no riesgos · sensibilidad · compromiso</span></div>
+</div>
+
+<div class="callout warn"><b>Idea central para toda la sustentación</b>La arquitectura acierta si mantiene la coordinación viva cuando el entorno se degrada, y si incorporar un sistema externo o un tipo de desastre nuevo no obliga a rehacer el núcleo. Así formula el ATAM su criterio de juicio (ATAM 3.1). Si te pierdes en una pregunta, vuelve a esta frase.</div>
+
+<h3>Cómo se conectan los documentos</h3>
+<div class="flow"><span><b>Enunciado v0.9</b> qué se pide</span><i>→</i><span><b>SRS v1.1</b> qué debe cumplir, medible</span><i>→</i><span><b>SAD v1.3 + 4+1</b> cómo se cumple y por qué</span><i>→</i><span><b>ATAM v1.0</b> ¿realmente se cumple? riesgos</span><i>→</i><span><b>Diapositivas</b> 31 láminas, 15–20 min</span></div>
+<p>La columna vertebral es la <b>trazabilidad</b>: cada decisión del SAD cita un atributo del SRS (RST-008) y el ATAM recorre esa cadena en sentido inverso. En la sección <a href="#trazabilidad">Trazabilidad</a> puedes navegarla.</p>
+</section>
+
+<!-- ================= FUNDAMENTOS ================= -->
+<section class="route" id="fundamentos" data-group="Empezar" data-title="Fundamentos desde cero" hidden>
+<header><div><div class="eyebrow">Antes de empezar</div><h1>Fundamentos desde cero</h1></div></header>
+<p class="lead">Todo lo que el jurado da por sabido. Cada concepto trae una analogía y dónde aparece en la PGDR.</p>
+
+<h2>Conceptos de arquitectura</h2>
+<div class="grid two">
+ <div class="card"><h4>Arquitectura de software</h4><p>Son las decisiones estructurales difíciles de cambiar: en qué partes se divide el sistema, cómo se comunican, dónde viven los datos y cómo se despliega. No es el código: es lo que determina si el sistema será disponible, escalable o seguro.</p><p class="analogy">Como el plano estructural de un edificio: puedes cambiar los muebles, pero no las columnas.</p></div>
+ <div class="card"><h4>Atributo de calidad</h4><p>Propiedad medible que determina si el sistema es aceptable: disponibilidad, rendimiento, escalabilidad, seguridad, modificabilidad, etc. (ISO 25010). Los requisitos funcionales dicen <i>qué</i> hace el sistema; los atributos, <i>qué tan bien</i>.</p><div class="where">En la PGDR: 66 atributos, cada uno con métrica, umbral y método de verificación (SRS cap. 5).</div></div>
+ <div class="card"><h4>Escenario de calidad (6 partes)</h4><p><b>Fuente</b> → <b>estímulo</b> → <b>artefacto</b> → <b>entorno</b> → <b>respuesta</b> → <b>medida de respuesta</b>. Convierte "debe ser disponible" en algo que se puede probar.</p><div class="where">Ejemplo, ESC-01: el hospitalario (fuente) deja de responder (estímulo); afecta al borde de integración (artefacto) durante una emergencia (entorno); la plataforma degrada con caché (respuesta) y no hay ninguna función C1 caída (medida).</div></div>
+ <div class="card"><h4>Táctica y patrón</h4><p>Una <b>táctica</b> es una decisión de diseño que mejora un atributo concreto: límite de espera, reintento, réplica. Un <b>patrón</b> es una solución estructural recurrente que agrupa tácticas: bandeja de salida, puertos y adaptadores.</p><div class="where">En la PGDR las tácticas se numeran TAC-01 a TAC-22 y los patrones de integración PIN-01 a PIN-07.</div></div>
+ <div class="card"><h4>SRS, SAD, ATAM</h4><p><b>SRS</b> (ISO/IEC/IEEE 29148): qué debe cumplir el sistema. <b>SAD</b>: cómo está estructurado y por qué. <b>ATAM</b> (SEI, Bass/Clements/Kazman): evaluación de si la arquitectura realmente cumple, con riesgos y compromisos.</p></div>
+ <div class="card"><h4>Modelo 4+1 (Kruchten)</h4><p>Cinco vistas, cada una para un interesado distinto. <b>Lógica</b>: qué abstracciones hay. <b>Procesos</b>: qué corre en paralelo y cómo se comunica. <b>Desarrollo</b>: cómo se organiza el código. <b>Física</b>: en qué nodos vive. <b>+1 escenarios</b>: casos de uso que atraviesan y validan las otras cuatro.</p><div class="where">La regla central de Kruchten: cada vista declara qué son sus elementos y qué significan sus flechas.</div></div>
+ <div class="card"><h4>Percentil 95 (p95)</h4><p>El 95 % de las peticiones responde por debajo del umbral. Se usa en lugar del promedio porque el promedio esconde la cola lenta, que es justo lo que sufre el operador de la sala de crisis.</p></div>
+ <div class="card"><h4>RTO y RPO</h4><p><b>RTO</b> (Recovery Time Objective): cuánto puedes tardar en volver a operar. <b>RPO</b> (Recovery Point Objective): cuántos datos, medidos en tiempo, puedes perder.</p><div class="where">En la PGDR: RTO ≤ 30 min y RPO ≤ 1 min para C1 (AC-RCP-001, AC-RCP-002).</div></div>
+ <div class="card"><h4>Síncrono y asíncrono</h4><p><b>Síncrono</b>: quien llama espera la respuesta, como una llamada telefónica. <b>Asíncrono</b>: deja un mensaje y sigue, como un correo. Lo asíncrono desacopla en el tiempo y absorbe picos.</p><div class="where">RST-005 y RST-006: algunas operaciones necesitan respuesta inmediata y otras se pueden diferir. La regla de oro es PRI-03: ninguna operación C1 espera a un sistema externo.</div></div>
+ <div class="card"><h4>Consistencia final</h4><p>Distintas partes del sistema llegan al mismo estado, pero no en el mismo instante. Se acepta a cambio de desacoplamiento y rendimiento.</p><div class="where">En la PGDR está acotada: un tablero refleja el hecho en menos de 30 s (RF-VIS-009).</div></div>
+</div>
+
+<h2>Clasificación de criticidad: C1, C2 y C3</h2>
+<p>Es la idea más reutilizada del proyecto (SRS 5.1). No todo merece la misma protección: los umbrales, los compartimentos y el orden de degradación salen de aquí.</p>
+<div class="tbl-wrap"><table><thead><tr><th>Clase</th><th>Definición</th><th>Incluye</th><th>Disponibilidad</th></tr></thead><tbody>
+<tr><td><span class="chip c1">C1 Crítica</span></td><td>Su indisponibilidad impide coordinar la emergencia.</td><td>Registro y consulta de eventos (GDE), ingesta de alertas externas (INT), registro y sincronización de evaluaciones (EVD, MOV), alertas críticas (NOT), consulta y asignación de recursos (GRE), tareas (COR), autenticación y autorización (SEG), auditoría (AUD).</td><td>99,95 %</td></tr>
+<tr><td><span class="chip c2">C2 Importante</span></td><td>Degrada la operación pero no la impide.</td><td>Consolidación e indicadores de daños, tableros y mapas (VIS), personas afectadas (GPA), integraciones de consulta no críticas.</td><td>99,5 %</td></tr>
+<tr><td><span class="chip c3">C3 Diferible</span></td><td>Se puede interrumpir durante la emergencia.</td><td>Consulta pública, reportes de reconstrucción (REC), exportaciones y reportes analíticos, administración de catálogos (ADM).</td><td>—</td></tr>
+</tbody></table></div>
+
+<h2>Patrones y tácticas que usa la PGDR</h2>
+<p>Estas tarjetas son tu glosario técnico. Si entiendes estas veinte ideas, entiendes el SAD.</p>
+<div class="grid two">
+ <div class="card"><h4>Puertos y adaptadores (hexagonal)</h4><p>El núcleo de negocio declara interfaces (<i>puertos</i>) y las piezas externas las implementan (<i>adaptadores</i>). El núcleo nunca conoce protocolos ni formatos externos.</p><p class="analogy">Un enchufe estándar en la pared y un adaptador distinto para cada país.</p><div class="where">PRI-01, EA-01, DA-INT-01. Una dependencia del núcleo hacia un adaptador es criterio de rechazo en revisión.</div></div>
+ <div class="card"><h4>Modelo canónico</h4><p>Un idioma interno único. Cada adaptador traduce el formato externo a este modelo en el borde y nada entra sin traducir.</p><p class="analogy">Todas las delegaciones hablan su idioma, pero en la mesa se traduce todo al español.</p><div class="where">PRI-02, DA-INT-02. Lo que no se traduce se guarda como bloque opaco, así el modelo no crece con cada sistema nuevo.</div></div>
+ <div class="card"><h4>Bus de eventos de dominio</h4><p>Un módulo publica un hecho ("evento reclasificado") y los interesados lo reciben sin que el productor sepa quiénes son.</p><p class="analogy">Un canal de radio: quien transmite no sabe cuántos escuchan.</p><div class="where">DA-INT-08, RF-INT-002. Evita dependencias de construcción entre módulos (AC-MOD-005). Catálogo de eventos EVT-01 a EVT-28 y EVT-P1 a EVT-P4.</div></div>
+ <div class="card"><h4>Bandeja de salida transaccional (outbox)</h4><p>El cambio de negocio y el mensaje a enviar se guardan <i>en la misma transacción</i>. Otro proceso publica después y reintenta si falla.</p><p class="analogy">Escribir la carta y meterla en el buzón de salida de la oficina en un solo gesto; el cartero pasa después.</p><div class="where">PIN-05, DA-INT-05, DA-API-04, TAC-07. Elimina dos problemas: el cambio sin mensaje (el proceso cae en medio) y el mensaje sin cambio (se anuncia algo que después se deshace).</div></div>
+ <div class="card"><h4>Idempotencia</h4><p>Repetir una operación produce el mismo efecto que hacerla una vez. Se logra con una <i>clave de idempotencia</i> que identifica el hecho y no el envío.</p><p class="analogy">El botón del ascensor: oprimirlo diez veces no llama diez ascensores.</p><div class="where">PRI-05, DA-INT-04, DA-API-03, RN-013. Entrega al menos una vez más consumo idempotente equivale a un solo efecto.</div></div>
+ <div class="card"><h4>Límite de espera (timeout)</h4><p>Toda llamada tiene un tiempo máximo explícito. Sin él, un sistema lento te deja colgado indefinidamente.</p><div class="where">AC-RES-002, TAC-01 (1,5 s en ruta C1 y 10 s en diferidos), TAC-16 (llamadas internas).</div></div>
+ <div class="card"><h4>Reintento con espera creciente y variación aleatoria</h4><p>Si falla, se espera 2 s, luego 4 s, luego 8 s, con una variación aleatoria de ±20 % para que no todos reintenten al mismo tiempo.</p><div class="where">AC-RES-003, TAC-02: 3 intentos, base 2 s. Los reintentos deben ser idempotentes.</div></div>
+ <div class="card"><h4>Interruptor de circuito (circuit breaker)</h4><p>Cuenta las fallas. Si superan el umbral, se <b>abre</b> y las llamadas fallan de inmediato durante un reposo. Luego pasa a <b>semiabierto</b>, deja pasar una prueba y, si funciona, se <b>cierra</b>.</p><p class="analogy">El breaker eléctrico de tu casa: corta antes de que se queme todo.</p><div class="where">AC-RES-004, TAC-03 (50 % de fallas sobre 20 llamadas en 30 s; reposo de 30 s). Pruébalo en <a href="#simuladores">Simuladores</a>.</div></div>
+ <div class="card"><h4>Compartimentos (bulkhead)</h4><p>Se divide la capacidad en compartimentos estancos, de modo que si uno se inunda los demás siguen a flote.</p><p class="analogy">Los mamparos de un barco.</p><div class="where">AC-RES-006, DA-ARQ-04 (5 compartimentos), DA-API-01 (5 superficies), TAC-04 (cupo por integración).</div></div>
+ <div class="card"><h4>Caché de última información conocida</h4><p>Se guarda la última respuesta buena de cada fuente con su hora. Si la fuente cae, se muestra ese dato <i>advertido</i> como desactualizado.</p><div class="where">PRI-06, DA-INT-06, TAC-08, IE-004, AC-USA-004. "Degradar sin avisar es peor que fallar."</div></div>
+ <div class="card"><h4>Cola persistente y mensajes fallidos</h4><p>La cola guarda el mensaje en disco antes de confirmar, así que un consumidor caído no pierde nada. Lo que no se puede procesar va a un repositorio de <i>mensajes fallidos</i> con su motivo para reprocesarlo después.</p><div class="where">AC-RES-005, TAC-05 (7 días, alerta al 70 %), TAC-06 (30 días), RF-INT-009.</div></div>
+ <div class="card"><h4>Separación escritura / lectura (CQRS con proyecciones)</h4><p>Las escrituras van al almacén del módulo dueño. Las lecturas pesadas (tableros, consulta pública, históricos) salen de <i>proyecciones</i> precalculadas desde el bus.</p><div class="where">DA-ARQ-03. Consistencia final de 30 s. Las proyecciones son descartables y reconstruibles (TAC-20).</div></div>
+ <div class="card"><h4>Control de admisión y degradación selectiva</h4><p>Si no hay capacidad para todos, se rechaza de forma ordenada lo menos crítico primero en lugar de responder mal a todos.</p><div class="where">AC-ESC-007, TAC-10, niveles ND-0 a ND-3 con histéresis (SAD 20.5).</div></div>
+ <div class="card"><h4>Réplica por mayoría y zonas</h4><p>Una <i>zona de disponibilidad</i> es un centro de datos independiente dentro de una región. Con tres zonas y confirmación por mayoría (2 de 3), perder una no pierde datos confirmados.</p><div class="where">DA-ARQ-07, TAC-12, TAC-14. Región secundaria con réplica asíncrona de menos de 1 min (TAC-15).</div></div>
+ <div class="card"><h4>Confianza cero</h4><p>Estar dentro de la red no da permisos. Cada componente tiene identidad propia y cada llamada se autentica en ambos sentidos.</p><div class="where">DA-ARQ-09, PSE-02, CSI-18. Evita el movimiento lateral desde un componente comprometido.</div></div>
+ <div class="card"><h4>Credenciales de vida corta</h4><p>El token dura poco (5 min de referencia) y cada componente lo valida localmente. Revocar es fácil: se publica una lista de denegación hasta que expire.</p><div class="where">DA-ARQ-08, CSI-19, AC-SEG-007 (menos de 60 s).</div></div>
+ <div class="card"><h4>Cadena de resúmenes y sello externo</h4><p>Cada registro de auditoría incluye el hash del anterior; alterar uno rompe la cadena desde ese punto. Un sello de tiempo guardado fuera del alcance del administrador impide reescribir la cadena completa.</p><div class="where">DA-ARQ-06, CSI-24, RF-AUD-005.</div></div>
+ <div class="card"><h4>Borrado criptográfico</h4><p>Cada persona tiene su propia clave. "Borrar" sus datos es destruir la clave: el histórico queda, pero ilegible.</p><div class="where">CSI-22. Concilia RN-007 (no sobrescribir el histórico) con el derecho de supresión de la Ley 1581. Necesita validación jurídica (OBS-11).</div></div>
+ <div class="card"><h4>Despliegue progresivo y expandir/contraer</h4><p>La versión nueva recibe primero una fracción pequeña del tráfico; si empeora el error o la latencia, se revierte sola. Los cambios de esquema se hacen en dos fases para que las dos versiones convivan.</p><div class="where">DA-ARQ-12, AC-DIS-005.</div></div>
+ <div class="card"><h4>Cómputo sin estado</h4><p>Ninguna instancia guarda en memoria algo que no pueda perderse. Así cualquier instancia atiende cualquier petición y crecer es agregar instancias.</p><div class="where">DA-ARQ-11, PES-01.</div></div>
+</div>
+</section>
+
+<!-- ================= ENUNCIADO ================= -->
+<section class="route" id="enunciado" data-group="El proyecto" data-title="Enunciado" hidden>
+<header><div><div class="eyebrow">Enunciado v0.9 · entrega 24 de septiembre de 2026</div><h1>Qué se pidió</h1></div></header>
+<p class="lead">Plataforma para la Gestión de Desastres y Reconstrucción. El objetivo no es replicar Sahana Eden ni desarrollar un sistema completo de emergencias, sino <b>diseñar y justificar una arquitectura</b> que resuelva los desafíos del dominio.</p>
+
+<h2>§1–§3 Contexto, problema y objetivo</h2>
+<p>En escenarios de gran escala aparecen seis desafíos: <b>interoperabilidad</b> entre sistemas, <b>disponibilidad</b> en situaciones críticas, <b>escalabilidad</b> ante picos repentinos, <b>procesamiento en tiempo real</b>, <b>tolerancia a fallos</b> y <b>trazabilidad</b> de la recuperación y la reconstrucción.</p>
+<p>La organización ya tiene ocho sistemas independientes, cada uno con su tecnología y su mecanismo de integración:</p>
+<div class="grid">
+ <div class="card"><b>IE-010</b> Alertas y monitoreo de fenómenos naturales</div>
+ <div class="card"><b>IE-011</b> Sistemas GIS</div>
+ <div class="card"><b>IE-012</b> Sistemas hospitalarios</div>
+ <div class="card"><b>IE-013</b> Gestión de recursos</div>
+ <div class="card"><b>IE-014</b> Identificación y atención de personas</div>
+ <div class="card"><b>IE-015</b> Administrativos y financieros</div>
+ <div class="card"><b>IE-016</b> Proyectos de infraestructura</div>
+ <div class="card"><b>IE-017</b> Comunicación y notificación</div>
+</div>
+<p>El ejemplo del enunciado: el sistema de emergencias sabe que una zona está afectada, el GIS conoce su ubicación, un hospital sabe cuántas personas atendió y otro sistema sabe qué recursos hay. Nadie tiene la visión unificada. <b>Objetivo general</b>: una arquitectura altamente disponible, escalable e interoperable para el ciclo completo del desastre. (IE-018, el proveedor de identidad, lo agregó el equipo en el SRS.)</p>
+
+<h2>§4 Alcance funcional</h2>
+<div class="grid two">
+ <div class="card"><h4>4.1 Gestión de desastres (módulo central)</h4><p>Registrar, clasificar, monitorear y cerrar eventos: terremoto, inundación, incendio, deslizamiento, huracán, erupción y otros. Se crean de forma manual o automática desde alertas. Hay 12 datos mínimos por evento. Los tipos <b>no deben estar fijos en el código</b>. El ciclo de vida (Detectado, Registrado, En evaluación, En atención, En recuperación, En reconstrucción, Cerrado) no es igual para todos. Niveles Nivel_1 Bajo a Nivel_4 Crítico, reclasificables con trazabilidad. Área por coordenadas, polígonos, municipios, barrios, zonas de riesgo o GIS, conservando su evolución (a las 10:00 eran 3 barrios; a las 14:00, 7).</p></div>
+ <div class="card"><h4>4.2 Evaluación de daños</h4><p>Viviendas, hospitales, escuelas, puentes, carreteras, redes. Reportes con fotos, documentos, coordenadas y nivel de daño en categorías configurables (Sin daño a Destrucción total), con criterios distintos por tipo de activo. Registro preliminar sin evento asociado. <b>Operación parcialmente offline</b>: descargar, ir sin señal, registrar, tomar fotos, recuperar conexión y sincronizar, contemplando <b>conflictos de sincronización</b>, validación y duplicados.</p></div>
+ <div class="card"><h4>4.3 Personas afectadas</h4><p>Personas, familias, necesidades, ubicación, refugios, atención recibida y solicitudes de ayuda, protegidas con seguridad y control de acceso.</p></div>
+ <div class="card"><h4>4.4 Recursos</h4><p>Visión consolidada de alimentos, agua, medicamentos, vehículos, maquinaria, equipos de rescate, personal, refugios y donaciones. Solicitud y asignación por organismos autorizados.</p></div>
+ <div class="card"><h4>4.5 Coordinación de organismos</h4><p>Asignar responsabilidades, crear tareas, priorizar, compartir información, registrar avances, generar alertas y mantener el historial.</p></div>
+ <div class="card"><h4>4.6 Reconstrucción</h4><p>Convertir la evaluación de daños en proyectos con presupuesto, financiación, responsable, contratista, cronograma, avance, costos, documentación, evidencias y estado.</p></div>
+</div>
+
+<h2>§5 Escenarios de funcionamiento</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Escenario</th><th>Qué pasa</th><th>Qué exige a la arquitectura</th></tr></thead><tbody>
+<tr><td>EO-A Inicio de emergencia</td><td>El monitoreo detecta un terremoto; se crea un evento preliminar y se notifica; el GIS aporta las zonas; los organismos lo pasan a "Activo".</td><td>Ingesta automática rápida, notificación y confirmación humana.</td></tr>
+<tr><td>EO-B Aumento repentino de usuarios</td><td>Miles de ciudadanos y funcionarios entran a la vez.</td><td>Escalar solo lo necesario y mantener las funciones críticas.</td></tr>
+<tr><td>EO-C Fallo de sistema externo</td><td>El hospitalario cae.</td><td>La plataforma sigue funcionando y sincroniza al volver.</td></tr>
+<tr><td>EO-D Evaluación distribuida</td><td>Cientos de equipos reportan con fotos al tiempo.</td><td>Procesar sin afectar la coordinación.</td></tr>
+<tr><td>EO-E Reconstrucción</td><td>30 escuelas y 12 puentes a intervenir.</td><td>Proyectos, presupuestos y auditoría de cambios.</td></tr>
+</tbody></table></div>
+<p>Reprodúcelos paso a paso en <a href="#simuladores">Simuladores</a>.</p>
+
+<h2>§6 Atributos de calidad prioritarios</h2>
+<div class="grid">
+ <div class="card"><h4>Disponibilidad</h4>99,95 % para servicios críticos.</div>
+ <div class="card"><h4>Escalabilidad</h4>De 1.000 a 10.000 o más usuarios concurrentes sin rediseño.</div>
+ <div class="card"><h4>Rendimiento</h4>Consultas en menos de 2 s, registro de eventos en menos de 3 s, alertas críticas en menos de 5 s.</div>
+ <div class="card"><h4>Resiliencia</h4>Timeouts, reintentos, circuit breakers, colas, asincronía, degradación controlada y recuperación automática.</div>
+ <div class="card"><h4>Recuperación</h4>Poder recuperar la plataforma tras una falla grave.</div>
+ <div class="card"><h4>Interoperabilidad</h4>REST, mensajería, eventos, webhooks y formatos de intercambio; acoplamiento mínimo.</div>
+ <div class="card"><h4>Seguridad</h4>Autenticación, autorización, roles, cifrado, auditoría, sesiones, datos personales y control por organización.</div>
+ <div class="card"><h4>Trazabilidad</h4>Quién → qué hizo → cuándo → sobre qué → resultado. Sobre todo en recursos, presupuestos, proyectos, personas y niveles.</div>
+ <div class="card"><h4>Modificabilidad</h4>Nuevos tipos de desastre, organismos e integraciones sin modificar significativamente lo existente.</div>
+</div>
+
+<h2>§8 Restricciones · §9 Soluciones existentes · §10 Entregables</h2>
+<p>Las nueve restricciones del §8 quedaron en el SRS como RST-001 a RST-009. La más importante para defender el formato de la entrega es la última: <b>no se impone tecnología y esta entrega es agnóstica</b>. El §9 pide analizar Sahana Eden (capacidades, componentes, tecnologías, integración, fortalezas, limitaciones, decisiones) y proponer una arquitectura alternativa o complementaria.</p>
+<div class="tbl-wrap"><table><thead><tr><th>Entregable del §10</th><th>Dónde se responde</th></tr></thead><tbody>
+<tr><td>Requisitos funcionales y atributos de calidad</td><td>SRS cap. 3 y 5</td></tr>
+<tr><td>Análisis de una solución existente</td><td>SRS cap. 11 (Sahana Eden, Ushahidi, DHIS2)</td></tr>
+<tr><td>Diagrama de contexto</td><td>SRS; ver <a href="#srs">SRS</a></td></tr>
+<tr><td>Diagrama 4+1</td><td>Modelo de vistas 4+1; ver <a href="#vistas">Modelo 4+1</a></td></tr>
+<tr><td>Modelo de integración con sistemas externos</td><td>SAD cap. 1–10</td></tr>
+<tr><td>Diseño de APIs y eventos</td><td>SAD cap. 11–16</td></tr>
+<tr><td>Decisiones arquitectónicas</td><td>SAD cap. 17</td></tr>
+<tr><td>Estrategias de seguridad, resiliencia y escalabilidad</td><td>SAD cap. 18, 19 y 20</td></tr>
+<tr><td>Validación de atributos (ATAM)</td><td>Documento ATAM</td></tr>
+<tr><td>Diapositivas (15–20 min, sustentación individual)</td><td>31 láminas; ver <a href="#guion">Guion</a></td></tr>
+</tbody></table></div>
+<div class="callout warn"><b>Ojo con el formato de la sustentación</b>Es individual, y cualquier miembro del grupo puede tener que sustentar todo el proyecto. Por eso esta plataforma cubre todo, no solo tu parte.</div>
+</section>
+
+<!-- ================= SRS ================= -->
+<section class="route" id="srs" data-group="El proyecto" data-title="Requisitos (SRS)" hidden>
+<header><div><div class="eyebrow">SRS-PGDR-001 v1.1 · línea base del SAD y del ATAM</div><h1>Especificación de requisitos</h1></div></header>
+<p class="lead">El SRS convierte el enunciado en 306 elementos verificables. Sigue la norma ISO/IEC/IEEE 29148 y el modelo de calidad ISO/IEC 25010.</p>
+
+<h2>Convenciones: cómo leer cualquier ID</h2>
+<p>Formato <code>&lt;TIPO&gt;-&lt;MÓDULO|ATRIBUTO&gt;-&lt;NNN&gt;</code>. Los identificadores son únicos, inmutables y no se reutilizan; si un requisito se elimina, queda marcado OBSOLETO.</p>
+<div class="tbl-wrap"><table><thead><tr><th>Prefijo</th><th>Significa</th><th>Cantidad</th></tr></thead><tbody>
+<tr><td>RF-GDE-001</td><td>Requisito funcional del módulo GDE</td><td>184</td></tr>
+<tr><td>AC-DIS-001</td><td>Atributo de calidad: DIS disponibilidad, ESC escalabilidad, REN rendimiento, RES resiliencia, RCP recuperación, INT interoperabilidad, SEG seguridad, TRZ trazabilidad, MOD modificabilidad, USA usabilidad, OBS observabilidad</td><td>66</td></tr>
+<tr><td>IE-010</td><td>Interfaz externa (IE-001 a 004 de usuario, IE-010 a 018 con sistemas, IE-020 a 022 de comunicación)</td><td>16</td></tr>
+<tr><td>RN-001</td><td>Regla de negocio</td><td>15</td></tr>
+<tr><td>RST-001</td><td>Restricción</td><td>12</td></tr>
+<tr><td>SUP-001</td><td>Supuesto (con el riesgo si no se cumple)</td><td>8</td></tr>
+<tr><td>EO-A</td><td>Escenario operacional</td><td>5</td></tr>
+<tr><td>ACT-01</td><td>Actor</td><td>13</td></tr>
+<tr><td>EXC-001</td><td>Exclusión de alcance</td><td>5</td></tr>
+</tbody></table></div>
+<p><b>Reglas de redacción</b>: verbos normativos <b>DEBE</b> (obligatorio), <b>DEBERÍA</b> (recomendado; su omisión se justifica por escrito) y <b>PODRÁ</b> (opcional). Un requisito equivale a un comportamiento. Están prohibidos los términos no medibles (rápido, amigable, robusto). Cada requisito lleva criterio de verificación, prioridad A (Must), M (Should) o B (Could), y Origen: la sección del enunciado o "Derivado", indicando de qué deriva.</p>
+
+<h2>Alcance y exclusiones</h2>
+<div data-table="^EXC-" data-cols="0,1,2"></div>
+
+<h2>Actores (13)</h2>
+<div data-table="^ACT-" data-cols="0,1,2,3,4"></div>
+<p>El ambiente operativo (AMB-01 a 05) incluye navegadores con conectividad estable, móviles con conectividad intermitente o nula, externos heterogéneos fuera de control, operación 24×7 con picos impredecibles y datos personales sensibles.</p>
+
+<h2>Diagrama de contexto</h2>
+<p>Muestra la PGDR como una caja negra con los 11 actores humanos y los sistemas externos. Las flechas indican la información que entra y sale. IE-013, IE-015 e IE-016 son bidireccionales; IE-017 y ACT-13 solo reciben.</p>
+<div data-mmd="contexto"></div>
+
+<h2>Los 14 módulos funcionales y sus 184 requisitos</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Módulo</th><th>Propósito</th><th>RF</th><th>Atributos dominantes (SRS 10.2)</th></tr></thead><tbody>
+<tr><td>ADM</td><td>Tipos, estados, clasificaciones, categorías, organismos y reglas como configuración, sin tocar código.</td><td>15</td><td>AC-MOD-001, AC-MOD-002, AC-MOD-004</td></tr>
+<tr><td>GDE</td><td>Componente central: registrar, clasificar, monitorear y cerrar eventos.</td><td>25</td><td>AC-DIS-001, AC-REN-002, AC-TRZ-001</td></tr>
+<tr><td>GEO</td><td>Área del desastre y su evolución espacial y temporal.</td><td>8</td><td>AC-REN-006, AC-INT-001</td></tr>
+<tr><td>EVD</td><td>Recopilar, validar y consolidar daños.</td><td>22</td><td>AC-ESC-004, AC-RES-005</td></tr>
+<tr><td>MOV</td><td>Captura sin conexión y sincronización.</td><td>11</td><td>AC-RES-009, AC-USA-002, AC-REN-005</td></tr>
+<tr><td>GPA</td><td>Personas, familias, necesidades y refugios.</td><td>13</td><td>AC-SEG-001, AC-SEG-003, AC-SEG-004</td></tr>
+<tr><td>GRE</td><td>Visión consolidada, solicitud y asignación de recursos.</td><td>12</td><td>AC-DIS-001, AC-REN-001</td></tr>
+<tr><td>COR</td><td>Tareas, responsabilidades y avances entre organismos.</td><td>11</td><td>AC-DIS-001, AC-USA-001</td></tr>
+<tr><td>NOT</td><td>Generar y entregar alertas.</td><td>8</td><td>AC-REN-003, AC-RES-005</td></tr>
+<tr><td>INT</td><td>Interoperar con los externos minimizando el acoplamiento.</td><td>18</td><td>AC-INT-001 a 006, AC-RES-002 a 004</td></tr>
+<tr><td>REC</td><td>Convertir daños en proyectos con presupuesto y avance.</td><td>11</td><td>AC-TRZ-001, AC-TRZ-005</td></tr>
+<tr><td>VIS</td><td>Mapas, tableros, líneas de tiempo, reportes y la vista pública.</td><td>9</td><td>AC-ESC-005, AC-USA-004</td></tr>
+<tr><td>SEG</td><td>Autenticación, autorización, sesiones y protección de datos.</td><td>12</td><td>AC-SEG-001 a 007</td></tr>
+<tr><td>AUD</td><td>Registro inmutable de quién hizo qué.</td><td>9</td><td>AC-TRZ-001 a 005</td></tr>
+</tbody></table></div>
+<p>Explora cada requisito con su criterio de verificación. Filtra por módulo o busca texto:</p>
+<div data-table="^RF-" data-cols="0,1,2,3,4" data-modfilter="1"></div>
+
+<h2>Atributos de calidad (66)</h2>
+<p>Cada uno con métrica, umbral, condición de medición, método de verificación, prioridad y origen. Filtra por atributo:</p>
+<div data-table="^AC-" data-cols="0,1,2,3" data-modfilter="1"></div>
+
+<h2>Reglas de negocio, restricciones y supuestos</h2>
+<h3>Reglas de negocio (15)</h3>
+<p>Las más preguntadas: <b>RN-003</b> (el evento automático nace preliminar), <b>RN-007</b> (nunca se sobrescribe el histórico), <b>RN-008</b> (solo cuentan las evaluaciones validadas), <b>RN-009</b> (no asignar dos veces la misma unidad), <b>RN-013</b> (idempotencia por id de dispositivo) y <b>RN-014</b> (auditoría inmutable).</p>
+<div data-table="^RN-" data-cols="0,1,2"></div>
+<h3>Restricciones (12) con su impacto arquitectónico</h3>
+<div data-table="^RST-" data-cols="0,1,2"></div>
+<h3>Supuestos (8) y el riesgo si fallan</h3>
+<div data-table="^SUP-\d" data-cols="0,1,2"></div>
+<h3>Interfaces externas</h3>
+<div data-table="^IE-" data-cols="0,1,2,3,4"></div>
+</section>
+
+<!-- ================= SAHANA ================= -->
+<section class="route" id="sahana" data-group="El proyecto" data-title="Sahana Eden" hidden>
+<header><div><div class="eyebrow">SRS cap. 11 · análisis de una solución existente</div><h1>Sahana Eden y por qué no basta</h1></div></header>
+<p class="lead">Nació en Sri Lanka tras el tsunami de 2004. Es un kit de desarrollo rápido de aplicaciones humanitarias, con licencia MIT, desplegado en Haití, Pakistán, Venezuela, Colombia, Japón y Chile. Desde mayo de 2025 la rama principal es Eden ASP, reducida a gestión de casos; la versión completa quedó como Sahana EDEN Legacy.</p>
+
+<h2>Componentes y tecnología</h2>
+<div class="grid">
+ <div class="card"><h4>Ejecución y datos</h4>web2py sobre Python con PyDAL; PostgreSQL con extensión geoespacial; <b>un único almacén compartido</b> por todos los módulos.</div>
+ <div class="card"><h4>Marco S3</h4>Abstracción de recurso, CRUD, S3XML, control de acceso, cartografía, mensajería y sincronización. Del modelo declarativo salen la persistencia, los formularios y el REST.</div>
+ <div class="card"><h4>Presentación y configuración</h4>Un controlador por módulo; personalización en cascada de plantillas de despliegue en Python.</div>
+</div>
+<div class="callout warn"><b>La observación estructural clave</b>Todo ocurre dentro de una sola aplicación desplegable contra una sola base de datos. Los módulos dividen el código, no la ejecución.</div>
+
+<h2>Integración en Eden</h2>
+<p>REST derivado del esquema de tablas (síncrono), S3XML con traducción por XSLT, sincronización por lotes entre instalaciones de Eden, mensajería multicanal con SAMBRO (CAP 1.2) y cliente móvil con sincronización posterior. Intentó adoptar la familia <b>EDXL</b> y el desarrollo se detuvo porque los clientes lo encontraron demasiado complejo; solo CAP logró adopción amplia. De ahí sale <span class="mono">RF-INT-005</span>: cada integración declara su formato en lugar de imponer uno solo.</p>
+
+<h2>Cobertura por módulo</h2>
+<p>Cobertura <b>alta</b> en GEO, GPA, GRE, NOT y SEG. <b>Parcial</b> en ADM (configuración en código), GDE (sin ciclo de vida configurable), EVD (sin versionado íntegro), MOV (sin política de conflictos), COR (sin vista consolidada), INT, REC (sin la cadena daño→proyecto→presupuesto), VIS (sin vista pública independiente) y AUD (sin inmutabilidad verificable).</p>
+
+<h2>Limitaciones y cómo responde la PGDR</h2>
+<p>Eden se diseñó como aplicación que una organización despliega por su cuenta; la PGDR es una capa de coordinación entre sistemas que ya existen. De esa diferencia salen casi todas las limitaciones.</p>
+<div data-table="^ASE-L-" data-cols="0,1,2,3"></div>
+
+<h2>Decisiones de Eden: qué adoptamos y qué descartamos</h2>
+<div data-table="^ASE-D-" data-cols="0,1,2"></div>
+
+<h2>Comparación con otras plataformas</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Criterio</th><th>Sahana Eden</th><th>Ushahidi</th><th>DHIS2</th></tr></thead><tbody>
+<tr><td>Dominio</td><td>Desastres, ciclo completo</td><td>Reportes ciudadanos y mapeo; cobertura baja</td><td>Salud pública; no cubre el ciclo</td></tr>
+<tr><td>API</td><td>REST derivado del esquema</td><td>REST, cliente web separado</td><td>REST estable, versionado y con descripción formal</td></tr>
+<tr><td>Interoperabilidad</td><td>Formato propio + XSLT; CAP</td><td>Ingesta desde SMS, correo, redes y sindicación</td><td>Intercambio de datos y metadatos, estándares de salud</td></tr>
+<tr><td>Despliegue</td><td>Aplicación única</td><td>Servicio y cliente separados, contenedores</td><td>Contenedores y orquestación</td></tr>
+<tr><td><b>Lo que toma la PGDR</b></td><td>El modelo de dominio y las decisiones adoptadas</td><td>Ingesta desde canales de terceros con normalización posterior</td><td>La disciplina de contrato: interfaz estable y versionada</td></tr>
+</tbody></table></div>
+<div class="callout good"><b>Conclusión para decir en voz alta</b>Eden es la referencia correcta porque es la única cuyo modelo de dominio corresponde al problema. Lo que no resolvió, porque no era su problema, es la mediación entre sistemas ajenos que fallan, la absorción de picos diez veces superiores y la trazabilidad inalterable. La propuesta es complementaria y no sustitutiva: una organización que ya opere Eden queda integrada como un sistema fuente más.</div>
+</section>
+
+<!-- ================= 4+1 ================= -->
+<section class="route" id="vistas" data-group="Arquitectura (SAD)" data-title="Modelo 4+1" hidden>
+<header><div><div class="eyebrow">Modelo de vistas de Kruchten · anexo del SAD</div><h1>Modelo 4+1</h1></div></header>
+<p class="lead">Las vistas lógica y de escenarios se derivan casi literalmente del SRS. Las de procesos, desarrollo y física contienen <b>decisiones derivadas</b>: propuestas que satisfacen los atributos, marcadas con D en la trazabilidad. Ningún diagrama nombra productos (RST-009).</p>
+<div class="callout"><b>Complemento interactivo</b>La vista general de la arquitectura y el ciclo de vida del evento también están como diagramas navegables. <button class="btn" data-open-archify="pgdr-arquitectura">&#9656; Arquitectura (Archify)</button> <button class="btn" data-open-archify="pgdr-ciclo-evento">&#9656; Ciclo del evento (Archify)</button></div>
+<div class="pill-group" id="view-tabs"></div>
+
+<div data-view="la">
+<h2>Vista lógica A · Modelo de dominio canónico</h2>
+<p><b>Elementos</b>: clases del dominio. <b>Flechas</b>: <code>--&gt;</code> asociación, <code>*--</code> composición, <code>..&gt;</code> dependencia. Lo que se modela es el <b>modelo canónico interno</b> (RF-INT-004), no el dominio de los sistemas fuente.</p>
+<div data-mmd="logicaA"></div>
+<div class="grid two">
+ <div class="card"><h4>¿Por qué Catalogo es una clase?</h4>AC-MOD-001 y AC-MOD-004 exigen que tipos, estados, niveles y categorías se modifiquen por configuración sin desplegar. Si fueran valores fijos dentro de Evento, el atributo sería inalcanzable.</div>
+ <div class="card"><h4>¿Por qué SistemaIntegrado con dependencia débil?</h4>AC-INT-002 y RF-INT-004: ningún componente de negocio puede depender del formato o protocolo propietario de un externo.</div>
+ <div class="card"><h4>¿Por qué Evaluación → Proyecto?</h4>EO-E define que los reportes de daños son el insumo de los proyectos de reconstrucción (RF-REC-001).</div>
+ <div class="card"><h4>Evento en el centro</h4>Casi todo se asocia a un evento (RN-001): zonas, evaluaciones, tareas, alertas, solicitudes y personas.</div>
+</div>
+</div>
+
+<div data-view="lb" hidden>
+<h2>Vista lógica B · Descomposición modular</h2>
+<p>Los 14 módulos en 4 grupos alineados con las responsabilidades del SRS 2.1: <b>frontera</b> (INT, VIS, MOV), <b>situación</b>, es decir unificar (GDE, GEO, EVD), <b>atención</b>, es decir coordinar (GPA, GRE, COR, NOT), <b>reconstrucción</b> (REC) y <b>transversales</b> (ADM, SEG, AUD). Las flechas punteadas son dependencias transversales (configuración, seguridad, traza) y se distinguen a propósito de las de flujo de información. GDE es el centro de gravedad.</p>
+<div data-mmd="logicaB"></div>
+</div>
+
+<div data-view="pr" hidden>
+<h2>Vista de procesos</h2>
+<p><b>Flechas</b>: <code>==&gt;</code> invocación síncrona con umbral de latencia, <code>--&gt;</code> mensaje asíncrono, <code>-.-&gt;</code> lectura de estado. La decisión que estructura esta vista es <b>AC-RES-006</b>: aislar los recursos de ingesta masiva de campo, coordinación operativa y consulta pública.</p>
+<div data-mmd="procesos"></div>
+<div class="callout"><b>Lecturas no evidentes</b>La consulta pública nunca toca el almacén operacional: lee una proyección precalculada alimentada por el bus, y eso permite que EO-B no degrade C1. La caché de última información conocida existe para AC-RES-007. Las colas son persistentes porque AC-RES-005 prohíbe perder mensajes aceptados.</div>
+<div class="callout warn"><b>Inconsistencia reconocida</b>El diagrama muestra compartimentos de ingesta, integración, coordinación y pública, pero DA-ARQ-04 define <b>cinco</b>, sumando el de procesamiento diferido (OBS-12, RSG-17). La recomendación R-02 es reconciliarlo.</div>
+</div>
+
+<div data-view="de" hidden>
+<h2>Vista de desarrollo</h2>
+<p>Cinco capas con regla de dependencia: <b>toda flecha apunta hacia abajo</b>. Una flecha ascendente sería una violación visible.</p>
+<div data-mmd="desarrollo"></div>
+<div class="callout"><b>Por qué esta frontera</b>AC-MOD-003 y AC-INT-002 exigen que una integración nueva afecte como máximo su adaptador, así que los adaptadores (capa 4) dependen del canónico (capa 2) y nunca al revés. AC-MOD-005 exige que los módulos de capa 3 no dependan entre sí en construcción: se comunican por eventos declarados en la capa 2.</div>
+<div class="callout warn"><b>Inconsistencia reconocida</b>La capa 4 dibuja la "Fachada de APIs" como un nodo único, pero el SAD 12.1 define cinco superficies con despliegue y cupo separados (OBS-07, RSG-04, de severidad alta). Un equipo que implemente desde el diagrama perdería el aislamiento de EO-B.</div>
+</div>
+
+<div data-view="fi" hidden>
+<h2>Vista física</h2>
+<p>Tipos de nodo por zona de disponibilidad. Todos los canales van cifrados (IE-020). Se describen tipos de nodo, no despliegues concretos.</p>
+<div data-mmd="fisica"></div>
+<div class="callout"><b>Lecturas no evidentes</b>Todo componente de la ruta C1 está en las dos zonas del diagrama por AC-DIS-003 (sin punto único de falla) y AC-DIS-006 (degradación de 50 % como máximo al perder una zona). El segmento público queda fuera de las zonas operativas, con control de admisión propio. El almacén de auditoría es un nodo separado, de solo anexado y con otro régimen de retención.</div>
+<div class="callout warn"><b>Cuidado</b>La vista física dibuja dos zonas, pero la decisión definitiva DA-ARQ-07 del SAD exige <b>tres zonas</b> más una región secundaria (diagrama 12). Si te preguntan, la decisión vigente es la del SAD, y el porqué está en la sección <a href="#resiliencia">Resiliencia</a>.</div>
+</div>
+
+<div data-view="es" hidden>
+<h2>Vista +1 · Escenarios</h2>
+<p>Cinco guiones, uno por escenario del enunciado. Cada uno atraviesa la vista lógica (qué abstracciones participan) y la de procesos (qué unidades y canales). Avanza paso a paso:</p>
+<div data-seq="eoA"></div>
+<div data-seq="eoB"></div>
+<div data-seq="eoC"></div>
+<div data-seq="eoD"></div>
+<div data-seq="eoE"></div>
+</div>
+
+<h2>Correspondencias entre vistas</h2>
+<p>Esto es lo que convierte cinco diagramas en un modelo 4+1. No hay correspondencia 1:1 entre lógica y desarrollo ni entre procesos y física, como anticipa el propio Kruchten.</p>
+<div class="tbl-wrap"><table><thead><tr><th>Abstracción lógica</th><th>Se ejecuta en (procesos)</th><th>Se construye como (desarrollo)</th><th>Reside en (física)</th></tr></thead><tbody>
+<tr><td>Evento, Tarea, Recurso</td><td>Servicios de coordinación · C1</td><td>gde, cor, gre sobre el canónico</td><td>Nodos de coordinación en todas las zonas</td></tr>
+<tr><td>Evaluación, Evidencia</td><td>Conciliación + validación</td><td>evd y mov</td><td>Nodos de ingesta y trabajadores</td></tr>
+<tr><td>Persona, Familia, Refugio</td><td>Personas afectadas + adaptador hospitalario</td><td>gpa y adaptador de capa 4</td><td>Coordinación, con control de acceso</td></tr>
+<tr><td>Alerta</td><td>Motor de alertas + cola de entrega</td><td>not y adaptadores de salida</td><td>Trabajadores con salida a notificación</td></tr>
+<tr><td>Proyecto de reconstrucción</td><td>Servicio de reconstrucción · C3</td><td>rec y adaptadores financieros</td><td>Coordinación, sin exigencia de doble zona</td></tr>
+<tr><td>Catálogo</td><td>Motor consultado por todos</td><td>Subsistema propio en capa 2</td><td>Almacén operacional replicado</td></tr>
+<tr><td>Sistema integrado</td><td>Adaptadores con circuito</td><td>Un adaptador por sistema, capa 4</td><td>Ingesta y trabajadores</td></tr>
+<tr><td>Registro de auditoría</td><td>Consumidor de auditoría del bus</td><td>aud</td><td>Almacén solo anexado, separado</td></tr>
+<tr><td>Proyección pública</td><td>Proyector de vistas</td><td>vis</td><td>Segmento público aislado</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ================= ARCHIFY ================= -->
+<section class="route" id="archify" data-group="Arquitectura (SAD)" data-title="Diagramas interactivos" hidden>
+<header><div><div class="eyebrow">Generados con Archify · validados</div><h1>Diagramas interactivos</h1></div></header>
+<p class="lead">Ocho diagramas del proyecto generados con <a href="https://github.com/tt-a1i/archify" target="_blank" rel="noopener">Archify</a> a partir de especificaciones JSON y validados con sus propias reglas: esquema, rutas sin cruces ni etiquetas encimadas y legibilidad en pantalla de escritorio. Cada uno es un visor completo, con recorridos guiados, búsqueda, foco por nodo, modo presentación y tema claro u oscuro.</p>
+<div data-archify></div>
+<details class="acc"><summary>Cómo usar el visor (la interfaz del visor está en inglés)</summary><div class="body">
+<ul>
+<li><b>Guided views · Play story</b>: recorre los capítulos que definí para cada diagrama (por ejemplo "Ruta crítica C1" o "Operación degradada"). Úsalos en la sustentación para contar el diagrama por partes.</li>
+<li><b>Clic en un nodo o flecha</b>: resalta sus relaciones y atenúa el resto. <b>PATH</b> traza la ruta entre dos nodos, <b>MAP</b> muestra el minimapa y <b>LENS</b> filtra por tipo.</li>
+<li><b>Present</b>: modo presentación a pantalla completa. <b>Dark / Light</b>: cambia el tema. La rueda del ratón o los botones + y − hacen zoom.</li>
+<li><b>Export</b> descarga PNG o SVG en la copia local; en la versión publicada en claude.ai las descargas están bloqueadas.</li>
+</ul>
+<p class="muted">Archify solo traduce su interfaz al inglés y al chino, así que los botones del visor están en inglés; todo el contenido de los diagramas está en español. Las especificaciones están en <code>archify/fuentes/</code>, por si quieres editarlas y regenerar. Archify es software MIT (© 2026 tt-a1i); la licencia está en <code>archify/LICENSE-archify.txt</code>.</p>
+</div></details>
+</section>
+
+<!-- ================= INTEGRACIÓN ================= -->
+<section class="route" id="integracion" data-group="Arquitectura (SAD)" data-title="Modelo de integración" hidden>
+<header><div><div class="eyebrow">SAD cap. 1–10 · diapositivas 13–17</div><h1>Modelo de integración</h1></div></header>
+<p class="lead">Cómo intercambia la PGDR información con IE-010 a IE-018 y con los móviles: qué mecanismo usa cada uno, qué forma tienen los mensajes y qué pasa cuando el otro lado responde tarde, responde mal o no responde.</p>
+
+<h2>Principios (PRI-01 a PRI-06)</h2>
+<div data-table="^PRI-0[1-6]" data-cols="0,1,2,3"></div>
+
+<h2>Estructura del borde de integración (diagrama 1)</h2>
+<figure class="fig"><img src="img/1_estructura_borde_integracion.png" alt="Estructura del borde de integración" loading="lazy"><figcaption>Diagrama 1. Flechas gruesas: camino de la información. Punteadas: lectura de estado y parametrización. Las dependencias de construcción apuntan del borde al núcleo.</figcaption></figure>
+<div class="tbl-wrap"><table><thead><tr><th>Elemento</th><th>Responsabilidad</th><th>Requisitos</th></tr></thead><tbody>
+<tr><td>Conector de transporte</td><td>Habla el protocolo del externo: recibe, consulta o envía. Aplica autenticación, límite de espera y límite de tasa. <b>No interpreta el contenido.</b></td><td>RF-INT-003, RF-INT-016, RF-INT-017</td></tr>
+<tr><td>Adaptador por sistema</td><td>Valida contra el contrato, descarta duplicados, traduce al canónico y resuelve identificadores. <b>Única pieza que conoce el formato externo.</b></td><td>RF-INT-004, RF-INT-007, AC-INT-002</td></tr>
+<tr><td>Cola persistente de entrada</td><td>Desacopla recepción de procesamiento y absorbe picos.</td><td>AC-RES-005, AC-ESC-004</td></tr>
+<tr><td>Bus de eventos de dominio</td><td>Distribuye hechos sin que el productor conozca a los consumidores.</td><td>RF-INT-002, RF-GDE-013</td></tr>
+<tr><td>Bandeja de salida</td><td>Recoge, en la misma transacción que el cambio, lo que debe salir.</td><td>RF-INT-010, AC-RES-009</td></tr>
+<tr><td>Mensajes fallidos</td><td>Conserva lo no procesable con su motivo, reprocesable.</td><td>RF-INT-009</td></tr>
+<tr><td>Caché de última información conocida</td><td>Última respuesta válida por fuente con su marca temporal.</td><td>RF-INT-011, AC-RES-007</td></tr>
+<tr><td>Mapa de identificadores</td><td>Relaciona el ID propio con el de cada sistema fuente.</td><td>RF-GDE-003, RF-GPA-009</td></tr>
+<tr><td>Catálogo de sistemas integrados</td><td>Registro vivo: propietario, mecanismo, formato, credencial, parámetros y salud. Parametriza conectores y adaptadores.</td><td>RF-INT-005, RF-INT-006</td></tr>
+<tr><td>Puerto de dominio</td><td>Interfaz que el núcleo declara y el adaptador implementa.</td><td>AC-INT-003, AC-MOD-005</td></tr>
+</tbody></table></div>
+
+<h2>Los 7 patrones de integración</h2>
+<p>El patrón se elige con <b>dos preguntas</b>: ¿quién inicia el intercambio? y ¿cuánta demora tolera el consumidor?</p>
+<div data-table="^PIN-" data-cols="0,1,2,3,4"></div>
+<figure class="fig"><img src="img/4_mapa_integraciones.png" alt="Mapa de integraciones por patrón" loading="lazy"><figcaption>Diagrama 4. Sistemas externos agrupados por patrón de integración.</figcaption></figure>
+
+<h2>Matriz de integración: elige un sistema</h2>
+<p>Patrón, clase de criticidad, frescura máxima tolerable y comportamiento ante indisponibilidad (SAD cap. 6).</p>
+<div data-intmatrix></div>
+<div class="callout"><b>Dos integraciones merecen nota</b><b>IE-010</b> es la única entrada C1 que la plataforma no inicia. Un mismo fenómeno puede llegar de varias fuentes, así que la deduplicación por clave se complementa con detección por tipo, ventana y proximidad, y el evento nace preliminar. <b>IE-015 e IE-016</b> son C3 pero con la mayor exigencia de trazabilidad: la plataforma es la fuente de verdad de la traza de la decisión presupuestal, aunque el sistema financiero lo sea del saldo, y las discrepancias se muestran en lugar de resolverse en silencio.</div>
+
+<h2>Modelo canónico y sobre de mensaje</h2>
+<p>El modelo canónico es un modelo del dominio y no una serialización del esquema de persistencia. Cubre solo lo necesario para coordinar; lo no traducido queda como bloque opaco. Todo mensaje del borde viaja en un <b>sobre uniforme</b>:</p>
+<div class="tbl-wrap"><table><thead><tr><th>Campo</th><th>Para qué</th></tr></thead><tbody>
+<tr><td>Identificador del mensaje</td><td>Único en la plataforma (RF-INT-008).</td></tr>
+<tr><td>Clave de idempotencia</td><td>Identifica el <b>hecho</b>, no el envío: dos entregas producen un solo efecto (RN-013).</td></tr>
+<tr><td>Identificador de correlación</td><td>Sigue una operación por todos los componentes (AC-OBS-002).</td></tr>
+<tr><td>Sistema de origen</td><td>La integración en el catálogo (RF-INT-006).</td></tr>
+<tr><td>Tipo de mensaje y versión del contrato</td><td>Determina la validación y permite convivencia de versiones.</td></tr>
+<tr><td>Marca temporal de origen y de recepción</td><td>La diferencia es información operativa (RF-MOV-009, IE-004).</td></tr>
+<tr><td>Nivel de confiabilidad de la fuente</td><td>Para consolidar reportes contradictorios (RF-GDE-019).</td></tr>
+<tr><td>Clasificación de sensibilidad</td><td>Activa las reglas de datos personales (AC-SEG-004).</td></tr>
+<tr><td>Prioridad</td><td>Lo crítico antes que lo informativo en las colas (RF-NOT-006).</td></tr>
+<tr><td>Firma o sello de integridad</td><td>Verifica que no se alteró en tránsito.</td></tr>
+<tr><td>Contenido canónico + bloque de origen</td><td>Lo traducido más lo que el adaptador no mapeó.</td></tr>
+</tbody></table></div>
+
+<h3>Recorrido del adaptador de entrada (diagrama 2)</h3>
+<figure class="fig"><img src="img/2_adaptador_entrada.png" alt="Adaptador de entrada" loading="lazy"><figcaption>Diagrama 2. El orden es parte del diseño.</figcaption></figure>
+<div class="flow"><span>¿Autenticado?</span><i>→</i><span>¿Conforme al contrato?</span><i>→</i><span>¿Clave ya procesada?</span><i>→</i><span>Traducción al canónico</span><i>→</i><span>Resolución de identificadores</span><i>→</i><span>¿Válido en el dominio?</span><i>→</i><span>Publicación en el bus</span></div>
+<p><b>Por qué en ese orden</b>: autenticar primero evita trabajar para un emisor no autorizado; la idempotencia evita traducir lo ya procesado; la validación semántica va al final porque necesita el mensaje en el modelo del dominio. Nada se descarta sin rastro: lo rechazado queda con su motivo y es reprocesable.</p>
+
+<h3>Correspondencia de identificadores</h3>
+<p>Un mismo puente puede llegar del sistema de proyectos y del GIS con IDs distintos. La plataforma asigna un ID propio, único e inmutable, y mantiene el mapa: tipo de entidad, sistema e ID de origen, método (declarado, deducido por regla o confirmado por usuario) y trazabilidad para deshacer una unificación. <b>Las correspondencias deducidas nunca se aplican solas sobre datos personales</b>: se presentan como posible duplicado (RF-GPA-009).</p>
+
+<h3>Versionado de contratos</h3>
+<ul>
+<li><b>Versión explícita</b>: ningún consumidor la deduce del contenido.</li>
+<li><b>Cambio compatible</b> (agregar un campo opcional): no cambia la versión mayor, y los consumidores ignoran lo que no conocen.</li>
+<li><b>Cambio incompatible</b> (quitar un campo, volver obligatorio uno opcional, cambiar significados): versión mayor nueva que convive con la anterior.</li>
+<li><b>Periodo de transición</b> con aviso de obsolescencia. <b>Contrato primero</b>: se acuerda antes de implementar el adaptador.</li>
+</ul>
+
+<h2>Salida hacia sistemas externos: bandeja de salida (diagrama 3)</h2>
+<figure class="fig"><img src="img/3_bandeja_de_salida.png" alt="Bandeja de salida transaccional" loading="lazy"><figcaption>Diagrama 3. La operación de negocio y el registro de salida en una sola transacción; el publicador pasa por el interruptor; si está abierto, reencola con espera creciente; un error permanente va a mensajes fallidos.</figcaption></figure>
+<p>Enviar fuera de la transacción puede perder el mensaje si el proceso cae entre escribir y enviar; enviar antes de confirmar puede anunciar algo que se deshace. Reglas: orden <b>por entidad</b> (no global), reintento con espera creciente y variación, clave del hecho en cada envío (si el externo no deduplica, el adaptador consulta antes de escribir y queda como riesgo aceptado), error permanente a mensajes fallidos con alerta, y reconciliación sin duplicados tras el restablecimiento (AC-RCP-006).</p>
+
+<h2>Resiliencia del borde (TAC-01 a TAC-11)</h2>
+<div data-table="^TAC-(0\d|1[01])$" data-cols="0,1,2,3"></div>
+<figure class="fig"><img src="img/5_interruptor_de_circuito.png" alt="Máquina de estados del interruptor de circuito" loading="lazy"><figcaption>Diagrama 5. Cerrado → Abierto (fallas ≥ umbral) → Semiabierto (vence el reposo) → Cerrado (prueba exitosa) o de vuelta a Abierto. El estado alimenta el catálogo de integraciones.</figcaption></figure>
+<div class="btns"><button class="btn" data-open-archify="pgdr-interruptor">&#9656; Ver el interruptor interactivo (Archify)</button></div>
+<div class="callout"><b>El interruptor cumple dos funciones</b>La evidente es dejar de castigar a un sistema en problemas. La importante es que, mientras está abierto, las llamadas fallan de inmediato en lugar de ocupar hilos esperando. Sin eso, un solo externo lento agota la capacidad de la plataforma y convierte una falla ajena en una caída propia.</div>
+
+<h2>Seguridad de las integraciones (CSI-01 a CSI-10)</h2>
+<div data-table="^CSI-(0\d|10)$" data-cols="0,1,2"></div>
+
+<h2>Observabilidad de las integraciones</h2>
+<p>Cada integración publica su estado en lugar de que alguien lo deduzca leyendo registros. Las señales son: disponibilidad, latencia en percentiles, tasa de error por tipo (distingue error del externo de error de contrato) y profundidad de colas cada 60 s; el estado del interruptor cuando cambia; la antigüedad de la caché de forma continua (es lo que muestra la interfaz); y la traza de correlación por operación.</p>
+
+<h2>Escenarios de integración</h2>
+<figure class="fig"><img src="img/6_ingesta_alerta_externa.png" alt="Ingesta de alerta externa" loading="lazy"><figcaption>Diagrama 6. Ingesta de una alerta externa.</figcaption></figure>
+<div class="btns"><button class="btn" data-open-archify="pgdr-ingesta-alerta">&#9656; Ver la ingesta interactiva (Archify)</button></div>
+<div data-seq="ingesta"></div>
+<figure class="fig"><img src="img/7_caida_sistema_externo.png" alt="Caída del sistema externo" loading="lazy"><figcaption>Diagrama 7. Operación degradada durante la caída del hospitalario y reconciliación.</figcaption></figure>
+<div class="btns"><button class="btn" data-open-archify="pgdr-caida-hospitalario">&#9656; Ver la caída interactiva (Archify)</button></div>
+<div data-seq="caida"></div>
+<figure class="fig"><img src="img/8_sincronizacion_campo.png" alt="Sincronización de campo" loading="lazy"><figcaption>Diagrama 8. Sincronización de un lote con detección de conflicto.</figcaption></figure>
+<div class="btns"><button class="btn" data-open-archify="pgdr-sincronizacion">&#9656; Ver la sincronización interactiva (Archify)</button></div>
+<div data-seq="sync"></div>
+<div class="callout warn"><b>Numeración de diagramas</b>El texto del SAD cita los diagramas 5 y 6 para caída y sincronización, pero los archivos los numeran 7 y 8 (OBS-08, RSG-23, severidad baja).</div>
+</section>
+
+<!-- ================= APIS ================= -->
+<section class="route" id="apis" data-group="Arquitectura (SAD)" data-title="APIs y eventos" hidden>
+<header><div><div class="eyebrow">SAD cap. 11–16 · diapositivas 18–22</div><h1>APIs y eventos de dominio</h1></div></header>
+<p class="lead">Los capítulos 1–10 definen cómo entra y sale información. Los capítulos 11–16 definen la otra mitad del contrato: qué operaciones expone la plataforma, quién puede invocarlas, qué publica cuando algo cambia y qué recibe un suscriptor.</p>
+
+<h2>Principios de las interfaces (PRI-07 a PRI-11)</h2>
+<div data-table="^PRI-(0[7-9]|1\d)" data-cols="0,1,2,3"></div>
+
+<h2>Las cinco superficies</h2>
+<p>Cada superficie tiene base de ruta, autenticación y cupo de ejecución propios, y reproduce los compartimentos de la vista de procesos (AC-RES-006).</p>
+<div data-table="^SUP-[A-E]$" data-cols="0,1,2,3,4,5"></div>
+<figure class="fig"><img src="img/9_superficies_api_compartimentos_ejecucion.png" alt="Superficies de API y compartimentos" loading="lazy"><figcaption>Diagrama 9. Consumidores → superficies → compartimentos. SUP-D comparte compartimento con la coordinación, pero con cupo separado.</figcaption></figure>
+
+<h2>Convenciones</h2>
+<div class="grid two">
+ <div class="card"><h4>Versión</h4>Versión mayor en la ruta (<code>/v1/…</code>); un cambio incompatible produce <code>/v2/</code> y ambas conviven. La versión menor va en cabecera (DA-API-10).</div>
+ <div class="card"><h4>Identificador propio</h4>Toda ruta usa el ID de la plataforma, nunca el del sistema fuente.</div>
+ <div class="card"><h4>Sub-recursos para hechos</h4><code>/eventos/{id}/transiciones-estado</code>: cada hecho exige motivo, autor y registro.</div>
+ <div class="card"><h4>Sobre de respuesta</h4>Clave de idempotencia (toda escritura), correlación, versión de contrato, ID de operación, origen y marca de obtención, <b>indicador de degradación</b> y sensibilidad.</div>
+ <div class="card"><h4>Paginación por cursor</h4>No por desplazamiento, cuyo costo crece con la profundidad y rompe los 2 s bajo EO-D. Los filtros no declarados dan ERR-04 y no se ignoran.</div>
+ <div class="card"><h4>Idempotencia en toda escritura</h4>Repetir con el mismo contenido devuelve el resultado original; con contenido distinto, ERR-08 (409). En campo, la clave es el ID del dispositivo.</div>
+</div>
+
+<h3>Modelo de error</h3>
+<p>Un solo formato: código estable, mensaje legible, correlación, campo afectado y versión. Nunca contiene datos personales.</p>
+<div data-table="^ERR-" data-cols="0,1,2,3"></div>
+<div class="callout good"><b>ERR-12 es la traducción visible de DA-INT-12</b>Una fuente externa caída nunca produce un error de API en una operación C1: responde 200 con indicador de degradación y marca de obtención.</div>
+
+<h3>Presupuesto de latencia por clase</h3>
+<div class="tbl-wrap"><table><thead><tr><th>Operación</th><th>Umbral</th><th>Origen</th></tr></thead><tbody>
+<tr><td>Lectura C1 (eventos, evaluaciones, recursos, tareas)</td><td>2 s p95</td><td>AC-REN-001</td></tr>
+<tr><td>Escritura C1 (registro de evento)</td><td>3 s p95</td><td>AC-REN-002</td></tr>
+<tr><td>Consulta espacial</td><td>3 s p95 hasta 50 divisiones</td><td>AC-REN-006</td></tr>
+<tr><td>Ingesta externa hasta notificación</td><td>30 s p95</td><td>AC-REN-004</td></tr>
+<tr><td>Alerta crítica hasta el servicio externo</td><td>5 s p95</td><td>AC-REN-003</td></tr>
+<tr><td>Lote de 50 evaluaciones a 1 Mbps</td><td>5 min</td><td>AC-REN-005</td></tr>
+<tr><td>Frescura de tablero</td><td>30 s desde el hecho</td><td>RF-VIS-009</td></tr>
+</tbody></table></div>
+
+<h2>Catálogo de las 13 APIs</h2>
+<p>Filtra por API, verbo o texto. Ojo con las operaciones con segundo factor: asignaciones y cambios de presupuesto.</p>
+<div data-apis></div>
+<div class="grid two">
+ <div class="card"><h4>API-04 separada de API-03</h4>Ambas escriben evaluaciones, pero la ingesta masiva de EO-D tiene receptor, cola y cupo propios (AC-RES-006).</div>
+ <div class="card"><h4>API-11: la auditoría no tiene DELETE</h4>RF-AUD-004 exige que nadie pueda alterar un registro, ni siquiera el administrador; la forma de garantizarlo es que la operación no exista. La gestión de usuarios y roles es C1 aunque el resto de SUP-D sea C3: revocar durante una emergencia no puede depender de una función diferible.</div>
+ <div class="card"><h4>API-12: la ruta es el ID del catálogo</h4><code>/ingesta/v1/{integracion}/mensajes</code>: una integración nueva se da de alta en el catálogo y obtiene su ruta sin tocar el negocio (AC-INT-002).</div>
+ <div class="card"><h4>API-08: creación masiva asíncrona</h4>EO-E crea 42 proyectos en una operación; una respuesta síncrona ataría al cliente al volumen (PRI-11).</div>
+</div>
+
+<h2>Eventos de dominio</h2>
+<p>Un evento es la notificación de un hecho <b>ya ocurrido</b>. Nombre con formato <code>modulo.entidad.hecho.vN</code>, ID propio de la entidad, momento del hecho (distinto del de publicación), actor y organismo, estados anterior y nuevo, visibilidad (interna o externa) y sensibilidad.</p>
+<div data-table="^EVT-" data-cols="0,1,2,3,4,6"></div>
+<h3>Reglas de publicación</h3>
+<ul>
+<li><b>Publicación transaccional</b>: el cambio y el evento en la misma transacción, también para eventos internos (DA-API-04).</li>
+<li><b>Al menos una vez</b>: todo consumidor es seguro de reejecutar.</li>
+<li><b>Orden por entidad</b>, no global.</li>
+<li><b>Consistencia final acotada</b> a 30 s hasta los tableros.</li>
+<li><b>Sin datos personales en la carga</b>: referencia y clasificación; el contenido se obtiene por la API (DA-API-06).</li>
+<li><b>Retención</b> de 7 días en el bus, alineada con TAC-05.</li>
+</ul>
+<figure class="fig"><img src="img/10_recorrido_operacion_escritura.png" alt="Recorrido de una operación de escritura" loading="lazy"><figcaption>Diagrama 10. Recorrido de una operación de escritura hasta sus consumidores.</figcaption></figure>
+<div class="btns"><button class="btn" data-open-archify="pgdr-escritura">&#9656; Ver la escritura interactiva (Archify)</button></div>
+<div data-seq="escritura"></div>
+
+<h3>Matriz de operación, evento y efecto externo</h3>
+<div class="tbl-wrap"><table><thead><tr><th>Operación</th><th>Evento</th><th>Efecto externo</th><th>Escenario</th></tr></thead><tbody>
+<tr><td>POST /ingesta/v1/IE-010/mensajes</td><td>EVT-01</td><td>Notificación por IE-017 en menos de 30 s</td><td>EO-A</td></tr>
+<tr><td>POST /v1/eventos/{id}/clasificaciones</td><td>EVT-04</td><td>IE-017 y suscriptores ACT-13</td><td>EO-A</td></tr>
+<tr><td>POST /campo/v1/lotes</td><td>EVT-08, EVT-12</td><td>Consolidado de daños y ACT-13</td><td>EO-D</td></tr>
+<tr><td>POST /v1/evaluaciones/{id}/validacion</td><td>EVT-09</td><td>Habilita proyectos y derivación de recursos</td><td>EO-D, EO-E</td></tr>
+<tr><td>POST /v1/asignaciones</td><td>EVT-16</td><td>Salida a IE-013 por bandeja</td><td>EO-C</td></tr>
+<tr><td>POST /v1/proyectos</td><td>EVT-24</td><td>Salida a IE-015 e IE-016</td><td>EO-E</td></tr>
+<tr><td>POST /v1/proyectos/{id}/cambios-presupuesto</td><td>EVT-26</td><td>IE-015 y traza inmutable</td><td>EO-E</td></tr>
+<tr><td>GET /v1/recursos con IE-013 caído</td><td>—</td><td>Respuesta degradada desde caché</td><td>EO-C</td></tr>
+<tr><td>Cualquier lectura pública</td><td>—</td><td>Desde la proyección, sin tocar el almacén</td><td>EO-B</td></tr>
+</tbody></table></div>
+
+<h2>Contratos y seguridad de las interfaces</h2>
+<p><b>Registro de contratos</b>: componente vivo que publica la versión vigente, las versiones en transición y la obsolescencia de cada interfaz y evento (<code>GET /suscripciones/v1/contratos</code>). Una versión mayor cubre una superficie completa. La versión de API y la de evento evolucionan por separado. Hay prueba de conformidad antes de operar.</p>
+<div data-table="^CSI-1[1-7]$" data-cols="0,1,2"></div>
+</section>
+
+<!-- ================= DECISIONES ================= -->
+<section class="route" id="decisiones" data-group="Arquitectura (SAD)" data-title="Decisiones" hidden>
+<header><div><div class="eyebrow">SAD cap. 17 · diapositiva 23</div><h1>Decisiones arquitectónicas</h1></div></header>
+<p class="lead">35 decisiones: 12 de integración (DA-INT), 10 de interfaces (DA-API) y 13 transversales (DA-ARQ). Por RST-008, todas citan atributos del SRS.</p>
+<div class="callout"><b>Formato de cada decisión</b>Identificador, estado (Propuesta, Aceptada, Reemplazada o Descartada), contexto (la fuerza que obliga a decidir), decisión verificable, <b>alternativas descartadas con motivo</b>, <b>consecuencias: lo que se gana y el costo aceptado</b>, atributos y verificación. "Una decisión sin costo declarado vuelve a revisión, porque casi siempre significa que el costo no se analizó." Las decisiones aceptadas son inmutables: si cambian, se registra una nueva que reemplaza la anterior.</div>
+
+<h2>Mapa por atributo de calidad</h2>
+<p>Elige un atributo para ver qué decisiones lo sostienen. Sirve para evaluar el impacto de un cambio.</p>
+<div data-attrmap></div>
+
+<h2>Decisiones transversales (DA-ARQ-01 a 13)</h2>
+<div class="tbl-wrap"><table><thead><tr><th>ID</th><th>En una línea</th></tr></thead><tbody>
+<tr><td>DA-ARQ-01</td><td>Un componente desplegable por módulo de dominio (14), con puertos y adaptadores internos.</td></tr>
+<tr><td>DA-ARQ-02</td><td>Cada módulo es dueño exclusivo de sus datos.</td></tr>
+<tr><td>DA-ARQ-03</td><td>Separación entre escritura y vistas de lectura (proyecciones).</td></tr>
+<tr><td>DA-ARQ-04</td><td>Cinco compartimentos de ejecución alineados con la criticidad.</td></tr>
+<tr><td>DA-ARQ-05</td><td>Comportamiento del dominio configurable en tiempo de ejecución.</td></tr>
+<tr><td>DA-ARQ-06</td><td>Persistencia por versiones y auditoría de solo agregación encadenada y sellada.</td></tr>
+<tr><td>DA-ARQ-07</td><td>Tres zonas activas más región secundaria en espera.</td></tr>
+<tr><td>DA-ARQ-08</td><td>Identidad federada con intermediario propio y credenciales de vida corta.</td></tr>
+<tr><td>DA-ARQ-09</td><td>Comunicación interna autenticada y cifrada, sin confianza por ubicación de red.</td></tr>
+<tr><td>DA-ARQ-10</td><td>Evidencias en almacenamiento de objetos separado, con carga reanudable.</td></tr>
+<tr><td>DA-ARQ-11</td><td>Escalado horizontal sin estado con capacidad base reservada.</td></tr>
+<tr><td>DA-ARQ-12</td><td>Despliegue progresivo con reversión automática.</td></tr>
+<tr><td>DA-ARQ-13</td><td>Observabilidad obligatoria en todo componente.</td></tr>
+</tbody></table></div>
+<p>Fichas completas, con contexto, alternativa descartada, costo y verificación:</p>
+<div data-fichas="DA-ARQ"></div>
+
+<h2>Decisiones del modelo de integración (DA-INT)</h2>
+<div data-table="^DA-INT-" data-cols="0,1,2,3,4"></div>
+<h2>Decisiones del diseño de interfaces (DA-API)</h2>
+<div data-table="^DA-API-" data-cols="0,1,2,3,4"></div>
+</section>
+
+<!-- ================= SEGURIDAD ================= -->
+<section class="route" id="seguridad" data-group="Arquitectura (SAD)" data-title="Estrategia de seguridad" hidden>
+<header><div><div class="eyebrow">SAD cap. 18 · diapositiva 24</div><h1>Estrategia de seguridad</h1></div></header>
+<p class="lead">La particularidad que condiciona todo: los usuarios necesitan la plataforma con más urgencia justo cuando el entorno es más hostil, con comunicaciones degradadas y personal de otros organismos que llega a última hora. <b>Un control que bloquea sin alternativa en ese momento termina desactivado.</b> Por eso cada control tiene una salida auditada, salvo los que protegen la integridad de la auditoría.</p>
+
+<h2>Activos y qué se protege de cada uno</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Activo</th><th>Propiedad prioritaria</th><th>Por qué</th></tr></thead><tbody>
+<tr><td>Datos personales de afectados</td><td>Confidencialidad</td><td>Población vulnerable; datos de salud de IE-012; Ley 1581 de 2012.</td></tr>
+<tr><td>Registro de auditoría</td><td>Integridad</td><td>Rendición de cuentas; su valor desaparece si se puede alterar.</td></tr>
+<tr><td>Capacidad de coordinación C1</td><td>Disponibilidad</td><td>Sin ella los organismos coordinan a ciegas.</td></tr>
+<tr><td>Evaluaciones validadas y evidencias</td><td>Integridad</td><td>Base de las asignaciones y los proyectos (RN-008).</td></tr>
+<tr><td>Alertas emitidas</td><td>Integridad y autenticidad</td><td>Una alerta falsa moviliza organismos y población.</td></tr>
+<tr><td>Configuración y catálogos</td><td>Integridad</td><td>Un cambio malicioso altera flujos sin tocar código.</td></tr>
+<tr><td>Credenciales de integración y de servicio</td><td>Confidencialidad</td><td>Dan acceso a terceros y entre componentes.</td></tr>
+</tbody></table></div>
+
+<h2>Principios (PSE)</h2>
+<div data-table="^PSE-" data-cols="0,1,2,3"></div>
+
+<h2>Modelo de amenazas</h2>
+<p>Se identificaron recorriendo EO-A a EO-E y preguntando en cada paso qué pasaría si interviniera un actor malintencionado o un error humano.</p>
+<div data-table="^AME-" data-cols="0,1,2,3"></div>
+
+<h2>Zonas de confianza (Z0 a Z5)</h2>
+<figure class="fig"><img src="img/11_zonas_confianza_controles_acceso.png" alt="Zonas de confianza" loading="lazy"><figcaption>Diagrama 9 del SAD. Cruzar de zona exige autenticación siempre; la segmentación de red acompaña pero no sustituye (PSE-02).</figcaption></figure>
+<div class="tbl-wrap"><table><thead><tr><th>Zona</th><th>Contenido</th><th>Control de paso</th></tr></thead><tbody>
+<tr><td>Z0 Red pública</td><td>Usuarios, dispositivos, ciudadanía, externos</td><td>Ninguno: todo se trata como no confiable.</td></tr>
+<tr><td>Z1 Borde de exposición</td><td>Terminación cifrada, filtrado, las 5 superficies</td><td>Cifrado, límite por origen (CSI-29), permiso por operación (CSI-11). SUP-C admite lectura anónima.</td></tr>
+<tr><td>Z2 Servicios</td><td>Compartimentos e intermediario de identidad</td><td>Identidad de servicio con autenticación mutua (CSI-18).</td></tr>
+<tr><td>Z3 Datos</td><td>Almacenes, bus, evidencias, custodia de claves</td><td>Identidad de servicio, cifrado en reposo y por campo (CSI-20).</td></tr>
+<tr><td>Z4 Administración</td><td>Operación, despliegue, diagnóstico</td><td>Segundo factor, sesión registrada, acceso a Z2 solo por excepción auditada.</td></tr>
+<tr><td>Z5 Auditoría y respaldo</td><td>Registro de auditoría y copias inmutables</td><td>Nadie, ni Z4, puede borrar o modificar (CSI-25).</td></tr>
+</tbody></table></div>
+
+<h2>Identidad, autenticación y autorización</h2>
+<p>Hay siete tipos de identidad, cada una con su mecanismo y su forma de revocarse: usuario federado (intermediario más segundo factor en operaciones críticas), usuario local (para organismos sin proveedor, SUP-002), ciudadano (no se autentica; solo SUP-C), dispositivo de campo (credencial vinculada al usuario, con borrado remoto), sistema externo (credencial propia, menos de 60 s para revocar), componente interno (identidad de servicio con rotación automática) y operador de plataforma (cuenta nominal con segundo factor).</p>
+<p><b>Autorización en dos niveles</b>: en la superficie (cada operación declara su permiso y se rechaza antes del dominio) y en el dominio (alcance por organismo derivado de la identidad). Ninguno sustituye al otro. <b>Separación de funciones</b>: quien solicita un cambio de presupuesto sobre el umbral no lo aprueba; el administrador de usuarios no lee datos personales ni toca la auditoría; el auditor solo lee; el operador de plataforma no tiene permisos de negocio.</p>
+
+<h2>Protección de los datos: 5 niveles</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Nivel</th><th>Ejemplos</th><th>Tratamiento</th></tr></thead><tbody>
+<tr><td>Pública</td><td>Agregados de SUP-C</td><td>Sin IDs internos reutilizables, con umbral mínimo de agregación (CSI-23).</td></tr>
+<tr><td>Interna</td><td>Eventos, tareas, recursos, evaluaciones</td><td>Autenticación, permiso y alcance por organismo.</td></tr>
+<tr><td>Restringida por organismo</td><td>Lo que un organismo marca como privado</td><td>Solo el dueño y quienes tengan compartición explícita.</td></tr>
+<tr><td>Personal</td><td>Identificación y contacto</td><td>Cifrado por campo, enmascaramiento, revelación auditada (CSI-14), cuota (CSI-28).</td></tr>
+<tr><td>Personal sensible</td><td>Salud, menores, vulnerabilidad</td><td>Lo anterior más roles con finalidad declarada y exclusión de exportaciones.</td></tr>
+</tbody></table></div>
+<p>El cifrado por campo usa claves distintas a las del almacén: quien obtenga una copia del almacén o de un respaldo no puede leer datos personales sin la custodia de claves. La recuperación de claves forma parte del plan de recuperación, porque un respaldo cuya clave se perdió es inservible. La supresión se hace por <b>borrado criptográfico</b> (CSI-22), pendiente de validación jurídica.</p>
+
+<div class="btns"><button class="btn" data-open-archify="pgdr-datos">&#9656; Ver el flujo de datos personales y traza (Archify)</button></div>
+<h2>Integridad, dispositivo e incidentes</h2>
+<ul>
+<li><b>Integridad</b>: auditoría encadenada y sellada; resumen de cada evidencia calculado en el dispositivo y verificado en el servidor; alertas firmadas cuando el canal lo permite; cambios de flujo o niveles aprobados por una segunda persona (decisión derivada).</li>
+<li><b>Dispositivo de campo</b>: es el único componente fuera de toda zona controlada. Tiene almacenamiento cifrado, desbloqueo aunque no haya red, vinculación al usuario, caducidad local (bloquea la consulta de datos personales pero permite capturar), revocación con borrado remoto y minimización. El SRS no le asignó requisitos propios (OBS-14).</li>
+<li><b>Incidentes</b>: eventos de seguridad en un almacén separado; anomalías detectadas en menos de 15 min; severidades crítica, alta y media; reporte a la Superintendencia de Industria y Comercio cuando se comprometen datos personales (CSI-33).</li>
+<li><b>Desarrollo seguro</b>: análisis estático y de dependencias, artefactos firmados, inventario de componentes y secretos fuera del código; vulnerabilidades altas corregidas en 15 días (AC-SEG-005).</li>
+</ul>
+
+<h2>Controles de la plataforma (CSI-18 a CSI-33)</h2>
+<div data-table="^CSI-(1[89]|2\d|3\d)$" data-cols="0,1,2"></div>
+</section>
+
+<!-- ================= RESILIENCIA ================= -->
+<section class="route" id="resiliencia" data-group="Arquitectura (SAD)" data-title="Resiliencia y recuperación" hidden>
+<header><div><div class="eyebrow">SAD cap. 19 · diapositiva 25</div><h1>Resiliencia y recuperación</h1></div></header>
+<p class="lead">Dos preguntas que suelen mezclarse. <b>Resiliencia</b>: ¿cómo sigue operando la plataforma mientras algo falla? <b>Recuperación</b>: ¿cómo vuelve a la normalidad y qué información rescata después?</p>
+
+<h2>Objetivos</h2>
+<div class="stats">
+ <div class="stat"><b>99,95 %</b><span>C1 mensual (AC-DIS-001)</span></div>
+ <div class="stat"><b>99,5 %</b><span>C2 mensual (AC-DIS-002)</span></div>
+ <div class="stat"><b>&lt; 2 min</b><span>recuperación automática de instancias</span></div>
+ <div class="stat"><b>≥ 50 %</b><span>capacidad C1 al perder una zona</span></div>
+ <div class="stat"><b>30 min</b><span>RTO ante falla grave</span></div>
+ <div class="stat"><b>1 min</b><span>RPO: eventos, evaluaciones, recursos, auditoría</span></div>
+</div>
+<div class="callout warn"><b>Leer estas dos cifras juntas</b>El 99,95 % deja menos de 22 minutos al mes, y una conmutación regional puede tardar 30. Una sola falla regional agota el presupuesto del mes. De ahí se sigue que las fallas ordinarias (instancia, componente, zona) deben resolverse sin interrupción visible y de forma automática, y que la conmutación regional queda reservada a la catástrofe (RSG-07).</div>
+
+<h2>Modelo de fallas (MF-01 a MF-13)</h2>
+<div data-table="^MF-" data-cols="0,1,2,3,4"></div>
+
+<h2>Tácticas de la plataforma (TAC-12 a TAC-22)</h2>
+<div data-table="^TAC-(1[2-9]|2\d)$" data-cols="0,1,2,3"></div>
+<div class="callout"><b>TAC-18, confirmación local, merece la nota</b>Es lo que impide que una falla del bus, del proyector o de un consumidor se vuelva una falla de la coordinación: el usuario recibe confirmación en cuanto su dato está a salvo y la propagación ocurre después. Es la lógica de la bandeja de salida aplicada a la comunicación interna.</div>
+
+<h2>Topología de continuidad (DA-ARQ-07)</h2>
+<figure class="fig"><img src="img/12_topologia_continuidad_regiones.png" alt="Topología de continuidad" loading="lazy"><figcaption>Región principal activa en tres zonas con réplica síncrona por mayoría; región secundaria en espera con réplica asíncrona de menos de 1 min, registro de transacciones para recuperar a un punto en el tiempo y copias inmutables aisladas. El punto de entrada global es lo único que cambia de destino al conmutar; el monitoreo externo vigila ambas regiones desde fuera.</figcaption></figure>
+<div class="grid two">
+ <div class="card"><h4>¿Por qué 3 zonas?</h4>Con dos, perder una deja justo el 50 %, en el límite de AC-DIS-006, y la réplica por mayoría no funciona con dos participantes.</div>
+ <div class="card"><h4>¿Por qué no dos regiones activas?</h4>Obligaría a resolver escrituras concurrentes sobre recursos, donde RN-009 prohíbe asignar dos veces, y sobre la cadena de auditoría, que no admite dos ramas.</div>
+ <div class="card"><h4>¿Por qué no una región con respaldos?</h4>No alcanza los 30 minutos ante la pérdida de la región.</div>
+ <div class="card"><h4>Costo aceptado</h4>Una región secundaria casi ociosa y hasta un minuto de datos perdidos al conmutar (se recupera en 19.7). Conmutar entre zonas es automático; entre regiones, una decisión humana.</div>
+</div>
+
+<h2>Réplica frente a respaldo</h2>
+<p>La réplica protege frente a la pérdida de infraestructura, pero copia igual de rápido un borrado accidental o un cifrado malicioso. El respaldo conserva estados anteriores. La estrategia combina: réplica síncrona entre zonas; réplica asíncrona regional; registro continuo de transacciones con ventana de 35 días; respaldo completo diario; copia inmutable semanal aislada de las credenciales operativas; copia de la auditoría con sus sellos (5 años); evidencias replicadas entre regiones con versionado; configuración exportada en cada cambio; y réplica de la custodia de claves. <b>Un respaldo que nunca se restauró se considera no verificado</b>: la restauración se prueba al menos cada semestre (AC-RCP-004).</p>
+
+<h2>Niveles de contingencia (N1 a N4)</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Nivel</th><th>Situación</th><th>Quién decide</th><th>Objetivo</th></tr></thead><tbody>
+<tr><td>N1</td><td>Falla de instancia o componente</td><td>Nadie: automático</td><td>Menos de 2 min</td></tr>
+<tr><td>N2</td><td>Pérdida de una zona</td><td>Automático; operación confirma</td><td>C1 sin interrupción</td></tr>
+<tr><td>N3</td><td>Pérdida de la región principal</td><td>Responsable de continuidad</td><td>RTO 30 min, RPO 1 min</td></tr>
+<tr><td>N4</td><td>Corrupción extensa o ataque</td><td>Continuidad + seguridad</td><td>Definido por la organización (OBS-10)</td></tr>
+</tbody></table></div>
+<p>N3 se declara cuando la región no responde al monitoreo externo durante 5 minutos (valor de referencia) y operación no puede comprometer la recuperación dentro del RTO. <b>Si la región vuelve a mitad de la conmutación, la conmutación continúa</b>, porque revertirla dejaría a la plataforma sin ninguna región confiable.</p>
+
+<h3>Secuencia de restablecimiento N3: reprodúcela</h3>
+<figure class="fig"><img src="img/13_restablecimiento_funciones_c1.png" alt="Secuencia de restablecimiento" loading="lazy"><figcaption>Diagrama 11. Orden por dependencia real, no por importancia funcional.</figcaption></figure>
+<div data-sim="n3"></div>
+<p>Roles: responsable de continuidad (declara N3 y N4), de operación (ejecuta y confirma N2), de seguridad (N4 y evidencia), de datos (valida lo restaurado y dirige la reconciliación) y enlace con organismos. El retorno a la región principal es planificado, fuera de una emergencia y en orden inverso.</p>
+
+<h2>Reconciliación posterior</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Fuente</th><th>Qué se recupera</th></tr></thead><tbody>
+<tr><td>Bandejas de salida</td><td>Se reenvía lo pendiente con su clave de idempotencia (AC-RCP-006).</td></tr>
+<tr><td>Dispositivos de campo</td><td>Conservan lo confirmado durante 24 h; reenvían lo posterior a la última marca replicada. RN-013 evita duplicados.</td></tr>
+<tr><td>Sistemas por sondeo</td><td>Retoman desde su marca de agua, que retrocede hasta la última replicada.</td></tr>
+<tr><td>Sistemas por empuje</td><td>Lo del último minuto se puede perder si el emisor no reintenta; se pide reenvío y el resto queda como riesgo residual.</td></tr>
+<tr><td>Auditoría</td><td>Se verifica la cadena; si falta un tramo, se agrega un registro de discontinuidad que lo declara, en lugar de dejar un salto sin explicar.</td></tr>
+<tr><td>Proyecciones</td><td>Se reconstruyen (TAC-20).</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ================= ESCALABILIDAD ================= -->
+<section class="route" id="escalabilidad" data-group="Arquitectura (SAD)" data-title="Escalabilidad" hidden>
+<header><div><div class="eyebrow">SAD cap. 20 · diapositiva 25</div><h1>Estrategia de escalabilidad</h1></div></header>
+<p class="lead">La PGDR pasa de la calma a la emergencia en minutos, y la carga no crece de forma uniforme: primero se dispara la consulta ciudadana, luego la ingesta de campo y semanas después la reconstrucción. Escalar la plataforma entera para cada pico sería caro e inútil.</p>
+
+<h2>Perfiles de carga</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Perfil</th><th>Referencia</th><th>Origen</th></tr></thead><tbody>
+<tr><td>Operación normal</td><td>1.000 usuarios concurrentes</td><td>AC-ESC-001</td></tr>
+<tr><td>Emergencia</td><td>10.000 o más, alcanzados en minutos</td><td>AC-ESC-001, RST-004</td></tr>
+<tr><td>Ingesta de campo</td><td>500 reportes/min con evidencias, coordinación degradada ≤ 10 %</td><td>AC-ESC-004</td></tr>
+<tr><td>Consulta pública</td><td>Hasta 10 veces la demanda operativa, sin afectar C1</td><td>AC-ESC-005</td></tr>
+<tr><td>Alerta masiva</td><td>Entrega al servicio externo en menos de 5 s</td><td>AC-REN-003</td></tr>
+<tr><td>Almacenamiento</td><td>10 veces el volumen del primer año sin rediseño</td><td>AC-ESC-006</td></tr>
+</tbody></table></div>
+
+<h2>Principios (PES)</h2>
+<div data-table="^PES-" data-cols="0,1,2,3"></div>
+
+<h2>Dimensiones de escalado por componente</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Componente</th><th>Cómo escala</th><th>Señal</th></tr></thead><tbody>
+<tr><td>Coordinación (SUP-A, SUP-D)</td><td>Instancias horizontales</td><td>Latencia p95 frente al presupuesto; saturación</td></tr>
+<tr><td>Ingesta de campo (SUP-B)</td><td>Instancias + cola entre recepción y conciliación</td><td>Profundidad y edad del mensaje más antiguo</td></tr>
+<tr><td>Evidencias</td><td>Trabajadores sobre cola; almacenamiento elástico con carga directa</td><td>Profundidad de cola; volumen</td></tr>
+<tr><td>Consulta pública (SUP-C)</td><td>Caché en el borde y réplicas de la proyección</td><td>Tasa de peticiones y aciertos de caché</td></tr>
+<tr><td>Bus de eventos</td><td>Particiones por ID de entidad (se sobredimensionan desde el inicio)</td><td>Retraso de los consumidores</td></tr>
+<tr><td>Proyector</td><td>Un consumidor por partición</td><td>Retraso frente a 30 s</td></tr>
+<tr><td>Motor de alertas</td><td>Trabajadores por canal y cola prioritaria</td><td>Profundidad de la cola crítica</td></tr>
+<tr><td>Adaptadores</td><td>Instancias por adaptador con cupo propio</td><td>Profundidad por integración</td></tr>
+<tr><td>Almacenes operacionales</td><td>Separación por módulo, réplicas de lectura, partición por evento y fecha</td><td>Saturación de escritura y conexiones</td></tr>
+<tr><td>Auditoría</td><td>Solo agregación con partición temporal</td><td>Latencia de escritura</td></tr>
+<tr><td>Procesamiento diferido</td><td>Trabajadores de baja prioridad, pausables</td><td>Se pausa en ND-1 y superiores</td></tr>
+</tbody></table></div>
+<div class="callout"><b>El almacén primario se protege, no se escala</b>Es lo único que no escala horizontalmente sin esfuerzo. Por eso las lecturas masivas van a proyecciones, las evidencias a su propio almacenamiento y lo pesado al procesamiento diferido. Al primario solo llegan escrituras C1 y lecturas de detalle. Si aun así se acerca a su límite, se particiona por evento de desastre.</div>
+
+<h2>Elasticidad</h2>
+<figure class="fig"><img src="img/14_escalado_capacidad_control_admision.png" alt="Escalado y control de admisión" loading="lazy"><figcaption>Diagrama 12. Eventos de dominio → pre-escalado; métricas → escalado reactivo; si la saturación persiste o se alcanza el límite, control de admisión (primero C3, luego C2; C1 se preserva).</figcaption></figure>
+<div class="grid">
+ <div class="card"><h4>Capacidad base</h4>Siempre activa, para atender el doble de la carga normal sin escalar. Absorbe el golpe mientras escala y permite cumplir el 20 % de AC-REN-007.</div>
+ <div class="card"><h4>Escalado reactivo</h4>Por latencia p95, profundidad y edad de colas y conexiones, no solo CPU, porque un componente que espera a un almacén lento puede estar saturado con el procesador ocioso. Sube rápido y baja despacio, con 15 min de enfriamiento.</div>
+ <div class="card"><h4>Pre-escalado por eventos</h4>La plataforma sabe antes que nadie cuándo llega la carga, porque ella registra el sismo. EVT-01, EVT-02 y EVT-04 escalan la consulta pública, las alertas y la coordinación; EVT-19 anticipa la ingesta de campo. Respeta el límite del catálogo.</div>
+</div>
+
+<h2>Control de admisión: pruébalo</h2>
+<div data-sim="degradacion"></div>
+
+<h2>Escalabilidad de los datos</h2>
+<ul>
+<li><b>Evidencias</b> en dos niveles: acceso inmediato para eventos activos; menor costo tras el cierre (EVT-05), conservando la referencia y el resumen. Así se absorbe el crecimiento de 10 veces con política, sin tocar el negocio.</li>
+<li><b>Almacenes</b> particionados por evento y fecha; versiones históricas separadas de la vigente; índices espaciales en GEO (AC-REN-006).</li>
+<li><b>Auditoría</b> particionada por periodo e indexada por evento, lo que permite el histórico de 100.000 registros en menos de 10 s (AC-TRZ-003).</li>
+<li><b>Bus y proyecciones</b>: el bus retiene 7 días; las proyecciones son derivadas y no se respaldan con la misma exigencia.</li>
+</ul>
+
+<h2>Modelo de capacidad (incompleto a propósito)</h2>
+<p>El SRS fija cargas pero no los datos para traducirlas a capacidad (OBS-13). 500 reportes por minuto son unos 8 por segundo sostenidos; se dimensiona para ráfagas de tres veces porque los equipos sincronizan juntos al volver a la base. Faltan cuatro datos: fotos por reporte, tamaño tras compresión, canales por organismo y factor de ráfaga. Juega con la calculadora:</p>
+<div data-sim="capacidad"></div>
+</section>
+
+<!-- ================= ATAM ================= -->
+<section class="route" id="atam" data-group="Validación" data-title="ATAM" hidden>
+<header><div><div class="eyebrow">ATAM-PGDR-001 v1.0 · diapositivas 26–31</div><h1>Evaluación ATAM</h1></div></header>
+<p class="lead">Architecture Tradeoff Analysis Method. Responde tres preguntas: ¿las decisiones alcanzan los umbrales del SRS?, ¿dónde dependen de un valor concreto? y ¿qué se gana y qué se pierde en cada decisión? <b>No produce una nota, produce un mapa.</b></p>
+<div class="callout warn"><b>Alcance honesto</b>Se aplica sobre documentación, sin implementación ni mediciones. Ningún riesgo afirma que un umbral se incumple: afirma que no hay evidencia suficiente para sostener que se cumple, o que depende de un supuesto no confirmado. Quedan fuera el código, los costos y la valoración jurídica.</div>
+
+<h2>Los 9 pasos</h2>
+<div class="tbl-wrap"><table><thead><tr><th>#</th><th>Paso</th><th>Resultado</th></tr></thead><tbody>
+<tr><td>1</td><td>Presentar el método</td><td>Cap. 2</td></tr>
+<tr><td>2</td><td>Controladores del negocio</td><td>Cap. 3: 7 objetivos de negocio</td></tr>
+<tr><td>3</td><td>Presentar la arquitectura</td><td>Cap. 4</td></tr>
+<tr><td>4</td><td>Identificar enfoques</td><td>EA-01 a EA-16</td></tr>
+<tr><td>5</td><td>Árbol de utilidad</td><td>26 escenarios con (I, D)</td></tr>
+<tr><td>6</td><td>Analizar enfoques</td><td>Fichas (A, A) y (A, M)</td></tr>
+<tr><td>7</td><td>Lluvia de ideas con interesados</td><td><b>Simulado</b>: sin sesión real, derivado de SUP-001 a SUP-008. Se declara como limitación.</td></tr>
+<tr><td>8</td><td>Reanalizar</td><td>ESC-21 a ESC-26</td></tr>
+<tr><td>9</td><td>Presentar resultados</td><td>Cap. 9–12</td></tr>
+</tbody></table></div>
+
+<h2>Controladores del negocio</h2>
+<p>Criterio de juicio: <b>la arquitectura acierta si mantiene la coordinación viva cuando el entorno se degrada y si incorporar un sistema o un tipo de evento nuevo no obliga a rehacer el núcleo.</b></p>
+<div class="grid">
+ <div class="card"><b>Coordinar sin reemplazar</b><br><span class="muted">RST-001, AC-INT-*</span></div>
+ <div class="card"><b>Sobrevivir al momento de mayor demanda</b><br><span class="muted">AC-DIS-001, AC-ESC-001</span></div>
+ <div class="card"><b>Operar con el exterior caído</b><br><span class="muted">AC-DIS-004, EO-C</span></div>
+ <div class="card"><b>Registrar todo lo que se decide</b><br><span class="muted">AC-TRZ-*, RN-007</span></div>
+ <div class="card"><b>Proteger a las personas afectadas</b><br><span class="muted">AC-SEG-004, RST-012</span></div>
+ <div class="card"><b>Adaptarse sin rehacer</b><br><span class="muted">AC-MOD-*</span></div>
+ <div class="card"><b>Llegar hasta la reconstrucción</b><br><span class="muted">RF-REC-*, EO-E</span></div>
+</div>
+<p>Tres restricciones condicionan la evaluación: RST-009 (sin tecnología, así que los valores de referencia se tratan como parámetros a validar), RST-008 (toda decisión justificada) y RST-011 frente a RST-012, que tiran en sentidos opuestos en el dispositivo móvil.</p>
+
+<h2>Enfoques arquitectónicos (EA-01 a EA-16)</h2>
+<p>Se identificaron leyendo el capítulo 17 del SAD al revés: partiendo de la forma repetida que comparten varias decisiones.</p>
+<div data-table="^EA-" data-cols="0,1,2,3"></div>
+<h3>Tres encadenamientos que explican las respuestas</h3>
+<div class="grid">
+ <div class="card"><h4>Continuidad frente al exterior</h4>EA-01 (el núcleo no conoce al externo) + EA-08 (se acota la mala respuesta) + EA-09 (qué se muestra mientras tanto). Si falta uno, la caída del hospital llega a la sala de crisis.</div>
+ <div class="card"><h4>Escalabilidad diferencial</h4>EA-07 (compartimentos) + EA-14 (crecer solo lo presionado) + EA-06 (sacar las lecturas del camino). Sin compartimentos, escalar lo público consumiría la coordinación.</div>
+ <div class="card"><h4>Integridad de lo confirmado</h4>EA-05 (hecho y propagación juntos) + EA-12 (sobrevive a la pérdida de zona) + EA-11 (queda registro de quién). Todo para reconstruir después lo decidido.</div>
+</div>
+
+<h2>Árbol de utilidad</h2>
+<p>Pares (importancia, dificultad). <b>A</b> importancia: afecta C1. <b>A</b> dificultad: depende de varias decisiones o de supuestos externos. Se analizan en detalle los (A, A) y (A, M). Toca un escenario:</p>
+<div data-utiltree></div>
+
+<h2>Fichas de análisis</h2>
+<p>Formato de seis partes más enfoques, razonamiento, riesgos, no riesgos, sensibilidad, compromisos y verificación.</p>
+<div data-fichas="ESC"></div>
+
+<h2>Resultados</h2>
+<div class="stats">
+ <div class="stat"><b>23</b><span>riesgos</span></div>
+ <div class="stat"><b>15</b><span>no riesgos</span></div>
+ <div class="stat"><b>21</b><span>puntos de sensibilidad</span></div>
+ <div class="stat"><b>14</b><span>puntos de compromiso</span></div>
+ <div class="stat"><b>7</b><span>temas de riesgo</span></div>
+ <div class="stat"><b>12</b><span>recomendaciones</span></div>
+</div>
+<div class="pill-group" id="atam-tabs"></div>
+<div data-atamtab="RSG"><div data-table="^RSG-" data-cols="0,1,2,3,4,5" data-sev="5"></div></div>
+<div data-atamtab="NRS" hidden><div data-table="^NRS-" data-cols="0,1,2,3"></div></div>
+<div data-atamtab="PS" hidden><div data-table="^PS-" data-cols="0,1,2,3"></div></div>
+<div data-atamtab="PC" hidden><div data-table="^PC-" data-cols="0,1,2"></div></div>
+<div data-atamtab="TR" hidden><div data-table="^TR-" data-cols="0,1,2,3"></div></div>
+<div data-atamtab="R" hidden><div data-table="^R-\d" data-cols="0,1,2,3,4"></div></div>
+<div data-atamtab="PRG" hidden><div data-table="^PRG-" data-cols="0,1,2"></div></div>
+
+<h2>Cobertura</h2>
+<p>Lo más barato de verificar: la <b>modificabilidad</b> (contar componentes modificados) y la <b>interoperabilidad</b> (ejercicio de integración sin infraestructura). La escalabilidad queda bloqueada por falta del modelo de capacidad. ESC-14 no es verificable hasta que exista la política de conflictos. Quedaron sin escenario la usabilidad (AC-USA), AC-SEG-005, AC-SEG-006 y la observabilidad propia, por decisión de alcance.</p>
+
+<h2>Conclusión del ATAM</h2>
+<div class="callout good"><b>Qué está bien</b>Continuidad frente a externos caídos, aislamiento entre la demanda ciudadana y la coordinación, e integridad de la auditoría: justificadas, con alternativa descartada y costo declarado. 15 de 26 escenarios dieron no riesgo.</div>
+<div class="callout warn"><b>Dónde están los problemas (no en las decisiones tomadas)</b>1) Decisiones de negocio que nadie ha tomado y la arquitectura no puede suplir (política de conflictos). 2) Parámetros que quedaron como valores de referencia. 3) Carga puesta sobre la operación humana, no dimensionada. El SAD ya había identificado buena parte en su capítulo 22 (OBS-01 a 15), lo que habla del rigor del equipo.</div>
+<p><b>Insumos listos para la segunda entrega</b>: los puntos de sensibilidad (parámetros que la tecnología debe fijar), los de compromiso (conversaciones pendientes con el cliente) y la tabla de cobertura (orden del plan de pruebas).</p>
+
+<h2>Vacíos que el propio SAD reconoció (OBS)</h2>
+<div data-table="^OBS-" data-cols="0,1,2,3"></div>
+</section>
+
+<!-- ================= SIMULADORES ================= -->
+<section class="route" id="simuladores" data-group="Practicar" data-title="Simuladores" hidden>
+<header><div><div class="eyebrow">Aprender tocando</div><h1>Simuladores</h1></div></header>
+<p class="lead">Mecanismos de la arquitectura que puedes manipular. Úsalos para explicar con tus palabras qué pasa y por qué.</p>
+<div class="pill-group" id="sim-tabs"></div>
+<div data-simtab="esc">
+  <h2>Escenarios operacionales paso a paso</h2>
+  <div class="pill-group" id="seq-pick"></div>
+  <div id="seq-host"></div>
+</div>
+<div data-simtab="breaker" hidden><div data-sim="breaker"></div></div>
+<div data-simtab="degr" hidden><div data-sim="degradacion"></div></div>
+<div data-simtab="outbox" hidden><div data-sim="outbox"></div></div>
+<div data-simtab="idem" hidden><div data-sim="idem"></div></div>
+<div data-simtab="conf" hidden><div data-sim="conflicto"></div></div>
+<div data-simtab="cap" hidden><div data-sim="capacidad"></div></div>
+<div data-simtab="disp" hidden><div data-sim="disponibilidad"></div></div>
+<div data-simtab="n3" hidden><div data-sim="n3"></div></div>
+</section>
+
+<!-- ================= TRAZABILIDAD ================= -->
+<section class="route" id="trazabilidad" data-group="Practicar" data-title="Trazabilidad" hidden>
+<header><div><div class="eyebrow">Del atributo a la decisión y al riesgo</div><h1>Explorador de trazabilidad</h1></div></header>
+<p class="lead">RST-008 obliga a que toda decisión cite un atributo; el ATAM recorre la cadena al revés. Aquí puedes hacer lo mismo: elige un atributo y verás sus requisitos, las decisiones que lo sostienen, las tácticas, los escenarios ATAM y los riesgos.</p>
+<div data-trace></div>
+<h2>Decodificador de IDs</h2>
+<p>Escribe cualquier identificador (RF-EVD-018, AC-RES-006, CSI-24, EVT-P4, PS-04…) y verás su definición, el documento y quién lo menciona.</p>
+<div data-decoder></div>
+</section>
+
+<!-- ================= GUION ================= -->
+<section class="route" id="guion" data-group="Practicar" data-title="Guion de sustentación" hidden>
+<header><div><div class="eyebrow">15 a 20 minutos · 31 diapositivas</div><h1>Guion de sustentación</h1></div></header>
+<p class="lead">Un bloque por grupo de diapositivas, con tiempo objetivo, ideas clave y una frase para decir. Activa el cronómetro y practica en voz alta; el bloque actual se resalta según el tiempo.</p>
+<div data-guion></div>
+</section>
+
+<!-- ================= PREGUNTAS ================= -->
+<section class="route" id="preguntas" data-group="Practicar" data-title="Preguntas del jurado" hidden>
+<header><div><div class="eyebrow">Respuesta corta de 30 s + si insisten</div><h1>Preguntas difíciles del jurado</h1></div></header>
+<p class="lead">Practica respondiendo en voz alta antes de abrir la respuesta. Marca las que ya dominas.</p>
+<h2>Puntos débiles y cómo defenderlos</h2>
+<div class="callout warn"><b>Regla de oro</b>No niegues los riesgos: el equipo los encontró y documentó (OBS en el SAD, RSG en el ATAM). Hacerlo es parte del método. Responde con esta fórmula: <i>"Lo identificamos como [ID], su causa es [decisión de negocio o dato faltante], y la recomendación es [R-xx]."</i></div>
+<div class="tbl-wrap"><table><thead><tr><th>Punto débil</th><th>Cómo defenderlo</th></tr></thead><tbody>
+<tr><td>No hay política de resolución de conflictos (RSG-02)</td><td>La arquitectura detecta el conflicto (versionado más idempotencia) y nunca sobrescribe en silencio. Qué versión prevalece es una regla de negocio que debe decidir el cliente (PRG-07, R-01).</td></tr>
+<tr><td>El IdP es una dependencia síncrona C1 (RSG-01)</td><td>DA-ARQ-08 reduce el problema al primer inicio de sesión: las sesiones vigentes siguen. Hay cuentas locales, varios proveedores y acceso de excepción auditado. Falta una decisión formal (R-04).</td></tr>
+<tr><td>99,95 % frente a 30 min de conmutación (RSG-07)</td><td>Reconocido en el SAD 19.1: por eso todo lo ordinario es automático y sin interrupción, y N3 queda reservado a la catástrofe. Es la pregunta PRG-08 al cliente.</td></tr>
+<tr><td>Los diagramas no coinciden con el texto (RSG-04, RSG-17, RSG-23)</td><td>El texto del SAD es la fuente normativa (5 superficies, 5 compartimentos, 3 zonas). R-02 reconcilia el 4+1.</td></tr>
+<tr><td>No hay modelo de capacidad (RSG-05)</td><td>El cálculo está planteado (SAD 20.7); faltan cuatro datos que solo tiene la organización. Ejemplo: a 1 Mbps, 50 fotos en 5 min exigen menos de unos 700 kB por foto.</td></tr>
+<tr><td>Configuración en caliente sin ensayo (RSG-10)</td><td>Compromiso PC-13 aceptado para cumplir AC-MOD-001. Ya se exige auditoría, aprobación por segunda persona y que un flujo en curso conserve su versión. Falta un ambiente de ensayo y reversión (R-06).</td></tr>
+<tr><td>Todo depende de personas en N3 (RSG-08, RSG-21)</td><td>Es deliberado para proteger la integridad (PC-10). Falta documentar turnos y tamaño del equipo (R-07, PRG-01).</td></tr>
+<tr><td>El paso 7 de ATAM fue simulado</td><td>Se declaró como limitación del método; los escenarios salieron de los supuestos, que son los puntos de dependencia de terceros.</td></tr>
+</tbody></table></div>
+<h2>Banco de preguntas</h2>
+<div data-qa></div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="route" id="quiz" data-group="Practicar" data-title="Quiz y tarjetas" hidden>
+<header><div><div class="eyebrow">Autoevaluación</div><h1>Quiz y tarjetas de memoria</h1></div></header>
+<div class="pill-group" id="quiz-tabs"></div>
+<div data-quiztab="quiz"><div data-quiz></div></div>
+<div data-quiztab="cards" hidden><div data-cards></div></div>
+<div data-quiztab="ids" hidden><div data-idcards></div></div>
+</section>
+
+</div></main>
+</div>
+</div>
+
+<div class="pop" id="pop" hidden role="dialog" aria-label="Definición"></div>
+<div class="lightbox" id="lightbox" hidden></div>
+
+<script src="assets/ids.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/app.js"></script>
+
+</html>
