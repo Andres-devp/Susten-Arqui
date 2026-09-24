@@ -600,9 +600,7 @@ figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
 <h2>Vista de desarrollo</h2>
 <p>Cinco capas con regla de dependencia: <b>toda flecha apunta hacia abajo</b>. Una flecha ascendente sería una violación visible.</p>
 <div data-mmd="desarrollo"></div>
-<div class="callout"><b>Por qué esta frontera</b>AC-MOD-003 y AC-INT-002 exigen que una integración nueva afecte como máximo su adaptador, así que los adaptadores (capa 4) dependen del canónico (capa 2) y nunca al revés. AC-MOD-005 exige que los módulos de capa 3 no dependan entre sí en construcción: se comunican por eventos declarados en la capa 2.</div>
-<div class="callout warn"><b>Inconsistencia reconocida</b>La capa 4 dibuja la "Fachada de APIs" como un nodo único, pero el SAD 12.1 define cinco superficies con despliegue y cupo separados (OBS-07, RSG-04, de severidad alta). Un equipo que implemente desde el diagrama perdería el aislamiento de EO-B.</div>
-</div>
+<div class="callout"><b>Por qué esta frontera</b>AC-MOD-003 y AC-INT-002 exigen que una integración nueva afecte como máximo su adaptador, así que los adaptadores (capa 4) dependen del canónico (capa 2) y nunca al revés. AC-MOD-005 exige que los módulos de capa 3 no dependan entre sí en construcción: se comunican por eventos declarados en la capa 2.</div></div>
 
 <div data-view="fi" hidden>
 <h2>Vista física</h2>
