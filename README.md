@@ -1,6 +1,6 @@
 # Sustentación PGDR
 
-Plataforma interactiva para estudiar y sustentar el proyecto de Arquitectura de Software **Plataforma para la Gestión de Desastres y Reconstrucción (PGDR)**: enunciado, SRS, SAD con modelo 4+1, ATAM, simuladores, guion y preguntas del jurado.
+Plataforma interactiva para estudiar y sustentar el proyecto de Arquitectura de Software **Plataforma para la Gestión de Desastres y Reconstrucción (PGDR)**: enunciado, SRS, SAD con modelo 4+1, ATAM, simuladores, guion, preguntas del jurado y la sección «Mi exposición» con el texto de las diapositivas 23 a 31.
 
 ## Cómo abrirla
 
@@ -13,7 +13,7 @@ Plataforma interactiva para estudiar y sustentar el proyecto de Arquitectura de 
 |---|---|
 | `index.html` | Estructura, estilos y el texto de todas las secciones |
 | `assets/app.js` | Navegación, IDs enlazados, tablas, visor con zoom, reproductor de escenarios, simuladores y quiz |
-| `assets/content.js` | Diagramas Mermaid, secuencias, guion, banco de preguntas, quiz y tarjetas |
+| `assets/content.js` | Diagramas Mermaid, secuencias, guion, texto de «Mi exposición», banco de preguntas, quiz y tarjetas |
 | `assets/ids.js` | Datos extraídos del SRS v1.1, SAD v1.3 y ATAM v1.0: requisitos, decisiones, riesgos, etc. |
 | `img/` | Los 14 diagramas del modelo de integración y las estrategias |
 | `archify/` | 8 diagramas interactivos generados con [Archify](https://github.com/tt-a1i/archify), con sus especificaciones en `archify/fuentes/` |

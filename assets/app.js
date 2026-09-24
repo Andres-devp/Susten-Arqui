@@ -793,6 +793,48 @@ function renderGuion(el) {
   render();
 }
 
+/* ---------- Mi exposición (diapositivas 23 a 31) ---------- */
+function renderMiParte(el) {
+  const M = C.miParte, B = M.bloques, total = B.reduce((s, b) => s + b.min, 0);
+  const done = store.get("pgdr-miparte", {});
+  const words = t => t.trim().split(/\s+/).length;
+  const mmss = s => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+  const readSecs = b => (b.say.reduce((n, p) => n + words(p), 0) + (b.puente ? words(b.puente) : 0)) / 140 * 60;
+  const allRead = B.reduce((s, b) => s + readSecs(b), 0) + (words(M.intro) + words(M.cierre)) / 140 * 60;
+  let start = null, acc = 0, timer = null;
+  el.innerHTML = `<div class="timer-bar"><span class="clock gt">00:00</span><span class="muted">objetivo ${total} min · leído en voz alta ≈ ${mmss(allRead)}</span><button class="btn primary" data-a="go">Iniciar</button><button class="btn" data-a="rs">Reiniciar</button><button class="btn" data-a="rd" aria-pressed="false">Modo lectura</button><span class="gb muted"></span></div>
+  <p class="say mp-edge"><b>Entrada:</b> ${esc(M.intro)}</p>
+  ${B.map((b, i) => `<article class="guion-block mp-block" data-i="${i}"><div class="meta mp-meta"><b>Diap. ${b.slide}</b>${b.min} min · ≈ ${mmss(readSecs(b))} leído<br><a href="#${b.ver}">ver detalle →</a><br><label><input type="checkbox" class="m" ${done[i] ? "checked" : ""}> La domino</label></div><div>
+    <h3 style="margin-top:0">${esc(b.t)}</h3>
+    <div class="mp-say">${b.say.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+    <div class="mp-datos">${b.datos.map(d => `<span>${esc(d)}</span>`).join("")}</div>
+    <div class="mp-qa"><div class="mp-lbl">Si me preguntan</div>${b.qa.map(x => `<details class="acc"><summary>${esc(x.q)}</summary><div class="body"><p>${esc(x.a)}</p></div></details>`).join("")}</div>
+    ${b.puente ? `<p class="say mp-puente">→ ${esc(b.puente)}</p>` : ""}
+  </div></article>`).join("")}
+  <p class="say mp-edge"><b>Cierre:</b> ${esc(M.cierre)}</p>`;
+  const secs = () => acc + (start ? (Date.now() - start) / 1000 : 0);
+  const setReading = on => { el.classList.toggle("mp-reading", on); $('[data-a="rd"]', el).setAttribute("aria-pressed", String(on)); store.set("pgdr-miparte-lectura", on); };
+  const render = () => {
+    const s = secs(); $(".gt", el).textContent = `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+    let c = 0, idx = -1; B.forEach((b, i) => { if (idx < 0 && s < (c += b.min) * 60) idx = i; });
+    if (s > 0 && idx < 0) idx = B.length - 1;
+    $$(".mp-block", el).forEach((b, i) => b.classList.toggle("cur", start != null && i === idx));
+    const n = Object.values(done).filter(Boolean).length;
+    $(".gb", el).textContent = (start || acc) && idx >= 0 ? `Deberías estar en: diap. ${B[idx].slide}` : `${n} de ${B.length} dominadas`;
+    $(".gt", el).style.color = s > total * 60 ? "var(--c1)" : "";
+  };
+  el.addEventListener("click", e => {
+    const a = e.target.closest("[data-a]"); if (!a) return;
+    if (a.dataset.a === "go") { if (start) { acc = secs(); start = null; clearInterval(timer); a.textContent = "Continuar"; } else { start = Date.now(); timer = setInterval(render, 500); a.textContent = "Pausa"; } }
+    if (a.dataset.a === "rs") { start = null; acc = 0; clearInterval(timer); $('[data-a="go"]', el).textContent = "Iniciar"; }
+    if (a.dataset.a === "rd") setReading(!el.classList.contains("mp-reading"));
+    render();
+  });
+  $$(".m", el).forEach(c => c.addEventListener("change", () => { done[c.closest(".mp-block").dataset.i] = c.checked; store.set("pgdr-miparte", done); render(); }));
+  setReading(store.get("pgdr-miparte-lectura", false));
+  render();
+}
+
 /* ---------- Banco de preguntas ---------- */
 function renderQA(el) {
   const mastered = store.get("pgdr-qa", {});
@@ -912,6 +954,7 @@ function initSection(sec) {
   $$("[data-trace]", sec).forEach(renderTrace);
   $$("[data-decoder]", sec).forEach(renderDecoder);
   $$("[data-guion]", sec).forEach(renderGuion);
+  $$("[data-miparte]", sec).forEach(renderMiParte);
   $$("[data-qa]", sec).forEach(renderQA);
   $$("[data-quiz]", sec).forEach(renderQuiz);
   $$("[data-cards]", sec).forEach(el => renderFlash(el, C.cards, "Conceptos clave del proyecto."));
