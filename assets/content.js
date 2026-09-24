@@ -654,7 +654,7 @@ CONTENT.extraIds = {
 
 /* ---------- Guion de sustentación (15 a 20 min) alineado a las 31 diapositivas ---------- */
 CONTENT.guion = [
- { t: "Apertura y problema", min: 1.5, slides: "1–2", key: [
+ { t: "Apertura y problema", min: 1.5, slides: "1", key: [
    "La PGDR no es un sistema de emergencias más: es una capa de coordinación e integración entre sistemas que ya existen y no se reemplazan (RST-001).",
    "El problema no es de funcionalidad sino de arquitectura: interoperabilidad, disponibilidad en crisis, picos de demanda, tolerancia a fallos y trazabilidad.",
    "Cinco responsabilidades: integrar, unificar, coordinar, trazar y seguir operando cuando todo falla."],
@@ -703,118 +703,132 @@ CONTENT.guion = [
    "Escalabilidad: cómputo sin estado, capacidad base del doble de lo normal, escalado reactivo, pre-escalado por eventos y niveles ND-0 a ND-3 con histéresis."],
    say: "Hay una tensión que reconocemos abiertamente: el 99,95 % permite 22 minutos al mes y una conmutación regional puede tomar 30. Por eso las fallas ordinarias se resuelven solas y sin interrupción visible, y la conmutación regional queda reservada a la catástrofe." },
  { t: "ATAM y cierre", min: 3, slides: "26–31", key: [
-   "9 pasos de ATAM; el paso 7 se hizo de forma simulada, a partir de los supuestos.",
-   "16 enfoques, árbol de utilidad con 26 escenarios priorizados por (importancia, dificultad).",
-   "Resultados: 23 riesgos, 15 no riesgos, 21 puntos de sensibilidad, 14 puntos de compromiso y 7 temas de riesgo.",
-   "Riesgos altos: sin política de conflictos (RSG-02), dependencia síncrona del IdP (RSG-01), diagramas desalineados (RSG-04, RSG-17), sin modelo de capacidad (RSG-05) y operación humana sin dimensionar (RSG-08, RSG-21).",
-   "Conclusión: las decisiones son sólidas; los vacíos están en decisiones de negocio pendientes, parámetros de referencia y carga humana."],
-   say: "ATAM no nos dio una nota: nos dio un mapa. Lo que la arquitectura decidió está bien sostenido; lo que falta son decisiones que la arquitectura no puede tomar sola, como qué versión prevalece en un conflicto de campo. Las doce recomendaciones dejan lista la segunda entrega." }
+   "26: ATAM en 9 pasos, aplicado sobre la documentación antes de elegir tecnología.",
+   "27: criterio «¿la coordinación sigue viva cuando el entorno se degrada?» y 7 controladores del negocio.",
+   "28: 16 enfoques, árbol de 7 ramas y 26 escenarios por (importancia, dificultad); 8 son (A, A).",
+   "29: escenarios clave: caída del hospitalario, pico de usuarios, conflicto de sincronización y alteración de la auditoría.",
+   "30: 23 riesgos, 15 no riesgos, 21 puntos de sensibilidad y 14 puntos de compromiso.",
+   "31: 15 de 26 escenarios sin riesgo; recomendaciones R-01 conflictos, R-03 capacidad, R-04 autenticación y R-07 operación."],
+   say: "ATAM no nos dio una nota: nos dio un mapa. La arquitectura sostiene lo que la PGDR exige; lo que sigue son decisiones del cliente y datos de la organización, como qué versión prevalece en un conflicto de campo, y cada una tiene su recomendación para la segunda entrega." }
 ];
 
 /* ---------- Mi exposición: diapositivas 23 a 31 ---------- */
 CONTENT.miParte = {
- intro: "Hasta aquí vieron cómo la PGDR se integra con el exterior y cómo expone sus APIs. Yo voy a mostrar por qué la arquitectura quedó así: las decisiones que la sostienen, las tres estrategias transversales de seguridad, resiliencia y escalabilidad, y cómo la evaluamos con ATAM.",
- cierre: "Con esto cerramos la presentación. Quedamos atentos a sus preguntas.",
+ intro: "Hasta aquí vieron cómo la PGDR se integra con el exterior y expone sus APIs. Yo voy a mostrar por qué la arquitectura quedó así: las decisiones transversales, las estrategias de seguridad, resiliencia y escalabilidad, y cómo la evaluamos con ATAM.",
+ cierre: "Con esto cerramos la presentación. Muchas gracias; quedamos atentos a sus preguntas.",
  bloques: [
- { slide: "23", t: "Decisiones arquitectónicas", min: 1.5, ver: "decisiones",
+ { slide: "23", t: "Decisiones arquitectónicas transversales", min: 1, ver: "decisiones",
    say: [
-    "Todo lo que han visto se resume en 35 decisiones: 12 de integración, 10 de interfaces y 13 transversales. Todas tienen el mismo formato: contexto, decisión verificable, alternativas descartadas y el costo que aceptamos. Cada una cita los atributos del SRS que la justifican (RST-008). Una decisión sin costo declarado vuelve a revisión, porque casi siempre significa que el costo no se analizó.",
-    "La decisión de estilo es DA-ARQ-01: servicios de grano medio, un componente por cada uno de los 14 módulos, con puertos y adaptadores por dentro. Descartamos el monolito porque no permite escalar ni desplegar un componente por separado, y los microservicios finos porque multiplican las llamadas por red sin que ningún atributo lo pida.",
-    "De ahí salen las demás. Cada módulo es dueño de sus datos, las lecturas pesadas salen de proyecciones, hay cinco compartimentos por criticidad y el dominio se configura en caliente. Para continuidad y seguridad: auditoría encadenada y sellada, tres zonas más una región en espera, identidad federada con credenciales de vida corta y confianza cero interna. Y para operar: evidencias aparte, escalado sin estado, despliegue progresivo y observabilidad obligatoria."],
-   datos: ["35 = 12 DA-INT + 10 DA-API + 13 DA-ARQ", "Formato: contexto · decisión · alternativas · costo · verificación", "Estados: Propuesta · Aceptada · Reemplazada · Descartada", "DA-ARQ-02 datos · 03 proyecciones · 04 compartimentos · 05 configuración", "DA-ARQ-06 auditoría · 07 zonas · 08 identidad · 09 confianza cero", "DA-ARQ-10 evidencias · 11 escalado · 12 despliegue · 13 observabilidad", "3 zonas + 1 región en espera", "Credencial de 5 min (referencia)"],
+    "Además de las decisiones de integración y de APIs, hay 13 decisiones transversales, las DA-ARQ, que afectan a todos los módulos. Cada una declara su alternativa descartada y su costo aceptado. La base es el estilo: servicios de grano medio, un componente por módulo. Ni un monolito, que no deja escalar por partes, ni microservicios finos, que multiplican las llamadas por red sin necesidad.",
+    "Las agrupamos en cuatro frentes. Estructura: cada módulo es dueño exclusivo de sus datos y la escritura va separada de las vistas de lectura. Ejecución: compartimentos por criticidad, escalado horizontal sin estado y despliegue progresivo con reversión automática. Continuidad: tres zonas activas más una región de recuperación, y auditoría de solo agregación. Seguridad: identidad federada con credenciales de vida corta y comunicación interna siempre autenticada y cifrada."],
+   datos: ["13 DA-ARQ · en total 35 = 12 DA-INT + 10 DA-API + 13 DA-ARQ", "Formato: contexto · decisión · alternativa descartada · costo aceptado", "Estilo: DA-ARQ-01 servicios de grano medio", "Estructura: 02 datos propios · 03 lectura separada", "Ejecución: 04 compartimentos · 11 escalado · 12 despliegue", "Continuidad: 07 tres zonas + región · 06 auditoría", "Seguridad: 08 identidad federada · 09 confianza cero", "Credencial de 5 min (referencia)"],
    qa: [
     { q: "¿Es un monolito o son microservicios?", a: "Ninguno de los dos: servicios de grano medio, un componente por módulo de dominio (DA-ARQ-01). El monolito incumple AC-ESC-002 y AC-MOD-005; los servicios finos añaden red y transacciones distribuidas que ningún atributo pide. El costo aceptado es operar 14 componentes, vivir con consistencia final y depender de trazas distribuidas." },
     { q: "¿Por qué cada módulo tiene su propio almacén?", a: "Un almacén compartido devuelve el acoplamiento por la puerta de atrás: un cambio de esquema obliga a desplegar varios módulos juntos, y una consulta C3 pesada compite con escrituras C1 (DA-ARQ-02). Lo que cruza módulos va por proyecciones (DA-ARQ-03)." },
     { q: "¿Por qué tres zonas y no dos?", a: "Con dos, perder una deja justo el 50 %, en el límite de AC-DIS-006, y la réplica por mayoría no funciona con dos participantes. Con tres, dos zonas mantienen el quórum y absorben toda la carga (TAC-12, TAC-14). El costo es capacidad ociosa (PC-02)." },
+    { q: "¿Qué decisiones transversales no están en la diapositiva?", a: "Tres de apoyo: la configuración del dominio en tiempo de ejecución (DA-ARQ-05), las evidencias en un almacenamiento aparte (DA-ARQ-10) y la observabilidad obligatoria (DA-ARQ-13). En la diapositiva agrupamos las diez que más pesan en los cuatro frentes." },
     { q: "¿Qué pasa si una decisión cambia?", a: "Las decisiones aceptadas no se editan. Se registra una nueva que reemplaza a la anterior, y la anterior queda en estado Reemplazada. Así se conserva el porqué de cada cambio." },
-    { q: "¿Cómo sé qué decisión sostiene cada atributo?", a: "Cada decisión cita sus atributos (RST-008), así que la relación se puede recorrer en ambos sentidos. La sección Decisiones tiene un mapa por atributo, y ATAM recorre esa misma cadena al revés." }],
-   puente: "Tres de estas decisiones se desarrollan en estrategias completas del SAD: seguridad, resiliencia y escalabilidad." },
+    { q: "¿Cómo sé qué decisión sostiene cada atributo?", a: "Cada decisión cita los atributos del SRS que la justifican (RST-008), así que la relación se recorre en ambos sentidos: del atributo a la decisión y de la decisión al atributo. ATAM recorre esa misma cadena." }],
+   puente: "Tres de estos frentes se desarrollan como estrategias completas: seguridad, resiliencia y escalabilidad." },
 
  { slide: "24", t: "Estrategia de seguridad", min: 1, ver: "seguridad",
    say: [
-    "La PGDR se necesita con más urgencia justo cuando el entorno es más hostil: redes caídas y personal de otros organismos que llega a última hora. Un control que bloquea sin alternativa en ese momento termina desactivado. Por eso nuestro principio PSE-06 dice que la seguridad no paraliza la emergencia: todo control que pueda frenar una operación C1 tiene una excepción auditada. Solo los controles que protegen la auditoría no la tienen.",
-    "Partimos de siete activos y doce amenazas. Dividimos la plataforma en seis zonas de confianza, desde Z0, la red pública, hasta Z5, auditoría y respaldo, que nadie puede modificar, ni siquiera un administrador. Cruzar de zona siempre exige autenticación. La autorización va en dos niveles: por operación en la superficie y por organismo en el dominio. Y los datos personales van cifrados por campo, enmascarados y con revelación auditada, conforme a la Ley 1581 de 2012."],
-   datos: ["6 PSE · 12 AME · 7 activos", "Z0 pública → Z5 auditoría y respaldo", "7 tipos de identidad", "5 niveles de datos", "Revocación < 60 s", "Anomalías < 15 min (CSI-27)", "Vulnerabilidad alta: 15 días", "Borrado criptográfico (CSI-22)"],
+    "La PGDR se necesita justo cuando el entorno es más hostil. Por eso nuestro principio PSE-06 dice que la seguridad no paraliza la emergencia: todo control que pueda frenar una operación crítica tiene una vía de excepción auditada.",
+    "A la derecha están las seis zonas de confianza, de Z0, la red pública, a Z5, auditoría y respaldo, que ni un administrador puede modificar. Y cuatro controles: autorización en dos niveles, por operación en la API y por organismo en el dominio; segregación de funciones, donde quien solicita no aprueba y el administrador no ve datos personales; cinco niveles de datos, con cifrado en reposo, en tránsito y por campo; y detección de anomalías, con reporte a la SIC si se comprometen datos personales, conforme a la Ley 1581."],
+   datos: ["PSE-06: excepción auditada (CSI-15, CSI-32)", "6 zonas: Z0 red pública → Z5 auditoría y respaldo", "Autorización: superficie (CSI-11) + organismo (CSI-12)", "Roles disjuntos (CSI-25)", "5 niveles de datos · cifrado por campo (CSI-20)", "Anomalías < 15 min (CSI-27)", "Reporte a la SIC (CSI-33, Ley 1581)", "Revocación < 60 s"],
    qa: [
     { q: "¿Cuáles son los seis principios?", a: "Denegar por omisión (PSE-01), la red no da confianza (PSE-02), mínimo privilegio con alcance por organismo (PSE-03), privacidad desde el diseño (PSE-04), defensa en capas (PSE-05) y la seguridad no paraliza la emergencia (PSE-06)." },
     { q: "¿El acceso de excepción no es un hueco?", a: "Exige justificación previa, tiene vigencia limitada y dispara alerta inmediata (CSI-15). Cada uso tiene revisión posterior obligatoria (CSI-32). Su abuso como atajo está modelado como amenaza (AME-09)." },
-    { q: "¿Qué pasa si cae el proveedor de identidad de un organismo?", a: "Las sesiones vigentes siguen funcionando, porque cada componente valida las credenciales localmente (NRS-03). Lo que falla es el primer inicio de sesión. Es la única dependencia síncrona externa en C1 (RSG-01, PC-03). Se mitiga con cuentas locales, más de un proveedor federado y acceso de excepción." },
+    { q: "¿Qué es la SIC y por qué aparece?", a: "La Superintendencia de Industria y Comercio, la autoridad de protección de datos personales en Colombia. CSI-33 obliga a reportarle los incidentes que comprometan datos personales, según la Ley 1581 de 2012 y el Decreto 1377 de 2013 (REF-06)." },
+    { q: "¿Qué pasa si cae el proveedor de identidad de un organismo?", a: "Las sesiones vigentes siguen funcionando, porque cada componente valida las credenciales localmente (NRS-03). Lo que se afecta es el primer inicio de sesión, y para eso hay cuentas locales, más de un proveedor federado y acceso de excepción. Es un compromiso consciente entre seguridad y disponibilidad (PC-03)." },
     { q: "¿Qué pasa si roban un dispositivo de campo?", a: "Sus datos están cifrados, exige desbloqueo, la consulta local caduca sin sincronización y se puede revocar con borrado remoto (CSI-26, AME-07)." },
-    { q: "¿Por qué un recurso ajeno responde 404 y no 403?", a: "Para no revelar que el recurso existe fuera del alcance del usuario. Cubre la amenaza de acceso cruzado entre organismos (AME-02)." },
-    { q: "¿Cómo concilian la inmutabilidad con el derecho de supresión?", a: "Con borrado criptográfico: los datos de cada persona se cifran con una clave propia, y suprimirlos es destruir esa clave (CSI-22). Está pendiente de validación jurídica (RSG-22, PC-11)." }],
-   puente: "Proteger la plataforma no basta; también tiene que seguir en pie cuando algo falla." },
+    { q: "¿Por qué un recurso ajeno responde 404 y no 403?", a: "Para no revelar que el recurso existe fuera del alcance del usuario (CSI-16). Cubre la amenaza de acceso cruzado entre organismos (AME-02)." },
+    { q: "¿Cómo concilian la inmutabilidad con el derecho de supresión?", a: "Con borrado criptográfico: los datos de cada persona se cifran con una clave propia, y suprimirlos es destruir esa clave (CSI-22). La auditoría conserva que hubo una operación, pero el dato personal queda ilegible (PC-11)." }],
+   puente: "Proteger la plataforma no basta; también tiene que seguir en pie cuando algo falla o la demanda se dispara." },
 
- { slide: "25", t: "Resiliencia y escalabilidad", min: 1.25, ver: "resiliencia",
+ { slide: "25", t: "Resiliencia, recuperación y escalabilidad", min: 1.25, ver: "resiliencia",
    say: [
-    "Los objetivos son 99,95 % de disponibilidad para C1, un RTO de 30 minutos y un RPO de 1 minuto. Reconocemos una tensión: el 99,95 % permite menos de 22 minutos de caída al mes, y conmutar de región puede tardar 30. Por eso las fallas de instancia, componente o zona se resuelven solas y sin que el usuario lo note, y la conmutación regional queda reservada a la catástrofe. Hay cuatro niveles de contingencia. N1 y N2 son automáticos. N3, la pérdida de la región, lo declara una persona. N4, corrupción o ataque, se restaura desde copias inmutables, porque la réplica copia el error.",
-    "En escalabilidad, la carga no crece de forma pareja: primero sube la consulta ciudadana, luego el campo y después la reconstrucción. Por eso escalamos solo el compartimento presionado: cómputo sin estado, capacidad base del doble de lo normal, escalado por latencia y colas, y pre-escalado en cuanto se registra el evento. Si no alcanza, entra el control de admisión: cae primero C3, luego C2, y C1 se preserva."],
-   datos: ["99,95 % C1 ≈ 21,9 min/mes · 99,5 % C2", "RTO 30 min · RPO 1 min", "N1 < 2 min · N2 zona · N3 región · N4 ataque", "13 modos de falla · TAC-12 a TAC-22", "≥ 50 % de capacidad C1 al perder una zona", "1.000 → 10.000 usuarios en 10 min", "500 reportes/min ≈ 8/s, ráfaga 3×", "ND-1 70 % · ND-2 85 % · ND-3 solo C1"],
+    "En resiliencia, el objetivo para las funciones críticas es 99,95 %, menos de 22 minutos de caída al mes, con un RTO de 30 minutos y un RPO de 1 minuto. Como conmutar de región puede tardar 30 minutos, eso queda para la catástrofe: las fallas de instancia, componente o zona se resuelven solas. El diagrama muestra la región principal con tres zonas y la secundaria en espera.",
+    "La réplica protege contra la pérdida de infraestructura, pero copia igual un borrado malicioso; por eso hay respaldo periódico inmutable. Y de los cuatro niveles de contingencia, los dos últimos, pérdida de la región y ataque, requieren decisión humana.",
+    "En escalabilidad combinamos una capacidad base del doble de lo normal, escalado reactivo y preescalado en cuanto se registra un evento. Si no alcanza, entran los niveles de degradación con histéresis: cae primero C3, luego C2, y C1 se preserva."],
+   datos: ["99,95 % C1 ≈ 21,9 min/mes", "RTO 30 min · RPO 1 min", "3 zonas activas + región en espera", "N1 y N2 automáticos · N3 región y N4 ataque: decisión humana", "Capacidad base 2× lo normal", "1.000 → 10.000 usuarios en 10 min", "ND-1 70 % · ND-2 85 % · ND-3 solo C1", "Orden de degradación: C3 → C2 · C1 se preserva"],
    qa: [
-    { q: "Si el mes permite 21,9 min y conmutar toma 30, ¿no incumplen?", a: "Una sola conmutación regional excede el presupuesto del mes, y lo reconocemos (SAD 19.1, RSG-07). Por eso todo lo ordinario se resuelve de forma automática y sin interrupción visible, y la región se conmuta solo en una catástrofe." },
+    { q: "Si el mes permite 21,9 min y conmutar toma 30, ¿no incumplen?", a: "Es un compromiso consciente (SAD 19.1). Por eso todo lo ordinario, instancia, componente o zona, se resuelve de forma automática y sin interrupción visible, y la región se conmuta solo en una catástrofe, que es cuando proteger la integridad pesa más que el minuto." },
     { q: "¿Por qué no dos regiones activas?", a: "Habría que resolver escrituras concurrentes sobre recursos, donde RN-009 prohíbe asignar dos veces, y sobre la cadena de auditoría, que no admite dos ramas. Por eso la conmutación entre regiones es una decisión humana (PC-10, NRS-09)." },
     { q: "¿La réplica no basta?", a: "No. La réplica protege contra la pérdida de infraestructura, pero copia igual de rápido un borrado o un cifrado malicioso. El respaldo conserva estados anteriores: registro de transacciones de 35 días, respaldo diario y copia inmutable semanal aislada. Un respaldo que nunca se restauró se considera no verificado." },
     { q: "¿En qué orden se recupera la región en N3?", a: "Por dependencia real, no por importancia: datos, claves e identidad, bus y auditoría, funciones C1, redirección del punto de entrada y verificación. Sin datos no funciona nada, sin claves no se leen, sin identidad nadie entra. Si la región vuelve a mitad del proceso, la conmutación continúa." },
+    { q: "¿Qué significa degradación con histéresis?", a: "Que el sistema entra a un nivel de degradación con un umbral y solo sale cuando la carga baja claramente por debajo de él, no apenas lo cruza. Así no oscila entre niveles cuando la carga ronda el límite." },
     { q: "¿Por qué no escalar solo por CPU?", a: "Porque un componente que espera a un almacén lento puede estar saturado con el procesador ocioso. Escalamos por latencia p95, profundidad y edad de las colas, y conexiones. La capacidad sube rápido y baja despacio, con 15 min de enfriamiento." },
     { q: "¿Y el almacén de datos, cómo escala?", a: "El primario se protege, no se escala. Las lecturas masivas van a proyecciones, las evidencias a su propio almacenamiento y lo pesado al procesamiento diferido. Al primario solo llegan escrituras C1 y lecturas de detalle." }],
-   puente: "¿Cómo sabemos que todo esto funciona sin tener implementación? Para eso aplicamos ATAM." },
+   puente: "¿Cómo sabemos que todo esto responde a lo que exige el SRS sin tener implementación? Para eso aplicamos ATAM." },
 
- { slide: "26", t: "ATAM: método y controladores", min: 0.75, ver: "atam",
+ { slide: "26", t: "Evaluación ATAM", min: 0.5, ver: "atam",
    say: [
-    "Para validar todo esto aplicamos ATAM, que no da una nota sino un mapa. Lo hicimos sobre la documentación, sin implementación, así que un riesgo no dice que un umbral se incumple: dice que falta evidencia para sostener que se cumple. Seguimos los nueve pasos del método. El paso 7, con interesados, fue simulado a partir de los supuestos, y lo declaramos como limitación. El criterio de juicio es que la arquitectura acierta si mantiene viva la coordinación cuando el entorno se degrada y si crecer no obliga a rehacer el núcleo."],
-   datos: ["9 pasos · paso 7 simulado", "7 controladores de negocio", "Sin código, costos ni valoración jurídica"],
+    "ATAM evalúa si las decisiones de una arquitectura sostienen sus atributos de calidad. No da una nota: da un mapa de riesgos y compromisos. Lo aplicamos sobre la documentación, antes de elegir tecnología, con los nueve pasos que ven a la derecha, desde presentar el método hasta presentar los resultados."],
+   datos: ["Architecture Tradeoff Analysis Method", "9 pasos", "Sobre la documentación, antes de elegir tecnología", "Resultado: un mapa, no una nota"],
    qa: [
-    { q: "¿Sirve ATAM sin implementación?", a: "Sí, para lo que evalúa: si las decisiones documentadas sostienen los umbrales, dónde dependen de un valor concreto y qué se gana y se pierde en cada una. Por eso los riesgos se expresan como falta de evidencia, no como incumplimiento." },
-    { q: "¿Por qué fue simulado el paso 7?", a: "No hubo una sesión con interesados reales. Los escenarios de crecimiento y exploratorios (ESC-25, ESC-26) se construyeron a partir de SUP-001 a SUP-008, los puntos donde el sistema depende de terceros. La priorización salió del enunciado y de la clasificación C1, C2 y C3." },
-    { q: "¿Cuáles son los siete controladores?", a: "Coordinar sin reemplazar, sobrevivir al momento de mayor demanda, operar con el exterior caído, registrar todo lo que se decide, proteger a las personas afectadas, adaptarse sin rehacer y llegar hasta la reconstrucción." }],
-   puente: "Con ese criterio, el siguiente paso fue identificar qué enfoques usa la arquitectura." },
+    { q: "¿Sirve ATAM sin implementación?", a: "Sí, para lo que evalúa: si las decisiones documentadas sostienen los umbrales, dónde dependen de un valor concreto y qué se gana y se pierde en cada una. Por eso un riesgo no dice que un umbral se incumple, sino qué falta decidir o medir para demostrarlo." },
+    { q: "¿Por qué ATAM y no otro método?", a: "Porque evalúa compromisos entre atributos, que es justo el problema de la PGDR: disponibilidad frente a exactitud, seguridad frente a continuidad. Y funciona antes de elegir tecnología, que es lo que exige esta entrega (RST-009)." },
+    { q: "¿Cómo hicieron el paso 7, la lluvia de ideas con interesados?", a: "Construimos los escenarios de crecimiento y exploratorios (ESC-25 y ESC-26) a partir de los supuestos SUP-001 a SUP-008, que son los puntos donde el sistema depende de terceros. La priorización salió del enunciado y de la clasificación C1, C2 y C3, y el paso 8 reanalizó esos escenarios." }],
+   puente: "El punto de partida son los controladores del negocio." },
 
- { slide: "27", t: "Enfoques y árbol de utilidad", min: 0.5, ver: "atam",
+ { slide: "27", t: "Método y controladores del negocio", min: 0.75, ver: "atam",
    say: [
-    "Identificamos 16 enfoques leyendo las decisiones al revés. Tres encadenamientos explican casi todo: continuidad frente al exterior, escalabilidad diferencial e integridad de lo confirmado. Con ellos armamos un árbol de utilidad de 26 escenarios, cada uno calificado por importancia y dificultad. Los ocho con importancia y dificultad altas se analizaron con ficha completa."],
-   datos: ["16 enfoques (EA-01 a EA-16)", "Continuidad: EA-01 + EA-08 + EA-09", "Escalabilidad: EA-07 + EA-14 + EA-06", "Integridad: EA-05 + EA-12 + EA-11", "26 escenarios · 8 (A, A)"],
+    "La pregunta guía es la del subtítulo: ¿la coordinación sigue viva cuando el entorno se degrada? Evaluamos riesgos y compromisos antes de elegir tecnología, priorizamos por importancia para el negocio y dificultad arquitectónica, y mantuvimos la neutralidad tecnológica de esta entrega.",
+    "Los siete controladores del negocio son: coordinar sin reemplazar, sobrevivir al pico de demanda, operar con el exterior caído, registrar todo lo que se decide, proteger a las personas afectadas, adaptarse sin rehacer y llegar hasta la reconstrucción. Y la tensión de fondo: operar en campo sin conexión protegiendo los datos personales."],
+   datos: ["Criterio: coordinación viva con el entorno degradado", "Prioridad = (importancia, dificultad)", "7 controladores del negocio", "Tensión: RST-011 campo sin conexión vs. RST-012 datos personales"],
    qa: [
-    { q: "¿Qué significa (A, A)?", a: "Importancia alta, porque afecta a C1, y dificultad alta, porque depende de varias decisiones o de supuestos externos. Son los que se analizan con ficha completa." },
+    { q: "¿Qué es un controlador del negocio?", a: "Un objetivo de la organización que la arquitectura debe sostener. Sirve de criterio para decidir qué escenario importa más. Por ejemplo, operar con el exterior caído sale de AC-DIS-004 y del escenario operacional EO-C." },
+    { q: "¿Cómo resolvieron la tensión entre campo sin conexión y datos personales?", a: "El evaluador necesita trabajar sin conexión con datos en el dispositivo (RST-011), y esos datos pueden ser personales (RST-012). El dispositivo cifra sus datos, exige desbloqueo, la consulta local caduca sin sincronización y admite revocación con borrado remoto (CSI-26)." },
+    { q: "¿Por qué evaluar antes de elegir tecnología?", a: "Porque corregir una decisión en el papel es mucho más barato que en el código. Además, los puntos de sensibilidad que salen de ATAM le dicen a la segunda entrega qué parámetros debe fijar la tecnología elegida." }],
+   puente: "Con esos controladores construimos el árbol de utilidad." },
+
+ { slide: "28", t: "Enfoques y árbol de utilidad", min: 0.5, ver: "atam",
+   say: [
+    "Identificamos 16 enfoques arquitectónicos, como puertos y adaptadores, el modelo canónico, la bandeja de salida transaccional, la compartimentación y la redundancia multizona. Los atributos se organizaron en un árbol de siete ramas, del que salen 26 escenarios calificados por importancia y dificultad.",
+    "A la derecha ven una muestra del árbol. Los ocho que son alta y alta, como la pérdida de una zona o el salto de mil a diez mil usuarios, se analizaron primero."],
+   datos: ["16 enfoques (EA-01 a EA-16)", "7 ramas en el árbol", "26 escenarios (ESC-01 a ESC-26)", "8 (A, A): ESC-02, 04, 06, 08, 13, 14, 17, 18", "(importancia, dificultad)"],
+   qa: [
+    { q: "¿Qué significa (A, A)?", a: "Importancia alta, porque afecta a C1, y dificultad alta, porque depende de varias decisiones o de supuestos externos. Son los que se analizan primero y con ficha completa." },
     { q: "¿Cuáles son los ocho (A, A)?", a: "ESC-02 pérdida de zona, ESC-04 autenticación, ESC-06 crecimiento súbito, ESC-08 ingesta masiva, ESC-13 sincronización con red degradada, ESC-14 edición concurrente, ESC-17 pérdida de región y ESC-18 corrupción lógica." },
-    { q: "¿Qué es un enfoque arquitectónico?", a: "Un patrón o una táctica reconocible que comparten varias decisiones. Por ejemplo, puertos y adaptadores (EA-01) o la bandeja de salida transaccional (EA-05)." }],
-   puente: "Al analizar esos escenarios obtuvimos los resultados." },
+    { q: "¿Por qué el árbol de la diapositiva tiene 14 escenarios y no 26?", a: "Es una muestra de dos por rama. El árbol completo tiene 24 escenarios de calidad más dos de crecimiento y exploratorios (ESC-25 y ESC-26)." },
+    { q: "¿Qué es un enfoque arquitectónico?", a: "Un patrón o una táctica reconocible que comparten varias decisiones. Por ejemplo, puertos y adaptadores (EA-01) o la bandeja de salida transaccional (EA-05)." },
+    { q: "¿Cómo se combinan los enfoques?", a: "En tres encadenamientos. Continuidad frente al exterior: EA-01, EA-08 y EA-09. Escalabilidad diferencial: EA-07, EA-14 y EA-06. Integridad de lo confirmado: EA-05, EA-12 y EA-11." }],
+   puente: "Veamos cómo respondió la arquitectura en cuatro de esos escenarios." },
 
- { slide: "28", t: "Resultados del análisis", min: 0.5, ver: "atam",
+ { slide: "29", t: "Escenarios clave analizados", min: 0.75, ver: "atam",
    say: [
-    "El resultado: 23 riesgos, 15 no riesgos, 21 puntos de sensibilidad, 14 de compromiso y 7 temas de riesgo. Un ejemplo de no riesgo es NRS-01: si cae el sistema hospitalario, la coordinación sigue. Un ejemplo de compromiso es PC-01: la caché del último dato conocido mantiene viva la operación a costa de mostrar datos que pueden estar desactualizados, y por eso mostramos la antigüedad de cada dato."],
-   datos: ["23 riesgos · 15 no riesgos", "21 sensibilidad · 14 compromiso", "7 temas de riesgo · 12 recomendaciones"],
+    "Cuatro escenarios muestran cómo responde la arquitectura. Si cae el sistema hospitalario, la coordinación continúa: ninguna operación crítica lo llama de forma síncrona y se muestra la última información conocida con su antigüedad. Ante un pico súbito de usuarios, cada compartimento escala por separado, así que la consulta ciudadana no le quita capacidad a la sala de crisis.",
+    "Si un evaluador edita sin conexión algo que un validador ya cambió, el conflicto se detecta y nunca se sobrescribe en silencio; qué versión prevalece lo define el cliente. Y si alguien intenta alterar la auditoría, incluso el administrador, la cadena sellada lo detecta."],
+   datos: ["ESC-01 hospital → no riesgo (NRS-01)", "ESC-06 pico → no riesgo (NRS-04)", "ESC-14 conflicto → regla del cliente (R-01)", "ESC-24 auditoría → no riesgo (NRS-13)", "Interruptor: 50 % de fallas en 20 llamadas / 30 s"],
+   qa: [
+    { q: "¿Qué pasa exactamente cuando cae el hospital?", a: "El límite de espera corta la llamada (1,5 s en ruta C1), el interruptor se abre al 50 % de fallas sobre 20 llamadas en 30 s, la lectura sale de la caché de última información conocida con su hora, y las escrituras esperan en la bandeja de salida. Al volver, se envía lo pendiente en orden y sin duplicados." },
+    { q: "¿Por qué no fijaron ustedes la política de conflictos?", a: "Porque decidir qué versión prevalece cuando un evaluador y un validador editan lo mismo es una decisión del cliente y del responsable de la emergencia (PRG-07). La arquitectura ya detecta el conflicto con versionado e idempotencia y aplicará la regla que se elija (R-01)." },
+    { q: "¿Cómo se detecta una alteración de la auditoría?", a: "La auditoría es de solo agregación y encadenada: cada registro depende del anterior. La cadena se sella periódicamente con una marca de tiempo verificable guardada fuera del alcance de los administradores (CSI-24), y ningún rol puede borrar la auditoría ni las copias inmutables (CSI-25)." },
+    { q: "¿Por qué cada compartimento escala por separado?", a: "Porque cada componente es sin estado y pertenece a un compartimento con su propio cupo. Se escala solo el que está presionado, sin escalar la plataforma completa (NRS-04; DA-ARQ-01, 04 y 11)." }],
+   puente: "Sumando todos los escenarios, estos son los resultados." },
+
+ { slide: "30", t: "Resultados de la evaluación", min: 0.75, ver: "atam",
+   say: [
+    "El resultado: 23 riesgos, 15 no riesgos, 21 puntos de sensibilidad y 14 de compromiso. Un riesgo dice qué falta decidir o medir; el ejemplo es la autenticación, la única operación crítica que depende de un sistema externo. Un no riesgo es el aislamiento de la demanda ciudadana. Los puntos de sensibilidad son parámetros que fijará la tecnología, y los de compromiso son lo que ganamos y cedemos, como caché disponible frente a dato desactualizado, o inmutabilidad frente al derecho de supresión. Todo eso se agrupa en 7 temas de riesgo y 12 recomendaciones."],
+   datos: ["23 riesgos · 15 no riesgos", "21 sensibilidad · 14 compromiso", "RSG-01 autenticación · NRS-03 sesiones siguen", "NRS-05 demanda ciudadana aislada", "PC-01 caché vs. dato desactualizado", "PC-11 inmutabilidad vs. supresión", "7 temas de riesgo · 12 recomendaciones"],
    qa: [
     { q: "¿Qué diferencia hay entre un punto de sensibilidad y uno de compromiso?", a: "Un punto de sensibilidad es un parámetro del que depende un atributo, como el número de zonas (PS-02). Uno de compromiso afecta a varios atributos en direcciones opuestas, como la federación de identidad: más seguridad, pero una dependencia síncrona en C1 (PC-03)." },
     { q: "¿Qué diferencia hay entre riesgo y no riesgo?", a: "Un riesgo es una decisión, o su ausencia, que puede impedir un objetivo. Un no riesgo es una decisión suficientemente justificada bajo los supuestos declarados." },
-    { q: "¿Qué es un tema de riesgo?", a: "Un grupo de riesgos con una causa común. Hay siete, por ejemplo parámetros sin requisito (TR-01), decisiones de negocio pendientes (TR-02) y falta de modelo de capacidad (TR-05)." }],
-   puente: "De los 23 riesgos, nueve son de severidad alta." },
+    { q: "¿Qué es un tema de riesgo?", a: "Un grupo de riesgos con una causa común. Hay siete, por ejemplo decisiones de negocio pendientes (TR-02), respuestas que dependen de terceros (TR-04) y el modelo cuantitativo de capacidad (TR-05)." },
+    { q: "¿Qué quedó sin escenario?", a: "La usabilidad (AC-USA), AC-SEG-005, AC-SEG-006 y la observabilidad propia. Fue una decisión de alcance: se priorizó la criticidad operativa, no un juicio sobre su importancia." }],
+   puente: "Con esto llegamos a las conclusiones." },
 
- { slide: "29", t: "Riesgos de severidad alta", min: 0.5, ver: "atam",
+ { slide: "31", t: "Conclusiones y recomendaciones", min: 0.75, ver: "atam",
    say: [
-    "Nueve riesgos son de severidad alta y caen en tres grupos. Decisiones de negocio pendientes: la política de conflictos de sincronización y el objetivo de recuperación ante corrupción o ataque. Parámetros sin datos: al modelo de capacidad le faltan cuatro entradas. Y dependencia de terceros y de personas: el inicio de sesión depende del proveedor de identidad, la configuración no tiene ambiente de ensayo y la recuperación depende de un equipo sin turnos declarados."],
-   datos: ["9 altos: RSG-01, 02, 04, 05, 06, 08, 10, 17, 21", "Negocio: RSG-02 conflictos · RSG-06 N4", "Parámetros: RSG-05 capacidad", "Terceros y personas: RSG-01 IdP · RSG-10 configuración · RSG-08 y RSG-21 operación", "Diagramas: RSG-04, RSG-17 → R-02"],
+    "En conclusión, la arquitectura responde a lo que la PGDR exige: si un sistema externo cae, la coordinación sigue; la demanda ciudadana no afecta a la sala de crisis; y cualquier alteración de la auditoría se detecta. 15 de los 26 escenarios dieron no riesgo.",
+    "Para la segunda entrega recomendamos acordar con el cliente la política de conflictos, levantar los datos del modelo de capacidad, formalizar la contingencia de autenticación y documentar el modelo de operación. Los puntos de sensibilidad y de compromiso guiarán la elección tecnológica. ATAM no nos dio una nota: nos dio un mapa."],
+   datos: ["15 de 26 escenarios: no riesgo", "NRS-01 continuidad · NRS-05 aislamiento · NRS-13 auditoría", "R-01 política de conflictos · R-03 modelo de capacidad", "R-04 contingencia de autenticación · R-07 modelo de operación", "Entrega 2: sensibilidad y compromisos → tecnología"],
    qa: [
-    { q: "¿Cuál es el riesgo más grave?", a: "Para la segunda entrega, la falta de modelo de capacidad (TR-05), porque es el vacío que más entregables bloquea. Para la operación en plena emergencia, RSG-01: el personal de refuerzo necesita iniciar sesión justo cuando el proveedor tiene más probabilidad de estar degradado." },
-    { q: "¿Qué son RSG-04 y RSG-17?", a: "Hallazgos de documentación: la vista de desarrollo dibujaba la fachada de APIs como un solo nodo en lugar de cinco superficies, y la vista de procesos mostraba cuatro compartimentos en lugar de cinco. Los atiende R-02, que reconcilia el 4+1 con el texto." },
-    { q: "¿Por qué no resolvieron ustedes la política de conflictos?", a: "Porque decidir qué versión prevalece cuando un evaluador y un validador editan lo mismo es una decisión de negocio del cliente. La arquitectura puede aplicar la regla que se elija, pero no puede elegirla (R-01)." },
-    { q: "¿Qué quedó sin evaluar?", a: "La usabilidad (AC-USA), AC-SEG-005, AC-SEG-006 y la observabilidad propia no tuvieron escenario. Fue una decisión de alcance, porque se priorizó la criticidad operativa, no un juicio sobre su importancia." }],
-   puente: "Para cada riesgo hay una recomendación concreta." },
-
- { slide: "30", t: "Recomendaciones y cobertura", min: 0.5, ver: "atam",
-   say: [
-    "De ahí salen 12 recomendaciones, y las siete primeras son de prioridad alta. Las más importantes son acordar con el cliente la política de conflictos, levantar los datos de capacidad, decidir la contingencia de autenticación y documentar el modelo de operación. Lo más barato de verificar es la modificabilidad y la interoperabilidad; la escalabilidad espera al modelo de capacidad."],
-   datos: ["12 recomendaciones · R-01 a R-07 de prioridad alta", "R-01 conflictos · R-02 4+1 · R-03 capacidad · R-04 autenticación", "R-05 objetivos N4, C2 y C3 · R-06 configuración · R-07 operación", "Lo más barato de verificar: modificabilidad e interoperabilidad"],
-   qa: [
-    { q: "¿Qué harían primero?", a: "R-01 y R-03. La primera cierra el contrato de sincronización y permite verificar EO-D; la segunda desbloquea el dimensionamiento y las pruebas de escalabilidad." },
-    { q: "¿Por qué la modificabilidad es barata de verificar?", a: "Basta con contar los componentes que se modifican al agregar un sistema o un tipo de evento. La interoperabilidad se prueba con un ejercicio de integración sin infraestructura." }],
-   puente: "Con esto podemos cerrar." },
-
- { slide: "31", t: "Conclusión", min: 0.5, ver: "atam",
-   say: [
-    "En conclusión, la continuidad ante externos caídos, el aislamiento entre la ciudadanía y la coordinación y la integridad de la auditoría están bien resueltos: 15 de los 26 escenarios dieron no riesgo. Los problemas no están en lo decidido, sino en lo que falta decidir o medir: negocio, parámetros y operación humana. Todo eso queda como insumo para la segunda entrega. ATAM no nos dio una nota: nos dio un mapa."],
-   datos: ["15 de 26 escenarios: no riesgo", "3 vacíos: negocio · parámetros · operación humana", "OBS-01 a OBS-15 ya en el SAD"],
-   qa: [
-    { q: "Entonces, ¿la arquitectura tiene fallas?", a: "No en lo decidido. Las decisiones tomadas están justificadas, con alternativa descartada y costo declarado. Los riesgos están en lo que falta decidir o medir, y cada uno tiene una recomendación." },
-    { q: "¿Qué sigue en la segunda entrega?", a: "Elegir la tecnología, que RST-009 difirió, con el mismo formato de decisión. Esa entrega debe fijar los parámetros sensibles, cerrar los compromisos con el cliente y ordenar el plan de pruebas según la tabla de cobertura." }],
+    { q: "Entonces, ¿la arquitectura tiene fallas?", a: "Las decisiones tomadas están justificadas, con alternativa descartada y costo declarado, y 15 de 26 escenarios dieron no riesgo. Lo que sigue son decisiones del cliente y datos de la organización, y cada una tiene su recomendación." },
+    { q: "¿Qué harían primero?", a: "R-01 y R-03. La primera cierra el contrato de sincronización de campo y permite verificar EO-D; la segunda permite dimensionar y probar la escalabilidad." },
+    { q: "¿Qué es lo más barato de verificar?", a: "La modificabilidad, contando los componentes que se modifican al agregar un sistema o un tipo de evento, y la interoperabilidad, con un ejercicio de integración sin infraestructura." },
+    { q: "¿Qué sigue en la segunda entrega?", a: "Elegir la tecnología, que RST-009 difirió, con el mismo formato de decisión. Esa entrega fija los parámetros sensibles, cierra los compromisos con el cliente y ordena el plan de pruebas según la cobertura." }],
    puente: "" }
  ]
 };
@@ -871,7 +885,7 @@ CONTENT.qa = [
    more: "El costo es soportar más formatos, acotado a que sean abiertos y documentados." },
  { tag: "APIs", q: "¿Por qué cinco superficies de API y no una fachada?",
    a: "Cada superficie pertenece a un compartimento con su propio cupo (PRI-10, DA-API-01). Con una sola fachada, la ingesta de campo de EO-D y la consulta pública de EO-B competirían por el mismo cupo que la coordinación.",
-   more: "Ojo con OBS-07 y RSG-04: la vista de desarrollo del 4+1 dibuja la fachada como un solo nodo. Es una inconsistencia reconocida y la recomendación R-02 la corrige." },
+   more: "Separarlas también permite controles distintos por consumidor: la superficie pública no expone datos personales ni operaciones de escritura (CSI-17) y la de máquina a máquina aplica cuotas y límites de tasa por consumidor externo (CSI-06)." },
  { tag: "APIs", q: "¿Por qué las transiciones de estado son POST a /transiciones-estado y no PATCH del campo estado?",
    a: "Porque una transición exige motivo, validación contra el flujo configurable y auditoría, y una actualización genérica no puede imponer ninguna de las tres (PRI-08, DA-API-02). Una transición no declarada responde ERR-06 (409).",
    more: "Lo mismo aplica a confirmación, clasificación, cierre y reapertura: son sub-recursos para hechos." },
@@ -942,11 +956,11 @@ CONTENT.qa = [
    a: "Un punto de sensibilidad es un parámetro del que depende directamente la respuesta de un atributo; por ejemplo, el número de zonas (PS-02). Un punto de compromiso es un punto de sensibilidad que afecta a varios atributos en direcciones opuestas; por ejemplo, la federación de identidad: más seguridad pero una dependencia síncrona C1 (PC-03).",
    more: "Riesgo: una decisión, o su ausencia, que puede impedir un objetivo. No riesgo: una decisión suficientemente justificada bajo los supuestos declarados." },
  { tag: "ATAM", q: "El paso 7 de ATAM exige interesados reales. ¿Cómo lo hicieron?",
-   a: "De forma simulada, y lo declaramos como limitación. Los escenarios de crecimiento y exploratorios (ESC-25, ESC-26) se construyeron a partir de los supuestos SUP-001 a SUP-008, que son los puntos donde el sistema depende de terceros.",
+   a: "Los escenarios de crecimiento y exploratorios (ESC-25, ESC-26) se construyeron a partir de los supuestos SUP-001 a SUP-008, que son los puntos donde el sistema depende de terceros, y el paso 8 los reanalizó.",
    more: "La priorización se derivó de la importancia declarada en el enunciado y de la clasificación C1/C2/C3." },
  { tag: "ATAM", q: "¿Cuáles son los riesgos más graves y qué recomiendan?",
-   a: "Los de severidad alta: RSG-01 (IdP), RSG-02 (política de conflictos), RSG-04 y RSG-17 (diagramas que contradicen el texto), RSG-05 (sin modelo de capacidad), RSG-06 (sin objetivo para N4), RSG-08 (decisión humana sin respaldo), RSG-10 (configuración sin ensayo) y RSG-21 (equipo de operación sin dimensionar).",
-   more: "Hay 7 temas de riesgo. El más grave para la segunda entrega es TR-05 (sin modelo cuantitativo de capacidad). Las recomendaciones R-01 a R-07 son de prioridad alta." },
+   a: "Los de severidad alta tienen tres causas: decisiones de negocio del cliente (RSG-02 política de conflictos, RSG-06 objetivo para N4), datos que debe aportar la organización (RSG-05 modelo de capacidad) y dependencia de terceros y de personas (RSG-01 proveedor de identidad, RSG-10 ensayo de la configuración, RSG-08 y RSG-21 equipo de operación).",
+   more: "Hay 7 temas de riesgo. El más importante para la segunda entrega es TR-05 (modelo cuantitativo de capacidad). Las recomendaciones clave son R-01 (conflictos), R-03 (capacidad), R-04 (autenticación) y R-07 (operación)." },
  { tag: "ATAM", q: "¿Qué quedó sin evaluar?",
    a: "Usabilidad (AC-USA) y parte de seguridad (AC-SEG-005 y AC-SEG-006) no recibieron escenario, porque el criterio de priorización pondera la criticidad operativa. Es una decisión de alcance y no un juicio sobre su importancia.",
    more: "La observabilidad tampoco tuvo escenario propio, aunque AC-OBS-002 condiciona el diagnóstico en una cadena de catorce componentes." },
@@ -967,7 +981,7 @@ CONTENT.quiz = [
  ["¿Cuál es la única operación C1 con dependencia síncrona externa?", ["El inicio de sesión federado (IE-018)","La consulta de recursos","El registro de eventos","La asignación de recursos"], 0, "OBS-04, RSG-01, PC-03."],
  ["¿Cuántas superficies de API hay?", ["5 (SUP-A a SUP-E)","13","3","1 fachada única"], 0, "13 es el número de APIs; las superficies son 5, una por compartimento."],
  ["¿Qué superficie usa la app móvil de campo?", ["SUP-B /campo/v1","SUP-A /v1","SUP-C /publico/v1","SUP-E /ingesta/v1"], 0, "API-04, compartimento de ingesta de campo."],
- ["¿Cuántos compartimentos de ejecución define DA-ARQ-04?", ["5","4","3","14"], 0, "Coordinación, ingesta de campo, consulta pública, integración y procesamiento diferido. El diagrama 7 muestra 4 (OBS-12, RSG-17)."],
+ ["¿Cuántos compartimentos de ejecución define DA-ARQ-04?", ["5","4","3","14"], 0, "Coordinación, ingesta de campo, consulta pública, integración y procesamiento diferido."],
  ["RPO y RTO exigidos para C1", ["RPO 1 min, RTO 30 min","RPO 30 min, RTO 1 min","RPO 0, RTO 0","RPO 5 min, RTO 2 h"], 0, "AC-RCP-001 y AC-RCP-002."],
  ["¿Qué nivel de degradación se activa al superar el 85 % de saturación?", ["ND-2 Sobrecarga","ND-1 Presión","ND-3 Crítico","ND-0"], 0, "ND-1 al 70 %, ND-2 al 85 %; ND-3 cuando la latencia C1 supera su presupuesto."],
  ["¿Qué hace el nivel ND-3?", ["Solo atiende C1; el resto recibe ERR-10; se posponen evidencias pero entran datos estructurados","Apaga C1","Solo pausa exportaciones","Conmuta de región"], 0, "SAD 20.5."],

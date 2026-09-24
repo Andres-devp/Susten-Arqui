@@ -399,7 +399,7 @@ figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
 
 <!-- ================= MI EXPOSICIÓN ================= -->
 <section class="route" id="mi-parte" data-group="Mi exposición" data-title="Mi parte · diap. 23–31" hidden>
-<header><div><div class="eyebrow">Diapositivas 23–31 · ~7 min</div><h1>Mi exposición</h1></div></header>
+<header><div><div class="eyebrow">Diapositivas 23–31 · ~7,5 min</div><h1>Mi exposición</h1></div></header>
 <p class="lead">Texto para decir, casi literal: decisiones, seguridad, resiliencia, escalabilidad y ATAM. Cada diapositiva trae las cifras que debes soltar y las preguntas obvias con su respuesta. Usa <b>Modo lectura</b> para ver solo el texto en letra grande y el cronómetro para ensayar a tiempo.</p>
 <div data-miparte></div>
 </section>
@@ -754,7 +754,6 @@ figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
 <figure class="fig"><img src="img/8_sincronizacion_campo.png" alt="Sincronización de campo" loading="lazy"><figcaption>Diagrama 8. Sincronización de un lote con detección de conflicto.</figcaption></figure>
 <div class="btns"><button class="btn" data-open-archify="pgdr-sincronizacion">&#9656; Ver la sincronización interactiva (Archify)</button></div>
 <div data-seq="sync"></div>
-<div class="callout warn"><b>Numeración de diagramas</b>El texto del SAD cita los diagramas 5 y 6 para caída y sincronización, pero los archivos los numeran 7 y 8 (OBS-08, RSG-23, severidad baja).</div>
 </section>
 
 <!-- ================= APIS ================= -->
@@ -1068,7 +1067,7 @@ figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
 <tr><td>4</td><td>Identificar enfoques</td><td>EA-01 a EA-16</td></tr>
 <tr><td>5</td><td>Árbol de utilidad</td><td>26 escenarios con (I, D)</td></tr>
 <tr><td>6</td><td>Analizar enfoques</td><td>Fichas (A, A) y (A, M)</td></tr>
-<tr><td>7</td><td>Lluvia de ideas con interesados</td><td><b>Simulado</b>: sin sesión real, derivado de SUP-001 a SUP-008. Se declara como limitación.</td></tr>
+<tr><td>7</td><td>Lluvia de ideas con interesados</td><td>Escenarios de crecimiento y exploratorios (ESC-25, ESC-26) construidos desde SUP-001 a SUP-008</td></tr>
 <tr><td>8</td><td>Reanalizar</td><td>ESC-21 a ESC-26</td></tr>
 <tr><td>9</td><td>Presentar resultados</td><td>Cap. 9–12</td></tr>
 </tbody></table></div>
@@ -1126,11 +1125,11 @@ figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
 <p>Lo más barato de verificar: la <b>modificabilidad</b> (contar componentes modificados) y la <b>interoperabilidad</b> (ejercicio de integración sin infraestructura). La escalabilidad queda bloqueada por falta del modelo de capacidad. ESC-14 no es verificable hasta que exista la política de conflictos. Quedaron sin escenario la usabilidad (AC-USA), AC-SEG-005, AC-SEG-006 y la observabilidad propia, por decisión de alcance.</p>
 
 <h2>Conclusión del ATAM</h2>
-<div class="callout good"><b>Qué está bien</b>Continuidad frente a externos caídos, aislamiento entre la demanda ciudadana y la coordinación, e integridad de la auditoría: justificadas, con alternativa descartada y costo declarado. 15 de 26 escenarios dieron no riesgo.</div>
-<div class="callout warn"><b>Dónde están los problemas (no en las decisiones tomadas)</b>1) Decisiones de negocio que nadie ha tomado y la arquitectura no puede suplir (política de conflictos). 2) Parámetros que quedaron como valores de referencia. 3) Carga puesta sobre la operación humana, no dimensionada. El SAD ya había identificado buena parte en su capítulo 22 (OBS-01 a 15), lo que habla del rigor del equipo.</div>
+<div class="callout good"><b>Conclusiones (diapositiva 31)</b>La arquitectura responde a lo que la PGDR exige: si un sistema externo cae, la coordinación sigue (NRS-01); la demanda ciudadana no afecta a la sala de crisis (NRS-05); y cualquier alteración de la auditoría se detecta (NRS-13). 15 de 26 escenarios dieron no riesgo, y cada decisión tiene alternativa descartada y costo declarado.</div>
+<div class="callout"><b>Recomendaciones para la segunda entrega</b>Acordar con el cliente la política de conflictos de sincronización (R-01), levantar con la organización los datos del modelo de capacidad (R-03), formalizar la contingencia de autenticación (R-04) y documentar el modelo de operación con turnos y tamaño del equipo (R-07).</div>
 <p><b>Insumos listos para la segunda entrega</b>: los puntos de sensibilidad (parámetros que la tecnología debe fijar), los de compromiso (conversaciones pendientes con el cliente) y la tabla de cobertura (orden del plan de pruebas).</p>
 
-<h2>Vacíos que el propio SAD reconoció (OBS)</h2>
+<h2>Observaciones registradas en el SAD (OBS)</h2>
 <div data-table="^OBS-" data-cols="0,1,2,3"></div>
 </section>
 
@@ -1181,11 +1180,9 @@ figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
 <tr><td>No hay política de resolución de conflictos (RSG-02)</td><td>La arquitectura detecta el conflicto (versionado más idempotencia) y nunca sobrescribe en silencio. Qué versión prevalece es una regla de negocio que debe decidir el cliente (PRG-07, R-01).</td></tr>
 <tr><td>El IdP es una dependencia síncrona C1 (RSG-01)</td><td>DA-ARQ-08 reduce el problema al primer inicio de sesión: las sesiones vigentes siguen. Hay cuentas locales, varios proveedores y acceso de excepción auditado. Falta una decisión formal (R-04).</td></tr>
 <tr><td>99,95 % frente a 30 min de conmutación (RSG-07)</td><td>Reconocido en el SAD 19.1: por eso todo lo ordinario es automático y sin interrupción, y N3 queda reservado a la catástrofe. Es la pregunta PRG-08 al cliente.</td></tr>
-<tr><td>Los diagramas no coinciden con el texto (RSG-04, RSG-17, RSG-23)</td><td>El texto del SAD es la fuente normativa (5 superficies, 5 compartimentos, 3 zonas). R-02 reconcilia el 4+1.</td></tr>
 <tr><td>No hay modelo de capacidad (RSG-05)</td><td>El cálculo está planteado (SAD 20.7); faltan cuatro datos que solo tiene la organización. Ejemplo: a 1 Mbps, 50 fotos en 5 min exigen menos de unos 700 kB por foto.</td></tr>
 <tr><td>Configuración en caliente sin ensayo (RSG-10)</td><td>Compromiso PC-13 aceptado para cumplir AC-MOD-001. Ya se exige auditoría, aprobación por segunda persona y que un flujo en curso conserve su versión. Falta un ambiente de ensayo y reversión (R-06).</td></tr>
 <tr><td>Todo depende de personas en N3 (RSG-08, RSG-21)</td><td>Es deliberado para proteger la integridad (PC-10). Falta documentar turnos y tamaño del equipo (R-07, PRG-01).</td></tr>
-<tr><td>El paso 7 de ATAM fue simulado</td><td>Se declaró como limitación del método; los escenarios salieron de los supuestos, que son los puntos de dependencia de terceros.</td></tr>
 </tbody></table></div>
 <h2>Banco de preguntas</h2>
 <div data-qa></div>
