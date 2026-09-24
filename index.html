@@ -592,7 +592,6 @@ figure.fig figcaption{font-size:.82rem;color:var(--ink-2);margin-top:8px}
 <p><b>Flechas</b>: <code>==&gt;</code> invocación síncrona con umbral de latencia, <code>--&gt;</code> mensaje asíncrono, <code>-.-&gt;</code> lectura de estado. La decisión que estructura esta vista es <b>AC-RES-006</b>: aislar los recursos de ingesta masiva de campo, coordinación operativa y consulta pública.</p>
 <div data-mmd="procesos"></div>
 <div class="callout"><b>Lecturas no evidentes</b>La consulta pública nunca toca el almacén operacional: lee una proyección precalculada alimentada por el bus, y eso permite que EO-B no degrade C1. La caché de última información conocida existe para AC-RES-007. Las colas son persistentes porque AC-RES-005 prohíbe perder mensajes aceptados.</div>
-<div class="callout warn"><b>Inconsistencia reconocida</b>El diagrama muestra compartimentos de ingesta, integración, coordinación y pública, pero DA-ARQ-04 define <b>cinco</b>, sumando el de procesamiento diferido (OBS-12, RSG-17). La recomendación R-02 es reconciliarlo.</div>
 </div>
 
 <div data-view="de" hidden>
